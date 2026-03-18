@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Frog — Gabija Sura</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .frog-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 80px 80px;
+    }
+    .frog-media {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #2a7a70;
+      overflow: hidden;
+      margin-bottom: 24px;
+      margin-top: 0;
+    }
+    .frog-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .frog-title {
+      font-size: clamp(52px, 8vw, 110px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .frog-text p {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+      max-width: 560px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Gabija Sura</a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="frog-layout">
+    <a href="work.html" class="proj-back">← Back</a>
+    <div class="frog-media">
+      <img src="assets/frog.gif" alt="The Frog animation" />
+    </div>
+
+    <h1 class="frog-title">The Frog</h1>
+
+    <div class="frog-text">
+      <p>
+        My first ever animation project of this fun little frog! First, I designed the frog in Illustrator, then I brought it into After Effects to rig and animate it using the Duik Angela plugin. The water in the background is also made in After Effects, giving the whole scene a nice, lively feel.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

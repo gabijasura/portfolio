@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Duck — Gabija Sura</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .duck-layout {
+      min-height: calc(100vh - 56px);
+      padding-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 40px;
+      padding-right: 60px;
+    }
+    .duck-media {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .duck-media img {
+      max-height: 78vh;
+      width: auto;
+      display: block;
+    }
+    .duck-info {
+      padding: 20px 0 20px 40px;
+    }
+    .duck-title {
+      font-size: clamp(52px, 7vw, 100px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .duck-text p {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.75);
+      max-width: 420px;
+    }
+    @media (max-width: 700px) {
+      .duck-layout { grid-template-columns: 1fr; padding: 72px 24px 80px; }
+      .duck-info { padding: 20px 0 0; }
+      .duck-media img { max-height: 50vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Gabija Sura</a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="duck-layout">
+    <div class="duck-media">
+      <img src="assets/duck.gif" alt="The Duck animation" />
+    </div>
+    <div class="duck-info">
+      <h1 class="duck-title">The Duck</h1>
+      <div class="duck-text">
+        <p>
+          The Duck is a project that features my first walk cycle, made frame by frame in Adobe Animate. This project was inspired by the Untitled Goose Game and my personal obsession and collection of duck-themed items.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
