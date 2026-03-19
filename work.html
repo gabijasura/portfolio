@@ -5,6 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .work-intro {
+      height: 40vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 60px 36px;
+    }
+
+    .project {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .project a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .project video,
+    .project img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, filter 0.4s ease;
+    }
+    .project:hover video,
+    .project:hover img {
+      transform: scale(1.03);
+      filter: brightness(1.1);
+    }
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .project-title {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      color: #fff;
+      font-size: 3vw;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      z-index: 2;
+      pointer-events: none;
+      font-family: 'Jost', sans-serif;
+    }
+  </style>
 </head>
 <body>
 
@@ -18,100 +71,81 @@
     </ul>
   </nav>
 
-  <main class="work-section work-page-section">
-    <h1 class="work-title work-page-title reveal">Work</h1>
+  <main>
+    <div class="work-intro">
+      <h1 class="work-title work-page-title reveal">Work</h1>
+    </div>
 
-    <div class="work-feed">
+    <div class="project reveal">
+      <a href="yennenga.html">
+        <video src="videos/Yennenga_16x9.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">Yennenga</p>
+    </div>
 
-      <!-- Row 1: Yennenga (left) + frog deco (right) -->
-      <div class="work-pair reveal">
-        <div>
-          <a href="yennenga.html" class="work-thumb">
-            <video src="videos/Yennenga_16x9.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-          </a>
-          <p class="work-label">Yennenga</p>
-        </div>
-        <div class="work-cell-deco">
-          <img src="assets/frog.gif" alt="" class="work-deco-img" />
-        </div>
-      </div>
+    <div class="project reveal">
+      <a href="passion.html">
+        <video src="videos/Passion.mp4" muted loop playsinline preload="metadata" data-start="8"></video>
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">Passion</p>
+    </div>
 
-      <!-- Row 2: cat deco (left) + Passion (right) -->
-      <div class="work-pair reveal">
-        <div class="work-cell-deco">
-          <img src="assets/fenyx.gif" alt="" class="work-deco-img" style="width:clamp(100px,14vw,180px);" />
-        </div>
-        <div>
-          <a href="passion.html" class="work-thumb">
-            <video src="videos/Passion.mp4" muted loop playsinline preload="metadata" data-start="8"></video>
-          </a>
-          <p class="work-label">Passion</p>
-        </div>
-      </div>
+    <div class="project reveal">
+      <a href="frog.html">
+        <video src="videos/Frog.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">The Frog</p>
+    </div>
 
-      <!-- Row 3: The Frog (left) + Mushroom Festival (right) -->
-      <div class="work-pair reveal">
-        <div>
-          <a href="frog.html" class="work-thumb">
-            <video src="videos/Frog.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-          </a>
-          <p class="work-label">The Frog</p>
-        </div>
-        <div>
-          <a href="mushroom.html" class="work-thumb">
-            <video src="videos/Mushroom.mp4" muted loop playsinline preload="metadata" data-start="3"></video>
-          </a>
-          <p class="work-label">Mushroom Festival</p>
-        </div>
-      </div>
+    <div class="project reveal">
+      <a href="mushroom.html">
+        <video src="videos/Mushroom.mp4" muted loop playsinline preload="metadata" data-start="3"></video>
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">Mushroom Festival</p>
+    </div>
 
-      <!-- Row 4: Coral (left) + [duck + Pass the Ball] (right) -->
-      <div class="work-pair reveal">
-        <div>
-          <a href="coral.html" class="work-thumb">
-            <img src="videos/Coral.gif" alt="Coral" />
-          </a>
-          <p class="work-label">Coral</p>
-        </div>
-        <div class="work-cell-stacked">
-          <img src="assets/duck.gif" alt="" class="work-deco-img" />
-          <a href="ball.html" class="work-thumb">
-            <video src="videos/TheBall.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-          </a>
-          <p class="work-label">Pass the Ball</p>
-        </div>
-      </div>
+    <div class="project reveal">
+      <a href="coral.html">
+        <img src="videos/Coral.gif" alt="Coral" />
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">Coral</p>
+    </div>
 
-      <!-- Row 5: Nightfall (left) + [duck deco + Fenyx] (right) -->
-      <div class="work-pair reveal">
-        <div>
-          <a href="nightfall.html" class="work-thumb">
-            <video src="videos/Nightfall.mp4" muted loop playsinline preload="metadata" data-start="38"></video>
-          </a>
-          <p class="work-label">Nightfall</p>
-        </div>
-        <div class="work-cell-stacked">
-          <img src="assets/yarn.gif" alt="" class="work-deco-img" />
-          <a href="fenyx.html" class="work-thumb">
-            <video src="videos/FENYX 1920x1080_SUBTITLES.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-          </a>
-          <p class="work-label">Fenyx</p>
-        </div>
-      </div>
+    <div class="project reveal">
+      <a href="ball.html">
+        <video src="videos/TheBall.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">Pass the Ball</p>
+    </div>
 
-      <!-- Row 6: Duck (left) + 8ball deco (right) -->
-      <div class="work-pair reveal">
-        <div>
-          <a href="duck.html" class="work-thumb">
-            <img src="assets/duck.gif" alt="Duck" style="aspect-ratio:4/3;object-fit:contain;background:rgba(255,255,255,0.1);" />
-          </a>
-          <p class="work-label">The Duck</p>
-        </div>
-        <div class="work-cell-deco">
-          <img src="assets/8ball.png" alt="" class="work-deco-img" style="width:clamp(60px,8vw,110px);" />
-        </div>
-      </div>
+    <div class="project reveal">
+      <a href="nightfall.html">
+        <video src="videos/Nightfall.mp4" muted loop playsinline preload="metadata" data-start="38"></video>
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">Nightfall</p>
+    </div>
 
+    <div class="project reveal">
+      <a href="fenyx.html">
+        <video src="videos/FENYX 1920x1080_SUBTITLES.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">Fenyx</p>
+    </div>
+
+    <div class="project reveal">
+      <a href="duck.html">
+        <img src="assets/duck.gif" alt="The Duck" />
+      </a>
+      <div class="project-overlay"></div>
+      <p class="project-title">The Duck</p>
     </div>
   </main>
 
@@ -119,6 +153,40 @@
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // GSAP ScrollTrigger — title slides up on scroll
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.project-title').forEach(title => {
+      gsap.from(title, {
+        scrollTrigger: {
+          trigger: title.closest('.project'),
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        },
+        y: 40, opacity: 0, duration: 1, ease: 'power3.out'
+      });
+    });
+
+    // Hover-to-play
+    document.querySelectorAll('.project').forEach(project => {
+      const video = project.querySelector('video');
+      if (!video) return;
+      const startTime = parseFloat(video.dataset.start) || 0;
+      const seekToStart = () => { video.currentTime = startTime; };
+      if (video.readyState >= 1) { seekToStart(); }
+      else { video.addEventListener('loadedmetadata', seekToStart, { once: true }); }
+      project.addEventListener('mouseenter', () => {
+        video.currentTime = startTime;
+        video.play().catch(() => {});
+      });
+      project.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = startTime;
+      });
+    });
+  </script>
 </body>
 </html>
