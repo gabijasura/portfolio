@@ -6,56 +6,67 @@
   <title>Playground — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
+    .playground-header {
+      padding: 120px 24px 24px;
+    }
+
+    .playground-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 24px;
+    }
+
     .playground-item {
       position: relative;
-      width: 100vw;
-      height: 100vh;
+      aspect-ratio: 16/9;
       overflow: hidden;
+      border-radius: 8px;
       cursor: none;
     }
 
-    .playground-item video {
+    .playground-item video,
+    .playground-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .playground-item .title {
+    .playground-item .item-overlay {
       position: absolute;
-      bottom: 60px;
-      left: 60px;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .playground-item:hover .item-overlay {
+      opacity: 1;
+    }
+
+    .playground-item .item-title {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
       color: #fff;
-      font-size: 2.5vw;
-      font-weight: 800;
-      letter-spacing: 0.2em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       font-family: 'Jost', sans-serif;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
       pointer-events: none;
     }
 
-    .playground-item:hover .title {
+    .playground-item:hover .item-title {
       opacity: 1;
     }
 
-    /* Subtle gradient for title legibility on hover */
-    .playground-item .title-bg {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40%;
-      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .playground-item:hover .title-bg {
-      opacity: 1;
-    }
+    /* Suppress injected vid-controls */
+    .playground-item .vid-controls { display: none; }
   </style>
 </head>
 <body>
@@ -72,75 +83,73 @@
   </nav>
 
   <main>
-
-    <div class="playground-item">
-      <video src="videos/Daisy.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">Daisy</p>
+    <div class="playground-header">
+      <h1 class="work-title work-page-title reveal">Playground</h1>
     </div>
 
-    <div class="playground-item">
-      <video src="videos/Flower_comp.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">Flower</p>
-    </div>
+    <div class="playground-grid">
 
-    <div class="playground-item">
-      <video src="videos/Glitchy_comp.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">Glitchy</p>
-    </div>
+      <div class="playground-item">
+        <video src="videos/Daisy.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">Daisy</p>
+      </div>
 
-    <div class="playground-item">
-      <video src="videos/Paint_demon.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">Paint Demon</p>
-    </div>
+      <div class="playground-item">
+        <video src="videos/Flower_comp.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">Flower</p>
+      </div>
 
-    <div class="playground-item">
-      <video src="videos/Star_blobtrack.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">Star Blobtrack</p>
-    </div>
+      <div class="playground-item">
+        <video src="videos/Glitchy_comp.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">Glitchy</p>
+      </div>
 
-    <div class="playground-item">
-      <video src="videos/CRT_SFX.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">CRT SFX</p>
-    </div>
+      <div class="playground-item">
+        <video src="videos/Paint_demon.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">Paint Demon</p>
+      </div>
 
-    <div class="playground-item">
-      <video src="videos/JoinUs.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">Join Us</p>
-    </div>
+      <div class="playground-item">
+        <video src="videos/Star_blobtrack.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">Star Blobtrack</p>
+      </div>
 
-    <div class="playground-item">
-      <video src="videos/SyntetiQ.mp4" autoplay muted loop playsinline></video>
-      <div class="title-bg"></div>
-      <p class="title">SyntetiQ</p>
-    </div>
+      <div class="playground-item">
+        <video src="videos/CRT_SFX.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">CRT SFX</p>
+      </div>
 
+      <div class="playground-item">
+        <video src="videos/JoinUs.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">Join Us</p>
+      </div>
+
+      <div class="playground-item">
+        <video src="videos/SyntetiQ.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">SyntetiQ</p>
+      </div>
+
+      <div class="playground-item">
+        <video src="videos/Daisy.mp4" autoplay muted loop playsinline></video>
+        <div class="item-overlay"></div>
+        <p class="item-title">Daisy</p>
+      </div>
+
+    </div>
   </main>
 
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll('.playground-item').forEach(item => {
-      gsap.from(item.querySelector('video'), {
-        scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play none none none' },
-        opacity: 0, scale: 1.06, duration: 1.2, ease: 'power3.out'
-      });
-    });
-
-    // Suppress injected vid-controls on playground items
-  </script>
-  <style>.playground-item .vid-controls { display: none; }</style>
 </body>
 </html>
