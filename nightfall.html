@@ -40,5 +40,10 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    document.querySelector('video').addEventListener('loadedmetadata', function() {
+      this.currentTime = 38;
+    });
+  </script>
 </body>
 </html>
