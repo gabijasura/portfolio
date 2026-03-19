@@ -145,6 +145,50 @@
   });
 })();
 
+/* ─── Project page video controls ─── */
+(function() {
+  document.querySelectorAll('video').forEach(video => {
+    if (video.closest('.work-thumb')) return; // skip work page thumbnails
+    const container = video.parentElement;
+    container.style.position = 'relative';
+
+    const bar = document.createElement('div');
+    bar.className = 'vid-controls';
+
+    const playBtn = document.createElement('button');
+    playBtn.className = 'vid-btn vid-play';
+    playBtn.textContent = '❚❚';
+    playBtn.title = 'Play / Pause';
+
+    const muteBtn = document.createElement('button');
+    muteBtn.className = 'vid-btn vid-mute';
+    muteBtn.textContent = '🔇';
+    muteBtn.title = 'Mute / Unmute';
+
+    bar.appendChild(playBtn);
+    bar.appendChild(muteBtn);
+    container.appendChild(bar);
+
+    playBtn.addEventListener('click', () => {
+      if (video.paused) { video.play(); } else { video.pause(); }
+    });
+    muteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      muteBtn.textContent = video.muted ? '🔇' : '🔊';
+    });
+    video.addEventListener('play',  () => { playBtn.textContent = '❚❚'; });
+    video.addEventListener('pause', () => { playBtn.textContent = '▶'; });
+  });
+
+  // Add vid-btn to cursor hover targets
+  document.querySelectorAll('.vid-btn').forEach(btn => {
+    const cursor = document.querySelector('.cursor');
+    if (!cursor) return;
+    btn.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    btn.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+})();
+
 /* ─── Floating elements parallax on mousemove ─── */
 (function() {
   const floats = document.querySelectorAll('.hero-float');
