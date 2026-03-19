@@ -122,13 +122,21 @@
   els.forEach(el => obs.observe(el));
 })();
 
-/* ─── Work section: autoplay videos on hover ─── */
+/* ─── Work section: hover-to-play videos ─── */
 (function() {
   document.querySelectorAll('.work-thumb').forEach(thumb => {
     const video = thumb.querySelector('video');
     if (!video) return;
-    thumb.addEventListener('mouseenter', () => video.play().catch(()=>{}));
-    thumb.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+    const startTime = parseFloat(video.dataset.start) || 0;
+    video.currentTime = startTime;
+    thumb.addEventListener('mouseenter', () => {
+      video.currentTime = startTime;
+      video.play().catch(() => {});
+    });
+    thumb.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = startTime;
+    });
   });
 })();
 
