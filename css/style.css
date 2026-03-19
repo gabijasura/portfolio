@@ -100,7 +100,7 @@ nav {
 
 /* ─── Footer ─── */
 footer {
-  padding: 20px 24px;
+  padding: 60px 24px 40px;
   text-align: center;
   font-size: 12px;
   font-weight: 400;
@@ -259,7 +259,7 @@ footer a:hover { opacity: 0.5; }
    SLOT MACHINE SECTION
 ══════════════════════════════ */
 .slot-section {
-  padding: 40px 24px 80px;
+  padding: 140px 24px 140px;
   display: flex;
   flex-direction: column;
   align-items: center;

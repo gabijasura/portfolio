@@ -94,6 +94,59 @@
     </div><!-- /hero-pin -->
   </section>
 
+  <!-- ══════════════════════════════
+       SLOT MACHINE SECTION
+  ══════════════════════════════ -->
+  <section class="slot-section">
+
+    <!-- Decorative stars — left -->
+    <div class="slot-stars">
+      <img src="assets/star-big.webp" class="slot-star-big" alt="" />
+      <img src="assets/star-small.webp" class="slot-star-small" alt="" />
+    </div>
+
+    <!-- Cherry — top-right -->
+    <div class="slot-cherry">
+      <img src="assets/cherry.webp" class="cherry-img" alt="" />
+    </div>
+
+    <!-- Title pill -->
+    <div class="slot-title-pill">
+      <h2>Spin to explore</h2>
+    </div>
+
+    <!-- The machine -->
+    <div class="slot-machine">
+      <div class="slot-reels">
+
+        <div class="slot-reel">
+          <div class="slot-reel-inner"><img src="assets/Duck_running.gif" alt="" /></div>
+          <a href="#" class="slot-reel-link"><span></span></a>
+        </div>
+
+        <div class="slot-reel">
+          <div class="slot-reel-inner"><img src="assets/Frog.gif" alt="" /></div>
+          <a href="#" class="slot-reel-link"><span></span></a>
+        </div>
+
+        <div class="slot-reel">
+          <div class="slot-reel-inner"><img src="assets/Flame.gif" alt="" /></div>
+          <a href="#" class="slot-reel-link"><span></span></a>
+        </div>
+
+      </div>
+
+      <button class="slot-lever" aria-label="Spin the reels">
+        <div class="lever-ball"></div>
+        <div class="lever-stick"></div>
+        <div class="lever-base"></div>
+      </button>
+    </div>
+
+    <p class="slot-subtitle">Pull the lever</p>
+
+  </section>
+
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
@@ -147,7 +200,7 @@
         }
       });
 
-      tl.to('.hero-title, .hero-float', { opacity: 0, ease: 'none', duration: 3 }, 0);
+      tl.to('.hero-float', { opacity: 0, ease: 'none', duration: 3 }, 0);
       tl.to(cards, {
         y:        0,
         x:        0,
@@ -157,14 +210,25 @@
         duration: 10
       }, 0);
 
-      /* Hover lift — overwrite:'auto' prevents conflict with scroll scrub */
+      /* Hover lift — only active after cards have fully scrolled into place */
+      var cardsReady = false;
+      ScrollTrigger.create({
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        onLeave: function () { cardsReady = true; },
+        onEnterBack: function () { cardsReady = false; }
+      });
+
       cards.forEach(function (card, i) {
         var resting = finalRotations[i];
         card.addEventListener('mouseenter', function () {
-          gsap.to(card, { y: -24, scale: 1.04, rotation: resting, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+          if (!cardsReady) return;
+          gsap.to(card, { y: -12, scale: 1.02, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
         });
         card.addEventListener('mouseleave', function () {
-          gsap.to(card, { y: 0, scale: 1, rotation: resting, duration: 0.6, ease: 'elastic.out(1,0.4)', overwrite: 'auto' });
+          if (!cardsReady) return;
+          gsap.to(card, { y: 0, scale: 1, duration: 0.5, ease: 'elastic.out(1,0.4)', overwrite: 'auto' });
         });
       });
     })();

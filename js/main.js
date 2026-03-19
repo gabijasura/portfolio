@@ -33,8 +33,7 @@
 
   let spinning = false;
 
-  // Initialise reels with a project each
-  reels.forEach((reel, i) => setReel(reel, projects[i % projects.length]));
+  // Reels start with their hardcoded GIFs (set in HTML) — no JS init needed
 
   function setReel(reel, project) {
     const inner = reel.querySelector('.slot-reel-inner');
@@ -103,7 +102,7 @@
   reels.forEach(reel => {
     reel.addEventListener('click', () => {
       if (!spinning && reel.classList.contains('landed')) {
-        window.location.hash = reel._project?.url || '#work';
+        window.location.href = reel._project?.url || 'work.html';
       } else {
         spin();
       }
