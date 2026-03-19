@@ -7,27 +7,29 @@
   <link rel="stylesheet" href="css/style.css" />
   <style>
     .work-header {
-      padding: 120px 60px 48px;
+      padding: 120px 20px 24px;
     }
 
     .projects-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
+      gap: 16px;
+      padding: 20px;
     }
 
     .project {
       position: relative;
       width: 100%;
-      aspect-ratio: 4/5;
       overflow: hidden;
+      border-radius: 8px;
       cursor: none;
     }
 
-    .project a {
-      display: block;
+    .project-media {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 8px;
     }
 
     .project video,
@@ -36,7 +38,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s ease;
+      transition: transform 0.5s ease;
     }
 
     .project:hover video,
@@ -44,28 +46,14 @@
       transform: scale(1.04);
     }
 
-    .project-overlay {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      display: flex;
-      align-items: flex-end;
-      padding: 40px;
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .project:hover .project-overlay {
-      opacity: 1;
-    }
-
     .project-title {
-      color: #fff;
-      font-size: 1.8vw;
-      font-weight: 800;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
+      margin-top: 10px;
+      padding: 0 4px;
       font-family: 'Jost', sans-serif;
     }
   </style>
@@ -91,56 +79,56 @@
 
       <div class="project">
         <a href="yennenga.html">
-          <video src="videos/Yennenga_16x9.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+          <div class="project-media">
+            <video src="videos/Yennenga_16x9.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+          </div>
         </a>
-        <div class="project-overlay">
-          <p class="project-title">Yennenga</p>
-        </div>
+        <p class="project-title">Yennenga</p>
       </div>
 
       <div class="project">
         <a href="frog.html">
-          <video src="videos/Frog.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+          <div class="project-media">
+            <video src="videos/Frog.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+          </div>
         </a>
-        <div class="project-overlay">
-          <p class="project-title">The Frog</p>
-        </div>
+        <p class="project-title">The Frog</p>
       </div>
 
       <div class="project">
         <a href="mushroom.html">
-          <video src="videos/Mushroom.mp4" muted loop playsinline preload="metadata" data-start="3"></video>
+          <div class="project-media">
+            <video src="videos/Mushroom.mp4" muted loop playsinline preload="metadata" data-start="3"></video>
+          </div>
         </a>
-        <div class="project-overlay">
-          <p class="project-title">Mushroom Festival</p>
-        </div>
+        <p class="project-title">Mushroom Festival</p>
       </div>
 
       <div class="project">
         <a href="nightfall.html">
-          <video src="videos/Nightfall.mp4" muted loop playsinline preload="metadata" data-start="38"></video>
+          <div class="project-media">
+            <video src="videos/Nightfall.mp4" muted loop playsinline preload="metadata" data-start="38"></video>
+          </div>
         </a>
-        <div class="project-overlay">
-          <p class="project-title">Nightfall</p>
-        </div>
+        <p class="project-title">Nightfall</p>
       </div>
 
       <div class="project">
         <a href="fenyx.html">
-          <video src="videos/FENYX 1920x1080_SUBTITLES.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+          <div class="project-media">
+            <video src="videos/FENYX 1920x1080_SUBTITLES.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+          </div>
         </a>
-        <div class="project-overlay">
-          <p class="project-title">Fenyx</p>
-        </div>
+        <p class="project-title">Fenyx</p>
       </div>
 
       <div class="project">
         <a href="passion.html">
-          <video src="videos/Passion.mp4" muted loop playsinline preload="metadata" data-start="8"></video>
+          <div class="project-media">
+            <video src="videos/Passion.mp4" muted loop playsinline preload="metadata" data-start="8"></video>
+          </div>
         </a>
-        <div class="project-overlay">
-          <p class="project-title">Passion</p>
-        </div>
+        <p class="project-title">Passion</p>
       </div>
 
     </div>
@@ -152,7 +140,6 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Hover-to-play with data-start offsets
     document.querySelectorAll('.project').forEach(project => {
       const video = project.querySelector('video');
       if (!video) return;
