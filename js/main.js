@@ -128,7 +128,12 @@
     const video = thumb.querySelector('video');
     if (!video) return;
     const startTime = parseFloat(video.dataset.start) || 0;
-    video.currentTime = startTime;
+    const seekToStart = () => { video.currentTime = startTime; };
+    if (video.readyState >= 1) {
+      seekToStart();
+    } else {
+      video.addEventListener('loadedmetadata', seekToStart, { once: true });
+    }
     thumb.addEventListener('mouseenter', () => {
       video.currentTime = startTime;
       video.play().catch(() => {});
