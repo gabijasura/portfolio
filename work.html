@@ -6,55 +6,66 @@
   <title>Work — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .work-intro {
-      height: 40vh;
-      display: flex;
-      align-items: flex-end;
-      padding: 0 60px 36px;
+    .work-header {
+      padding: 120px 60px 48px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
     }
 
     .project {
-      width: 100vw;
-      height: 100vh;
       position: relative;
+      width: 100%;
+      aspect-ratio: 4/5;
       overflow: hidden;
+      cursor: none;
     }
+
     .project a {
       display: block;
       width: 100%;
       height: 100%;
     }
+
     .project video,
     .project img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s ease, filter 0.4s ease;
+      transition: transform 0.6s ease;
     }
+
     .project:hover video,
     .project:hover img {
-      transform: scale(1.03);
-      filter: brightness(1.1);
+      transform: scale(1.04);
     }
+
     .project-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+      opacity: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 40px;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+      transition: opacity 0.4s ease;
       pointer-events: none;
-      z-index: 1;
     }
+
+    .project:hover .project-overlay {
+      opacity: 1;
+    }
+
     .project-title {
-      position: absolute;
-      bottom: 40px;
-      left: 60px;
       color: #fff;
-      font-size: 3vw;
+      font-size: 1.8vw;
       font-weight: 800;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      z-index: 2;
-      pointer-events: none;
       font-family: 'Jost', sans-serif;
     }
   </style>
@@ -72,80 +83,66 @@
   </nav>
 
   <main>
-    <div class="work-intro">
+    <div class="work-header">
       <h1 class="work-title work-page-title reveal">Work</h1>
     </div>
 
-    <div class="project reveal">
-      <a href="yennenga.html">
-        <video src="videos/Yennenga_16x9.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">Yennenga</p>
-    </div>
+    <div class="projects-grid">
 
-    <div class="project reveal">
-      <a href="passion.html">
-        <video src="videos/Passion.mp4" muted loop playsinline preload="metadata" data-start="8"></video>
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">Passion</p>
-    </div>
+      <div class="project">
+        <a href="yennenga.html">
+          <video src="videos/Yennenga_16x9.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+        </a>
+        <div class="project-overlay">
+          <p class="project-title">Yennenga</p>
+        </div>
+      </div>
 
-    <div class="project reveal">
-      <a href="frog.html">
-        <video src="videos/Frog.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">The Frog</p>
-    </div>
+      <div class="project">
+        <a href="frog.html">
+          <video src="videos/Frog.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+        </a>
+        <div class="project-overlay">
+          <p class="project-title">The Frog</p>
+        </div>
+      </div>
 
-    <div class="project reveal">
-      <a href="mushroom.html">
-        <video src="videos/Mushroom.mp4" muted loop playsinline preload="metadata" data-start="3"></video>
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">Mushroom Festival</p>
-    </div>
+      <div class="project">
+        <a href="mushroom.html">
+          <video src="videos/Mushroom.mp4" muted loop playsinline preload="metadata" data-start="3"></video>
+        </a>
+        <div class="project-overlay">
+          <p class="project-title">Mushroom Festival</p>
+        </div>
+      </div>
 
-    <div class="project reveal">
-      <a href="coral.html">
-        <img src="videos/Coral.gif" alt="Coral" />
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">Coral</p>
-    </div>
+      <div class="project">
+        <a href="nightfall.html">
+          <video src="videos/Nightfall.mp4" muted loop playsinline preload="metadata" data-start="38"></video>
+        </a>
+        <div class="project-overlay">
+          <p class="project-title">Nightfall</p>
+        </div>
+      </div>
 
-    <div class="project reveal">
-      <a href="ball.html">
-        <video src="videos/TheBall.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">Pass the Ball</p>
-    </div>
+      <div class="project">
+        <a href="fenyx.html">
+          <video src="videos/FENYX 1920x1080_SUBTITLES.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
+        </a>
+        <div class="project-overlay">
+          <p class="project-title">Fenyx</p>
+        </div>
+      </div>
 
-    <div class="project reveal">
-      <a href="nightfall.html">
-        <video src="videos/Nightfall.mp4" muted loop playsinline preload="metadata" data-start="38"></video>
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">Nightfall</p>
-    </div>
+      <div class="project">
+        <a href="passion.html">
+          <video src="videos/Passion.mp4" muted loop playsinline preload="metadata" data-start="8"></video>
+        </a>
+        <div class="project-overlay">
+          <p class="project-title">Passion</p>
+        </div>
+      </div>
 
-    <div class="project reveal">
-      <a href="fenyx.html">
-        <video src="videos/FENYX 1920x1080_SUBTITLES.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">Fenyx</p>
-    </div>
-
-    <div class="project reveal">
-      <a href="duck.html">
-        <img src="assets/duck.gif" alt="The Duck" />
-      </a>
-      <div class="project-overlay"></div>
-      <p class="project-title">The Duck</p>
     </div>
   </main>
 
@@ -153,24 +150,9 @@
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/main.js"></script>
   <script>
-    // GSAP ScrollTrigger — title slides up on scroll
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll('.project-title').forEach(title => {
-      gsap.from(title, {
-        scrollTrigger: {
-          trigger: title.closest('.project'),
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        },
-        y: 40, opacity: 0, duration: 1, ease: 'power3.out'
-      });
-    });
-
-    // Hover-to-play
+    // Hover-to-play with data-start offsets
     document.querySelectorAll('.project').forEach(project => {
       const video = project.querySelector('video');
       if (!video) return;
