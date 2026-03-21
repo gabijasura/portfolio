@@ -88,17 +88,30 @@
     const grid = document.querySelector('.video-grid');
     const wrapper = document.querySelector('.playground-wrapper');
 
-    // Build and shuffle a repeated array
-    const repeated = [...playgroundVideos, ...playgroundVideos, ...playgroundVideos,
-                       ...playgroundVideos, ...playgroundVideos, ...playgroundVideos,
-                       ...playgroundVideos, ...playgroundVideos, ...playgroundVideos];
-    for (let i = repeated.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [repeated[i], repeated[j]] = [repeated[j], repeated[i]];
+    function shuffleNoAdjacent(arr) {
+      const repeated = [...arr, ...arr, ...arr,
+                        ...arr, ...arr, ...arr,
+                        ...arr, ...arr, ...arr];
+      // Fisher-Yates shuffle
+      for (let i = repeated.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [repeated[i], repeated[j]] = [repeated[j], repeated[i]];
+      }
+      // Fix adjacent duplicates
+      for (let i = 1; i < repeated.length; i++) {
+        if (repeated[i] === repeated[i - 1]) {
+          for (let j = i + 1; j < repeated.length; j++) {
+            if (repeated[j] !== repeated[i - 1] && repeated[j] !== repeated[i + 1]) {
+              [repeated[i], repeated[j]] = [repeated[j], repeated[i]];
+              break;
+            }
+          }
+        }
+      }
+      return repeated;
     }
 
-    // Fill grid (72 cells) from shuffled array
-    repeated.slice(0, 72).forEach(src => {
+    shuffleNoAdjacent(playgroundVideos).slice(0, 72).forEach(src => {
       const item = document.createElement('div');
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
