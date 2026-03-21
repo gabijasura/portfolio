@@ -94,19 +94,7 @@
     const grid = document.querySelector('.video-grid');
     const wrapper = document.querySelector('.playground-wrapper');
 
-    function interleaveRepeat(arr, times) {
-      const result = [];
-      for (let i = 0; i < arr.length * times; i++) {
-        result.push(arr[i % arr.length]);
-      }
-      for (let i = result.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [result[i], result[j]] = [result[j], result[i]];
-      }
-      return result;
-    }
-
-    interleaveRepeat(playgroundVideos, 9).slice(0, 72).forEach(src => {
+    playgroundVideos.forEach(src => {
       const item = document.createElement('div');
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
