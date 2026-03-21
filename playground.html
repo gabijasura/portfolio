@@ -41,6 +41,15 @@
     }
 
     .video-item .vid-controls { display: none; }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      background:
+        radial-gradient(ellipse at center, transparent 40%, rgba(180, 140, 200, 0.5) 100%);
+    }
   </style>
 </head>
 <body>
@@ -55,6 +64,8 @@
       <li><a href="about.html">About</a></li>
     </ul>
   </nav>
+
+  <div class="vignette"></div>
 
   <div class="playground-wrapper">
     <div class="video-grid"></div>
