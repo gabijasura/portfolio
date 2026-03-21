@@ -88,10 +88,21 @@
     const grid = document.querySelector('.video-grid');
     const wrapper = document.querySelector('.playground-wrapper');
 
-    // Fill all 72 cells (12x6) with videos, looping through the playlist
+    // Shuffle helper
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Fill all 72 cells (12x6) cycling through a shuffled playlist
     const totalCells = 12 * 6;
+    const shuffledVideos = shuffle([...playgroundVideos]);
     for (let i = 0; i < totalCells; i++) {
-      const src = playgroundVideos[i % playgroundVideos.length];
+      const src = shuffledVideos[i % shuffledVideos.length];
       const item = document.createElement('div');
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
