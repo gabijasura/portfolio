@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fjällräven — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .hero-videos {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px;
+    }
+    .hero-video-wrap {
+      flex: 1;
+      max-width: 45%;
+    }
+    .hero-video-wrap video {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .video-label {
+      color: white;
+      text-align: center;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
 
@@ -22,8 +47,15 @@
   <main class="proj-page">
     <a href="work.html" class="proj-back">← Back</a>
 
-    <div class="proj-media">
-      <video src="videos/fjallraven.mp4" autoplay muted loop playsinline style="object-fit:cover;width:100%;height:100%;"></video>
+    <div class="hero-videos">
+      <div class="hero-video-wrap">
+        <video src="videos/Säl.mp4" autoplay muted loop playsinline></video>
+        <p class="video-label">The Seal</p>
+      </div>
+      <div class="hero-video-wrap">
+        <video src="videos/Fågel.mp4" autoplay muted loop playsinline></video>
+        <p class="video-label">The Bird</p>
+      </div>
     </div>
 
     <h1 class="proj-title">Fjällräven</h1>
