@@ -30,8 +30,6 @@
       height: 260px;
       border-radius: 10px;
       overflow: hidden;
-      flex-shrink: 0;
-      transform: none !important;
     }
 
     .video-item video,
@@ -90,14 +88,10 @@
     const grid = document.querySelector('.video-grid');
     const wrapper = document.querySelector('.playground-wrapper');
 
-    // Shuffle helper
-    function shuffle(arr) {
-      return [...arr].sort(() => Math.random() - 0.5);
-    }
-
-    // Fill grid with shuffled videos
-    const shuffled = shuffle([...playgroundVideos, ...playgroundVideos, ...playgroundVideos]);
-    shuffled.forEach(src => {
+    // Fill all 72 cells (12x6) with videos, looping through the playlist
+    const totalCells = 12 * 6;
+    for (let i = 0; i < totalCells; i++) {
+      const src = playgroundVideos[i % playgroundVideos.length];
       const item = document.createElement('div');
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
@@ -106,17 +100,16 @@
       grid.appendChild(item);
       const v = item.querySelector('video');
       if (v) { v.muted = true; v.play().catch(() => {}); }
-    });
-
-    const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
-
-    const minX = -(grid.offsetWidth - window.innerWidth);
-    const minY = -(grid.offsetHeight - window.innerHeight);
+    }
 
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let currentX = -(grid.offsetWidth - window.innerWidth) / 2;
-    let currentY = -(grid.offsetHeight - window.innerHeight) / 2;
+    let currentX = -(grid.scrollWidth - window.innerWidth) / 2;
+    let currentY = -(grid.scrollHeight - window.innerHeight) / 2;
+
+    const minX = -(grid.scrollWidth - window.innerWidth);
+    const minY = -(grid.scrollHeight - window.innerHeight);
+    const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
 
     gsap.set(grid, { x: currentX, y: currentY });
 
@@ -126,12 +119,16 @@
     });
 
     gsap.ticker.add(() => {
-      // Map mouse position directly to grid pan range
-      const tx = clamp(-(mouseX / window.innerWidth) * (grid.offsetWidth - window.innerWidth), minX, 0);
-      const ty = clamp(-(mouseY / window.innerHeight) * (grid.offsetHeight - window.innerHeight), minY, 0);
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const offsetX = (mouseX - cx) / cx;
+      const offsetY = (mouseY - cy) / cy;
 
-      currentX += (tx - currentX) * 0.05;
-      currentY += (ty - currentY) * 0.05;
+      const targetX = clamp(-(grid.scrollWidth - window.innerWidth) / 2 + offsetX * 400, minX, 0);
+      const targetY = clamp(-(grid.scrollHeight - window.innerHeight) / 2 + offsetY * 400, minY, 0);
+
+      currentX += (targetX - currentX) * 0.04;
+      currentY += (targetY - currentY) * 0.04;
 
       gsap.set(grid, { x: currentX, y: currentY });
     });
