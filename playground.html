@@ -88,9 +88,9 @@
       'SyntetiQ.mp4',
     ];
 
-    // Fill each row with videos duplicated for seamless loop
+    // Fill each row with 4x duplicated videos for truly seamless loop
     document.querySelectorAll('.video-row').forEach(row => {
-      [...videos, ...videos].forEach(src => {
+      [...videos, ...videos, ...videos, ...videos].forEach(src => {
         const item = document.createElement('div');
         item.className = 'video-item';
         const isGif = src.endsWith('.gif');
@@ -102,9 +102,17 @@
     });
 
     // Infinite scroll — different speeds and alternating directions
-    gsap.to('.row-1', { x: '-50%', duration: 30, ease: 'none', repeat: -1 });
-    gsap.to('.row-2', { x: '50%',  duration: 40, ease: 'none', repeat: -1, startAt: { x: '-50%' } });
-    gsap.to('.row-3', { x: '-50%', duration: 25, ease: 'none', repeat: -1 });
+    const rowAnimations = [
+      gsap.to('.row-1', { x: '-50%', duration: 30, ease: 'none', repeat: -1 }),
+      gsap.to('.row-2', { x: '50%',  duration: 40, ease: 'none', repeat: -1, startAt: { x: '-50%' } }),
+      gsap.to('.row-3', { x: '-50%', duration: 25, ease: 'none', repeat: -1 }),
+    ];
+
+    // Pause on hover, resume on leave
+    document.querySelectorAll('.video-row').forEach((row, i) => {
+      row.addEventListener('mouseenter', () => rowAnimations[i].pause());
+      row.addEventListener('mouseleave', () => rowAnimations[i].play());
+    });
   </script>
 </body>
 </html>
