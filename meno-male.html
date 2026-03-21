@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meno Male — Gabija Sura</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .stills-section { padding: 60px 0; }
+    .section-title {
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      padding: 0 60px;
+      margin-bottom: 24px;
+    }
+    .stills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 0 60px;
+    }
+    .stills-grid video {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .gif-section { text-align: center; padding: 60px; }
+    .email-gif { max-width: 600px; width: 100%; border-radius: 8px; }
+    @media (max-width: 700px) {
+      .section-title { padding: 0 24px; }
+      .stills-grid { grid-template-columns: 1fr; padding: 0 24px; }
+      .stills-grid video { aspect-ratio: 16/9; }
+      .gif-section { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Gabija Sura</a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="playground.html">Playground</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="proj-page">
+    <a href="work.html" class="proj-back">← Back</a>
+
+    <div class="proj-media">
+      <video src="videos/meno-male.mp4" autoplay muted loop playsinline style="object-fit:cover;width:100%;height:100%;"></video>
+    </div>
+
+    <h1 class="proj-title">Meno Male</h1>
+
+    <div class="proj-text">
+      <p>
+        Meno Male is a motion design project for an Italian catering brand. The campaign brings together playful animation and appetite-driven visuals to communicate the joy of good food.
+      </p>
+    </div>
+
+    <section class="stills-section">
+      <h2 class="section-title">Doodled Stills</h2>
+      <div class="stills-grid">
+        <video src="img/menomale/aperitivo.mp4" autoplay muted loop playsinline></video>
+        <video src="img/menomale/pass_the_pizza.mp4" autoplay muted loop playsinline></video>
+        <video src="img/menomale/pizza.mp4" autoplay muted loop playsinline></video>
+        <video src="img/menomale/pizza_catering 9x16.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </section>
+
+    <section class="gif-section">
+      <h2 class="section-title">Email Gif</h2>
+      <img src="img/menomale/16x9-ezgif.com-optimize.gif" class="email-gif" alt="Meno Male email gif">
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
