@@ -6,67 +6,43 @@
   <title>Playground — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
+    body { overflow-x: hidden; }
+
     .playground-header {
-      padding: 120px 24px 24px;
+      padding: 120px 48px 32px;
     }
 
-    .playground-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding: 24px;
+    .playground-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 40px 0;
     }
 
-    .playground-item {
-      position: relative;
-      aspect-ratio: 16/9;
+    .video-row {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+    }
+
+    .video-item {
+      width: 300px;
+      height: 180px;
+      border-radius: 10px;
       overflow: hidden;
-      border-radius: 8px;
-      cursor: none;
+      flex-shrink: 0;
     }
 
-    .playground-item video,
-    .playground-item img {
+    .video-item video,
+    .video-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .playground-item .item-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .playground-item:hover .item-overlay {
-      opacity: 1;
-    }
-
-    .playground-item .item-title {
-      position: absolute;
-      bottom: 14px;
-      left: 16px;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-family: 'Jost', sans-serif;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .playground-item:hover .item-title {
-      opacity: 1;
-    }
-
     /* Suppress injected vid-controls */
-    .playground-item .vid-controls { display: none; }
+    .video-item .vid-controls { display: none; }
   </style>
 </head>
 <body>
@@ -87,62 +63,10 @@
       <h1 class="work-title work-page-title reveal">Playground</h1>
     </div>
 
-    <div class="playground-grid">
-
-      <div class="playground-item">
-        <video src="videos/Daisy.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">Daisy</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/Flower_comp.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">Flower</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/Glitchy_comp.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">Glitchy</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/Paint_demon.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">Paint Demon</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/Star_blobtrack.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">Star Blobtrack</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/CRT_SFX.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">CRT SFX</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/JoinUs.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">Join Us</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/SyntetiQ.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">SyntetiQ</p>
-      </div>
-
-      <div class="playground-item">
-        <video src="videos/Daisy.mp4" autoplay muted loop playsinline></video>
-        <div class="item-overlay"></div>
-        <p class="item-title">Daisy</p>
-      </div>
-
+    <div class="playground-wrapper">
+      <div class="video-row row-1"></div>
+      <div class="video-row row-2"></div>
+      <div class="video-row row-3"></div>
     </div>
   </main>
 
@@ -150,6 +74,37 @@
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    const videos = [
+      'Daisy.mp4',
+      'Flower_comp.mp4',
+      'Glitchy_comp.mp4',
+      'Paint_demon.mp4',
+      'Star_blobtrack.mp4',
+      'CRT_SFX.mp4',
+      'JoinUs.mp4',
+      'SyntetiQ.mp4',
+    ];
+
+    // Fill each row with videos duplicated for seamless loop
+    document.querySelectorAll('.video-row').forEach(row => {
+      [...videos, ...videos].forEach(src => {
+        const item = document.createElement('div');
+        item.className = 'video-item';
+        const isGif = src.endsWith('.gif');
+        item.innerHTML = isGif
+          ? `<img src="videos/${src}" alt="">`
+          : `<video src="videos/${src}" autoplay muted loop playsinline></video>`;
+        row.appendChild(item);
+      });
+    });
+
+    // Infinite scroll — different speeds and alternating directions
+    gsap.to('.row-1', { x: '-50%', duration: 30, ease: 'none', repeat: -1 });
+    gsap.to('.row-2', { x: '50%',  duration: 40, ease: 'none', repeat: -1, startAt: { x: '-50%' } });
+    gsap.to('.row-3', { x: '-50%', duration: 25, ease: 'none', repeat: -1 });
+  </script>
 </body>
 </html>
