@@ -11,7 +11,6 @@ body {
   min-height: 100vh;
   background: linear-gradient(135deg, #f4a0c8 0%, #f5bc90 24%, #cc90e4 56%, #6890f8 100%);
   background-attachment: fixed;
-  cursor: none;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -48,18 +47,26 @@ body::before {
 }
 
 /* ─── Custom cursor ─── */
+* { cursor: none; }
+
 .cursor {
   position: fixed;
-  width: 18px; height: 18px;
-  border: 2px solid rgba(255,255,255,0.7);
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .2s, height .2s, background .2s;
-  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  line-height: 1;
 }
-.cursor.hovering { width: 40px; height: 40px; background: rgba(255,255,255,0.15); }
+
+.cursor-main::before { content: '◇'; color: white; }
+.cursor-r::before    { content: '◇'; color: rgba(255,0,80,0.7); }
+.cursor-b::before    { content: '◇'; color: rgba(0,200,255,0.7); }
+
+.cursor-r, .cursor-b { mix-blend-mode: screen; }
 
 /* ─── Nav ─── */
 nav {

@@ -4,15 +4,37 @@
 
 /* ─── Cursor ─── */
 (function() {
-  const cursor = document.querySelector('.cursor');
-  if (!cursor) return;
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
+  const cursorMain = document.querySelector('.cursor-main');
+  const cursorR    = document.querySelector('.cursor-r');
+  const cursorB    = document.querySelector('.cursor-b');
+  if (!cursorMain) return;
+
+  let mouseX = 0, mouseY = 0;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    gsap.to(cursorMain, { x: mouseX, y: mouseY, duration: 0.1,  ease: 'power2.out' });
+    gsap.to(cursorR,    { x: mouseX, y: mouseY, duration: 0.18, ease: 'power2.out' });
+    gsap.to(cursorB,    { x: mouseX, y: mouseY, duration: 0.22, ease: 'power2.out' });
   });
-  document.querySelectorAll('a, button, .playing-card, .work-thumb, .chip-link, .slot-lever, .horseshoe-btn, .slot-reel').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+
+  function glitch() {
+    const offsetX = (Math.random() - 0.5) * 12;
+    const offsetY = (Math.random() - 0.5) * 6;
+    gsap.to(cursorR, { x: mouseX + offsetX, y: mouseY + offsetY, duration: 0.05, ease: 'none',
+      onComplete: () => gsap.to(cursorR, { x: mouseX, y: mouseY, duration: 0.1 })
+    });
+    gsap.to(cursorB, { x: mouseX - offsetX, y: mouseY - offsetY, duration: 0.05, ease: 'none',
+      onComplete: () => gsap.to(cursorB, { x: mouseX, y: mouseY, duration: 0.1 })
+    });
+    setTimeout(glitch, 800 + Math.random() * 2200);
+  }
+  glitch();
+
+  document.querySelectorAll('a, button, video, .project, .video-item').forEach(el => {
+    el.addEventListener('mouseenter', () => gsap.to([cursorMain, cursorR, cursorB], { scale: 2, duration: 0.3 }));
+    el.addEventListener('mouseleave', () => gsap.to([cursorMain, cursorR, cursorB], { scale: 1, duration: 0.3 }));
   });
 })();
 
@@ -177,13 +199,7 @@
     video.addEventListener('pause', () => { playBtn.textContent = '▶'; });
   });
 
-  // Add vid-btn to cursor hover targets
-  document.querySelectorAll('.vid-btn').forEach(btn => {
-    const cursor = document.querySelector('.cursor');
-    if (!cursor) return;
-    btn.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-    btn.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-  });
+  // vid-btn hover scaling handled by the global cursor IIFE above
 })();
 
 /* ─── Floating elements parallax on mousemove ─── */
