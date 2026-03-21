@@ -113,10 +113,15 @@
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
         ? `<img src="videos/${src}" alt="">`
-        : `<video src="videos/${src}" autoplay muted loop playsinline></video>`;
+        : `<video src="videos/${src}" muted loop playsinline></video>`;
       grid.appendChild(item);
       const v = item.querySelector('video');
-      if (v) { v.muted = true; v.play().catch(() => {}); }
+      if (v) {
+        v.muted = true;
+        v.pause();
+        item.addEventListener('mouseenter', () => v.play().catch(() => {}));
+        item.addEventListener('mouseleave', () => v.pause());
+      }
     }
 
     let mouseX = window.innerWidth / 2;
