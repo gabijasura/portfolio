@@ -6,35 +6,33 @@
   <title>Playground — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    body { overflow-x: hidden; }
-
-    .playground-header {
-      padding: 120px 48px 32px;
-    }
+    body, html { overflow: hidden; }
 
     .playground-wrapper {
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      padding: 80px 0;
-      cursor: grab;
+      position: relative;
     }
 
-    .playground-wrapper:active {
-      cursor: grabbing;
-    }
-
-    .video-row {
-      display: flex;
+    .video-grid {
+      display: grid;
+      grid-template-rows: repeat(3, 280px);
+      grid-auto-flow: column;
+      grid-auto-columns: 280px;
       gap: 12px;
+      padding: 12px;
       width: max-content;
+      height: 100vh;
+      align-content: center;
       will-change: transform;
     }
 
     .video-item {
-      width: 220px;
-      height: 320px;
+      width: 280px;
+      height: 280px;
       border-radius: 10px;
       overflow: hidden;
-      flex-shrink: 0;
     }
 
     .video-item video,
@@ -63,24 +61,14 @@
     </ul>
   </nav>
 
-  <main>
-    <div class="playground-header">
-      <h1 class="work-title work-page-title reveal">Playground</h1>
-    </div>
-
-    <div class="playground-wrapper">
-      <div class="video-row"></div>
-    </div>
-  </main>
-
-  <footer>
-    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
-  </footer>
+  <div class="playground-wrapper">
+    <div class="video-grid"></div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="js/main.js"></script>
   <script>
-    const videoFiles = [
+    const playgroundVideos = [
       'Daisy.mp4',
       'Flower_comp.mp4',
       'Glitchy_comp.mp4',
@@ -91,55 +79,53 @@
       'SyntetiQ.mp4',
     ];
 
-    const row = document.querySelector('.video-row');
+    const grid = document.querySelector('.video-grid');
 
-    // Fill row with items x3 for seamless loop
-    [...videoFiles, ...videoFiles, ...videoFiles].forEach(src => {
+    // Fill grid with 4x items for seamless loop
+    [...playgroundVideos, ...playgroundVideos, ...playgroundVideos, ...playgroundVideos].forEach(src => {
       const item = document.createElement('div');
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
         ? `<img src="videos/${src}" alt="">`
         : `<video src="videos/${src}" autoplay muted loop playsinline></video>`;
-      row.appendChild(item);
+      grid.appendChild(item);
     });
 
-    // Auto-scroll — use modifiers to wrap position seamlessly
-    const totalWidth = row.scrollWidth / 3;
-    const anim = gsap.to(row, {
-      x: -totalWidth,
-      duration: 40,
-      ease: 'none',
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
-      }
-    });
+    // Wait one frame for DOM to paint so scrollWidth is accurate
+    requestAnimationFrame(() => {
+      const totalWidth = grid.scrollWidth / 4;
 
-    // Pause on hover, resume on leave
-    row.addEventListener('mouseenter', () => anim.pause());
-    row.addEventListener('mouseleave', () => { if (!isDragging) anim.play(); });
+      // Auto-scroll
+      const anim = gsap.to(grid, {
+        x: -totalWidth,
+        duration: 60,
+        ease: 'none',
+        repeat: -1,
+        modifiers: {
+          x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+        }
+      });
 
-    // Drag to scroll
-    let isDragging = false, startX, currentX;
+      // Mouse wheel scrolls horizontally
+      let wheelTimeout;
+      let xPos = 0;
 
-    row.addEventListener('mousedown', e => {
-      isDragging = true;
-      startX = e.clientX;
-      currentX = gsap.getProperty(row, 'x');
-      anim.pause();
-    });
+      window.addEventListener('wheel', e => {
+        e.preventDefault();
+        anim.pause();
+        xPos += -e.deltaY * 1.5;
+        gsap.to(grid, {
+          x: xPos % totalWidth,
+          duration: 0.8,
+          ease: 'power2.out'
+        });
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => anim.play(), 1500);
+      }, { passive: false });
 
-    window.addEventListener('mousemove', e => {
-      if (!isDragging) return;
-      const dx = e.clientX - startX;
-      gsap.set(row, { x: currentX + dx });
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        anim.play();
-      }
+      // Pause auto-scroll on hover
+      grid.addEventListener('mouseenter', () => anim.pause());
+      grid.addEventListener('mouseleave', () => anim.play());
     });
   </script>
 </body>
