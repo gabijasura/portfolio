@@ -88,19 +88,25 @@
     const grid = document.querySelector('.video-grid');
     const wrapper = document.querySelector('.playground-wrapper');
 
-    // Fill all 72 cells (12x6) with videos, looping through the playlist
-    const totalCells = 12 * 6;
-    for (let i = 0; i < totalCells; i++) {
-      const src = playgroundVideos[i % playgroundVideos.length];
+    // Shuffle helper
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    // Fill grid with shuffled videos
+    const shuffled = shuffle([...playgroundVideos, ...playgroundVideos, ...playgroundVideos]);
+    shuffled.forEach(src => {
       const item = document.createElement('div');
       item.className = 'video-item';
+      const scale = 0.85 + Math.random() * 0.3; // 0.85 to 1.15
+      item.style.transform = `scale(${scale})`;
       item.innerHTML = src.endsWith('.gif')
         ? `<img src="videos/${src}" alt="">`
         : `<video src="videos/${src}" autoplay muted loop playsinline></video>`;
       grid.appendChild(item);
       const v = item.querySelector('video');
       if (v) { v.muted = true; v.play().catch(() => {}); }
-    }
+    });
 
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
