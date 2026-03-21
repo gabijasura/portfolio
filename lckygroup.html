@@ -29,13 +29,16 @@
       width: 100%;
     }
     .display-ads-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 24px;
       padding: 0 60px;
+      align-items: flex-start;
     }
     .display-ads-grid .ad-item video {
-      width: 100%;
+      display: block;
+      max-height: 400px;
+      width: auto;
       border-radius: 12px;
     }
     .ad-caption {
@@ -98,7 +101,7 @@
       <h2 class="section-title">Vera&amp;John</h2>
       <div class="brand-videos">
         <video src="videos/VJ - Flex - GamesGlobal_1.mp4" autoplay muted loop playsinline></video>
-        <video src="videos/VJ-SWE-AWA-BRAND-WO-26-980x240-Swedish.mp4" autoplay muted loop playsinline></video>
+        <video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" autoplay muted loop playsinline></video>
       </div>
     </section>
 
@@ -106,8 +109,8 @@
       <h2 class="section-title">Display Ads</h2>
       <div class="display-ads-grid">
         <div class="ad-item">
-          <video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video>
-          <p class="ad-caption">Lucky Casino — 300x600</p>
+          <video src="videos/LSE-ACQ-LYCKOCHANSEN-320x50-Swedish_V1.mp4" autoplay muted loop playsinline></video>
+          <p class="ad-caption">Lucky Casino — 320x50</p>
         </div>
         <div class="ad-item">
           <video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" autoplay muted loop playsinline></video>
