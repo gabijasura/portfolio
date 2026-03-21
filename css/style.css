@@ -666,6 +666,16 @@ footer a:hover { opacity: 0.5; }
 }
 
 /* ─── Video controls overlay ─── */
+.video-wrap {
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+  line-height: 0;
+}
+.video-wrap video {
+  display: block;
+  width: 100%;
+}
 .vid-controls {
   position: absolute;
   bottom: 0;
