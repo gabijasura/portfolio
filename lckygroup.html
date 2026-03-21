@@ -22,11 +22,15 @@
       gap: 24px;
       padding: 0 60px;
     }
-    .brand-videos video {
+    .brand-videos .video-wrap {
       flex: 1;
       max-width: 45%;
-      border-radius: 12px;
+      position: relative;
+    }
+    .brand-videos .video-wrap video {
       width: 100%;
+      border-radius: 12px;
+      display: block;
     }
     .display-ads-grid {
       display: flex;
@@ -76,32 +80,32 @@
     <section class="brand-section">
       <h2 class="section-title">Lucky Casino</h2>
       <div class="brand-videos">
-        <video src="videos/LC  - Christmas 8s V2.mp4" autoplay muted loop playsinline></video>
-        <video src="videos/LSE-Reddit-V2.mp4" autoplay muted loop playsinline></video>
+        <div class="video-wrap"><video src="videos/LC  - Christmas 8s V2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="video-wrap"><video src="videos/LSE-Reddit-V2.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
     <section class="brand-section">
       <h2 class="section-title">Happy Casino</h2>
       <div class="brand-videos">
-        <video src="videos/HC-Meta-Raptor 2 2.mp4" autoplay muted loop playsinline></video>
-        <video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" autoplay muted loop playsinline></video>
+        <div class="video-wrap"><video src="videos/HC-Meta-Raptor 2 2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="video-wrap"><video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
     <section class="brand-section">
       <h2 class="section-title">Flax Casino</h2>
       <div class="brand-videos">
-        <video src="videos/FSE-DonnyandDanny-140126.mp4" autoplay muted loop playsinline></video>
-        <video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" autoplay muted loop playsinline></video>
+        <div class="video-wrap"><video src="videos/FSE-DonnyandDanny-140126.mp4" autoplay muted loop playsinline></video></div>
+        <div class="video-wrap"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
     <section class="brand-section">
       <h2 class="section-title">Vera&amp;John</h2>
       <div class="brand-videos">
-        <video src="videos/VJ - Flex - GamesGlobal_1.mp4" autoplay muted loop playsinline></video>
-        <video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" autoplay muted loop playsinline></video>
+        <div class="video-wrap"><video src="videos/VJ - Flex - GamesGlobal_1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="video-wrap"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
@@ -109,19 +113,19 @@
       <h2 class="section-title">Display Ads</h2>
       <div class="display-ads-grid">
         <div class="ad-item">
-          <video src="videos/LSE-ACQ-LYCKOCHANSEN-320x50-Swedish_V1.mp4" autoplay muted loop playsinline></video>
-          <p class="ad-caption">Lucky Casino — 320x50</p>
+          <div class="video-wrap"><video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video></div>
+          <p class="ad-caption">Lucky Casino — 300x600</p>
         </div>
         <div class="ad-item">
-          <video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" autoplay muted loop playsinline></video>
+          <div class="video-wrap"><video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" autoplay muted loop playsinline></video></div>
           <p class="ad-caption">Happy Casino — 980x240</p>
         </div>
         <div class="ad-item">
-          <video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video>
+          <div class="video-wrap"><video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video></div>
           <p class="ad-caption">Flax Casino — 300x600</p>
         </div>
         <div class="ad-item">
-          <video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" autoplay muted loop playsinline></video>
+          <div class="video-wrap"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" autoplay muted loop playsinline></video></div>
           <p class="ad-caption">Vera&amp;John — 640x360</p>
         </div>
       </div>
