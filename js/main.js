@@ -19,12 +19,9 @@
 /* ─── Slot Machine ─── */
 (function() {
   const projects = [
-    { name: 'THE FROG',          media: 'assets/frog.gif',           type: 'img',   url: 'frog.html' },
-    { name: 'MUSHROOM FESTIVAL', media: 'assets/mushroom.mp4',       type: 'video', url: 'mushroom.html' },
-    { name: 'PASS THE BALL',     media: 'assets/ball-small.mp4',     type: 'video', url: 'ball.html' },
-    { name: 'NIGHTFALL',         media: 'assets/nightfall-opt.gif',  type: 'img',   url: 'nightfall.html' },
-    { name: 'FENYX',             media: 'assets/fenyx.mp4',          type: 'video', url: 'fenyx.html' },
-    { name: 'PASSION',           media: 'assets/flame-opt.gif',      type: 'img',   url: 'passion.html' },
+    { name: 'THE FROG',  media: 'assets/frog.gif',      type: 'img', url: 'frog.html' },
+    { name: 'FLAME',     media: 'assets/flame-opt.gif', type: 'img', url: 'passion.html' },
+    { name: 'DUCK',      media: 'assets/duck.gif',      type: 'img', url: 'duck.html' },
   ];
 
   const reels   = [...document.querySelectorAll('.slot-reel')];
