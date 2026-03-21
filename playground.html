@@ -6,29 +6,29 @@
   <title>Playground — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    body, html { overflow: hidden; }
+    body, html { overflow: hidden; margin: 0; }
 
     .playground-wrapper {
-      position: fixed;
-      inset: 0;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
+      cursor: grab;
+      position: relative;
     }
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(20, 280px);
+      grid-template-columns: repeat(12, 260px);
+      grid-template-rows: repeat(6, 260px);
       gap: 12px;
       padding: 12px;
-      width: max-content;
       position: absolute;
-      top: 0;
-      left: 0;
       will-change: transform;
     }
 
     .video-item {
-      width: 280px;
-      height: 280px;
+      width: 260px;
+      height: 260px;
       border-radius: 10px;
       overflow: hidden;
     }
@@ -39,7 +39,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      pointer-events: none;
     }
 
     .video-item .vid-controls { display: none; }
@@ -76,51 +75,67 @@
       'SyntetiQ.mp4',
     ];
 
-    const COLS = 20;
-    const ROWS = 14;
-    const CELL = 280 + 12; // tile + gap
-    const totalW = COLS * CELL;
-    const totalH = ROWS * CELL;
-
     const grid = document.querySelector('.video-grid');
+    const wrapper = document.querySelector('.playground-wrapper');
 
-    // Generate enough items to fill COLS × ROWS grid
-    const totalCells = COLS * ROWS;
-    const items = [];
-    while (items.length < totalCells) {
-      items.push(...playgroundVideos);
-    }
-    items.slice(0, totalCells).forEach(src => {
+    // Fill all 72 cells (12x6) with videos, looping through the playlist
+    const totalCells = 12 * 6;
+    for (let i = 0; i < totalCells; i++) {
+      const src = playgroundVideos[i % playgroundVideos.length];
       const item = document.createElement('div');
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
         ? `<img src="videos/${src}" alt="">`
         : `<video src="videos/${src}" autoplay muted loop playsinline></video>`;
       grid.appendChild(item);
-    });
+      const v = item.querySelector('video');
+      if (v) { v.muted = true; v.play().catch(() => {}); }
+    }
 
-    // Start at center of grid so there's room to drift in all directions
-    let xPos = totalW / 2;
-    let yPos = totalH / 2;
-    let driftX = 0;
-    let driftY = 0;
+    // Start grid centered so you can pan in all directions
+    const gridW = 12 * (260 + 12);
+    const gridH = 6 * (260 + 12);
+    let x = -(gridW - window.innerWidth) / 2;
+    let y = -(gridH - window.innerHeight) / 2;
+    gsap.set(grid, { x, y });
+
+    // Drag with momentum
+    let isDragging = false, startX, startY, velX = 0, velY = 0, lastX, lastY;
+
+    const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
+    const minX = -(gridW - window.innerWidth + 12);
+    const minY = -(gridH - window.innerHeight + 12);
+
+    wrapper.addEventListener('mousedown', e => {
+      isDragging = true;
+      startX = e.clientX - x;
+      startY = e.clientY - y;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      velX = 0;
+      velY = 0;
+      gsap.killTweensOf(grid);
+      wrapper.style.cursor = 'grabbing';
+    });
 
     window.addEventListener('mousemove', e => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      driftX = ((e.clientX - cx) / cx) * 3;
-      driftY = ((e.clientY - cy) / cy) * 3;
+      if (!isDragging) return;
+      velX = e.clientX - lastX;
+      velY = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      x = clamp(e.clientX - startX, minX, 0);
+      y = clamp(e.clientY - startY, minY, 0);
+      gsap.set(grid, { x, y });
     });
 
-    gsap.ticker.add(() => {
-      xPos += driftX || 0.8;
-      yPos += driftY || 0.3;
-
-      // Wrap seamlessly
-      xPos = ((xPos % totalW) + totalW) % totalW;
-      yPos = ((yPos % totalH) + totalH) % totalH;
-
-      gsap.set(grid, { x: -xPos, y: -yPos });
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      wrapper.style.cursor = 'grab';
+      x = clamp(x + velX * 6, minX, 0);
+      y = clamp(y + velY * 6, minY, 0);
+      gsap.to(grid, { x, y, duration: 1, ease: 'power3.out' });
     });
   </script>
 </body>
