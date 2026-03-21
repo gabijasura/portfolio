@@ -4,38 +4,66 @@
 
 /* ─── Cursor ─── */
 (function() {
-  const cursorMain = document.querySelector('.cursor-main');
-  const cursorR    = document.querySelector('.cursor-r');
-  const cursorB    = document.querySelector('.cursor-b');
-  if (!cursorMain) return;
-
-  let mouseX = 0, mouseY = 0;
-
-  window.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    gsap.to(cursorMain, { x: mouseX, y: mouseY, duration: 0.1,  ease: 'power2.out' });
-    gsap.to(cursorR,    { x: mouseX, y: mouseY, duration: 0.18, ease: 'power2.out' });
-    gsap.to(cursorB,    { x: mouseX, y: mouseY, duration: 0.22, ease: 'power2.out' });
+  const canvas = document.querySelector('.cursor-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
 
-  function glitch() {
-    const offsetX = (Math.random() - 0.5) * 12;
-    const offsetY = (Math.random() - 0.5) * 6;
-    gsap.to(cursorR, { x: mouseX + offsetX, y: mouseY + offsetY, duration: 0.05, ease: 'none',
-      onComplete: () => gsap.to(cursorR, { x: mouseX, y: mouseY, duration: 0.1 })
-    });
-    gsap.to(cursorB, { x: mouseX - offsetX, y: mouseY - offsetY, duration: 0.05, ease: 'none',
-      onComplete: () => gsap.to(cursorB, { x: mouseX, y: mouseY, duration: 0.1 })
-    });
-    setTimeout(glitch, 800 + Math.random() * 2200);
+  let mx = 0, my = 0;
+  let glitching = false;
+  let glitchOffsetX = 0, glitchOffsetY = 0;
+
+  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  function drawArrow(x, y, color, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.strokeStyle = 'rgba(0,0,0,0.8)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y + 20);
+    ctx.lineTo(x + 4, y + 14);
+    ctx.lineTo(x + 8, y + 22);
+    ctx.lineTo(x + 10, y + 21);
+    ctx.lineTo(x + 6, y + 13);
+    ctx.lineTo(x + 12, y + 13);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
   }
-  glitch();
 
-  document.querySelectorAll('a, button, video, .project, .video-item').forEach(el => {
-    el.addEventListener('mouseenter', () => gsap.to([cursorMain, cursorR, cursorB], { scale: 2, duration: 0.3 }));
-    el.addEventListener('mouseleave', () => gsap.to([cursorMain, cursorR, cursorB], { scale: 1, duration: 0.3 }));
-  });
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (glitching) {
+      drawArrow(mx - glitchOffsetX - 2, my + glitchOffsetY, 'rgba(0, 220, 255, 0.85)', 0.9);
+      drawArrow(mx + glitchOffsetX + 2, my - glitchOffsetY, 'rgba(100, 255, 80, 0.85)', 0.9);
+    } else {
+      drawArrow(mx - 1.5, my, 'rgba(0, 220, 255, 0.4)', 0.5);
+      drawArrow(mx + 1.5, my, 'rgba(100, 255, 80, 0.4)', 0.5);
+    }
+    drawArrow(mx, my, 'white', 1);
+    requestAnimationFrame(render);
+  }
+  render();
+
+  function triggerGlitch() {
+    glitching = true;
+    glitchOffsetX = 4 + Math.random() * 8;
+    glitchOffsetY = (Math.random() - 0.5) * 4;
+    setTimeout(() => {
+      glitching = false;
+      setTimeout(triggerGlitch, 800 + Math.random() * 2500);
+    }, 60 + Math.random() * 120);
+  }
+  triggerGlitch();
 })();
 
 /* ─── Slot Machine ─── */

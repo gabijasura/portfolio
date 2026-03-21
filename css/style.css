@@ -48,25 +48,15 @@ body::before {
 
 /* ─── Custom cursor ─── */
 * { cursor: none; }
-
-.cursor {
+.cursor-canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 18px;
-  height: 18px;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  font-size: 18px;
-  line-height: 1;
+  z-index: 99999;
 }
-
-.cursor-main::before { content: '◇'; color: white; }
-.cursor-r::before    { content: '◇'; color: rgba(255,0,80,0.7); }
-.cursor-b::before    { content: '◇'; color: rgba(0,200,255,0.7); }
-
-.cursor-r, .cursor-b { mix-blend-mode: screen; }
 
 /* ─── Nav ─── */
 nav {
