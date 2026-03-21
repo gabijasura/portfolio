@@ -91,34 +91,35 @@
       if (v) { v.muted = true; v.play().catch(() => {}); }
     }
 
-    // Start grid centered
-    let x = -(grid.scrollWidth - window.innerWidth) / 2;
-    let y = -(grid.scrollHeight - window.innerHeight) / 2;
-    gsap.set(grid, { x, y });
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = -(grid.scrollWidth - window.innerWidth) / 2;
+    let currentY = -(grid.scrollHeight - window.innerHeight) / 2;
 
     const minX = -(grid.scrollWidth - window.innerWidth);
     const minY = -(grid.scrollHeight - window.innerHeight);
     const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
 
+    gsap.set(grid, { x: currentX, y: currentY });
+
     window.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    gsap.ticker.add(() => {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
-      const offsetX = (e.clientX - cx) / cx; // -1 to 1
-      const offsetY = (e.clientY - cy) / cy; // -1 to 1
+      const offsetX = (mouseX - cx) / cx;
+      const offsetY = (mouseY - cy) / cy;
 
-      const targetX = clamp(x + offsetX * 300, minX, 0);
-      const targetY = clamp(y + offsetY * 300, minY, 0);
+      const targetX = clamp(-(grid.scrollWidth - window.innerWidth) / 2 + offsetX * 400, minX, 0);
+      const targetY = clamp(-(grid.scrollHeight - window.innerHeight) / 2 + offsetY * 400, minY, 0);
 
-      gsap.to(grid, {
-        x: targetX,
-        y: targetY,
-        duration: 2,
-        ease: 'power2.out',
-        onUpdate: () => {
-          x = gsap.getProperty(grid, 'x');
-          y = gsap.getProperty(grid, 'y');
-        }
-      });
+      currentX += (targetX - currentX) * 0.04;
+      currentY += (targetY - currentY) * 0.04;
+
+      gsap.set(grid, { x: currentX, y: currentY });
     });
   </script>
 </body>
