@@ -30,6 +30,8 @@
       height: 260px;
       border-radius: 10px;
       overflow: hidden;
+      flex-shrink: 0;
+      transform: none !important;
     }
 
     .video-item video,
@@ -98,8 +100,6 @@
     shuffled.forEach(src => {
       const item = document.createElement('div');
       item.className = 'video-item';
-      const scale = 0.85 + Math.random() * 0.3; // 0.85 to 1.15
-      item.style.transform = `scale(${scale})`;
       item.innerHTML = src.endsWith('.gif')
         ? `<img src="videos/${src}" alt="">`
         : `<video src="videos/${src}" autoplay muted loop playsinline></video>`;
@@ -110,14 +110,18 @@
 
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let currentX = -(grid.scrollWidth - window.innerWidth) / 2;
-    let currentY = -(grid.scrollHeight - window.innerHeight) / 2;
+    let currentX = 0;
+    let currentY = 0;
 
-    const minX = -(grid.scrollWidth - window.innerWidth);
-    const minY = -(grid.scrollHeight - window.innerHeight);
     const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
 
-    gsap.set(grid, { x: currentX, y: currentY });
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        currentX = -(grid.scrollWidth - window.innerWidth) / 2;
+        currentY = -(grid.scrollHeight - window.innerHeight) / 2;
+        gsap.set(grid, { x: currentX, y: currentY });
+      });
+    });
 
     window.addEventListener('mousemove', e => {
       mouseX = e.clientX;
@@ -130,6 +134,8 @@
       const offsetX = (mouseX - cx) / cx;
       const offsetY = (mouseY - cy) / cy;
 
+      const minX = -(grid.scrollWidth - window.innerWidth);
+      const minY = -(grid.scrollHeight - window.innerHeight);
       const targetX = clamp(-(grid.scrollWidth - window.innerWidth) / 2 + offsetX * 400, minX, 0);
       const targetY = clamp(-(grid.scrollHeight - window.innerHeight) / 2 + offsetY * 400, minY, 0);
 
