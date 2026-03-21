@@ -108,23 +108,17 @@
       if (v) { v.muted = true; v.play().catch(() => {}); }
     });
 
-    // Grid dimensions are fixed by CSS template — compute synchronously
-    const COLS = 12, ROWS = 6, TILE = 260, GAP = 12, PAD = 12;
-    const gridW = COLS * TILE + (COLS - 1) * GAP + PAD * 2;
-    const gridH = ROWS * TILE + (ROWS - 1) * GAP + PAD * 2;
-
     const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
-    const minX = -(gridW - window.innerWidth);
-    const minY = -(gridH - window.innerHeight);
 
-    // Center immediately, synchronously, before ticker starts
-    let currentX = -(gridW - window.innerWidth) / 2;
-    let currentY = -(gridH - window.innerHeight) / 2;
-    gsap.set(grid, { x: currentX, y: currentY });
+    const minX = -(grid.offsetWidth - window.innerWidth);
+    const minY = -(grid.offsetHeight - window.innerHeight);
 
-    // Mouse starts at center so ticker has no drift on load
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
+    let currentX = -(grid.offsetWidth - window.innerWidth) / 2;
+    let currentY = -(grid.offsetHeight - window.innerHeight) / 2;
+
+    gsap.set(grid, { x: currentX, y: currentY });
 
     window.addEventListener('mousemove', e => {
       mouseX = e.clientX;
@@ -132,16 +126,12 @@
     });
 
     gsap.ticker.add(() => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      const offsetX = (mouseX - cx) / cx;
-      const offsetY = (mouseY - cy) / cy;
+      // Map mouse position directly to grid pan range
+      const tx = clamp(-(mouseX / window.innerWidth) * (grid.offsetWidth - window.innerWidth), minX, 0);
+      const ty = clamp(-(mouseY / window.innerHeight) * (grid.offsetHeight - window.innerHeight), minY, 0);
 
-      const targetX = clamp(-(gridW - window.innerWidth) / 2 + offsetX * 400, minX, 0);
-      const targetY = clamp(-(gridH - window.innerHeight) / 2 + offsetY * 400, minY, 0);
-
-      currentX += (targetX - currentX) * 0.04;
-      currentY += (targetY - currentY) * 0.04;
+      currentX += (tx - currentX) * 0.05;
+      currentY += (ty - currentY) * 0.05;
 
       gsap.set(grid, { x: currentX, y: currentY });
     });
