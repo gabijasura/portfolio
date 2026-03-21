@@ -9,22 +9,20 @@
     body, html { overflow: hidden; }
 
     .playground-wrapper {
-      width: 100vw;
-      height: 100vh;
+      position: fixed;
+      inset: 0;
       overflow: hidden;
-      position: relative;
     }
 
     .video-grid {
       display: grid;
-      grid-template-rows: repeat(3, 280px);
-      grid-auto-flow: column;
-      grid-auto-columns: 280px;
+      grid-template-columns: repeat(20, 280px);
       gap: 12px;
       padding: 12px;
       width: max-content;
-      height: 100vh;
-      align-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
       will-change: transform;
     }
 
@@ -44,7 +42,6 @@
       pointer-events: none;
     }
 
-    /* Suppress injected vid-controls */
     .video-item .vid-controls { display: none; }
   </style>
 </head>
@@ -79,10 +76,21 @@
       'SyntetiQ.mp4',
     ];
 
+    const COLS = 20;
+    const ROWS = 14;
+    const CELL = 280 + 12; // tile + gap
+    const totalW = COLS * CELL;
+    const totalH = ROWS * CELL;
+
     const grid = document.querySelector('.video-grid');
 
-    // Fill grid with 4x items for seamless loop
-    [...playgroundVideos, ...playgroundVideos, ...playgroundVideos, ...playgroundVideos].forEach(src => {
+    // Generate enough items to fill COLS × ROWS grid
+    const totalCells = COLS * ROWS;
+    const items = [];
+    while (items.length < totalCells) {
+      items.push(...playgroundVideos);
+    }
+    items.slice(0, totalCells).forEach(src => {
       const item = document.createElement('div');
       item.className = 'video-item';
       item.innerHTML = src.endsWith('.gif')
@@ -91,41 +99,28 @@
       grid.appendChild(item);
     });
 
-    // Wait one frame for DOM to paint so scrollWidth is accurate
-    requestAnimationFrame(() => {
-      const totalWidth = grid.scrollWidth / 4;
+    // Start at center of grid so there's room to drift in all directions
+    let xPos = totalW / 2;
+    let yPos = totalH / 2;
+    let driftX = 0;
+    let driftY = 0;
 
-      // Auto-scroll
-      const anim = gsap.to(grid, {
-        x: -totalWidth,
-        duration: 60,
-        ease: 'none',
-        repeat: -1,
-        modifiers: {
-          x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
-        }
-      });
+    window.addEventListener('mousemove', e => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      driftX = ((e.clientX - cx) / cx) * 3;
+      driftY = ((e.clientY - cy) / cy) * 3;
+    });
 
-      // Mouse wheel scrolls horizontally
-      let wheelTimeout;
-      let xPos = 0;
+    gsap.ticker.add(() => {
+      xPos += driftX || 0.8;
+      yPos += driftY || 0.3;
 
-      window.addEventListener('wheel', e => {
-        e.preventDefault();
-        anim.pause();
-        xPos += -e.deltaY * 1.5;
-        gsap.to(grid, {
-          x: xPos % totalWidth,
-          duration: 0.8,
-          ease: 'power2.out'
-        });
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => anim.play(), 1500);
-      }, { passive: false });
+      // Wrap seamlessly
+      xPos = ((xPos % totalW) + totalW) % totalW;
+      yPos = ((yPos % totalH) + totalH) % totalH;
 
-      // Pause auto-scroll on hover
-      grid.addEventListener('mouseenter', () => anim.pause());
-      grid.addEventListener('mouseleave', () => anim.play());
+      gsap.set(grid, { x: -xPos, y: -yPos });
     });
   </script>
 </body>
