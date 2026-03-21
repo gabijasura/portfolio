@@ -70,7 +70,7 @@
 (function() {
   const projects = [
     { name: 'THE FROG',  media: 'assets/frog.gif',      type: 'img', url: 'frog.html' },
-    { name: 'FLAME',     media: 'assets/flame-opt.gif', type: 'img', url: 'passion.html' },
+    { name: 'FLAME',     media: 'GIF/Flame.gif',        type: 'img', url: 'passion.html' },
     { name: 'DUCK',      media: 'assets/duck.gif',      type: 'img', url: 'duck.html' },
   ];
 
