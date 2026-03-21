@@ -17,17 +17,17 @@
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(12, 260px);
-      grid-template-rows: repeat(6, 260px);
-      gap: 12px;
-      padding: 12px;
+      grid-template-columns: repeat(12, 277px);
+      grid-template-rows: repeat(6, 277px);
+      gap: 20px;
+      padding: 40px;
       position: absolute;
       will-change: transform;
     }
 
     .video-item {
-      width: 260px;
-      height: 260px;
+      width: 277px;
+      height: 277px;
       border-radius: 10px;
       overflow: hidden;
     }
@@ -146,11 +146,11 @@
       const offsetX = (mouseX - cx) / cx;
       const offsetY = (mouseY - cy) / cy;
 
-      const targetX = clamp(-(grid.scrollWidth - window.innerWidth) / 2 + offsetX * 400, minX, 0);
-      const targetY = clamp(-(grid.scrollHeight - window.innerHeight) / 2 + offsetY * 400, minY, 0);
+      const targetX = clamp(-(grid.scrollWidth - window.innerWidth) / 2 + offsetX * 150, minX, 0);
+      const targetY = clamp(-(grid.scrollHeight - window.innerHeight) / 2 + offsetY * 150, minY, 0);
 
-      currentX += (targetX - currentX) * 0.04;
-      currentY += (targetY - currentY) * 0.04;
+      currentX += (targetX - currentX) * 0.02;
+      currentY += (targetY - currentY) * 0.02;
 
       gsap.set(grid, { x: currentX, y: currentY });
     });
