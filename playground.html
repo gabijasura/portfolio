@@ -12,7 +12,6 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      cursor: grab;
       position: relative;
     }
 
@@ -92,50 +91,34 @@
       if (v) { v.muted = true; v.play().catch(() => {}); }
     }
 
-    // Start grid centered so you can pan in all directions
-    const gridW = 12 * (260 + 12);
-    const gridH = 6 * (260 + 12);
-    let x = -(gridW - window.innerWidth) / 2;
-    let y = -(gridH - window.innerHeight) / 2;
+    // Start grid centered
+    let x = -(grid.scrollWidth - window.innerWidth) / 2;
+    let y = -(grid.scrollHeight - window.innerHeight) / 2;
     gsap.set(grid, { x, y });
 
-    // Drag with momentum
-    let isDragging = false, startX, startY, velX = 0, velY = 0, lastX, lastY;
-
+    const minX = -(grid.scrollWidth - window.innerWidth);
+    const minY = -(grid.scrollHeight - window.innerHeight);
     const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
-    const minX = -(gridW - window.innerWidth + 12);
-    const minY = -(gridH - window.innerHeight + 12);
-
-    wrapper.addEventListener('mousedown', e => {
-      isDragging = true;
-      startX = e.clientX - x;
-      startY = e.clientY - y;
-      lastX = e.clientX;
-      lastY = e.clientY;
-      velX = 0;
-      velY = 0;
-      gsap.killTweensOf(grid);
-      wrapper.style.cursor = 'grabbing';
-    });
 
     window.addEventListener('mousemove', e => {
-      if (!isDragging) return;
-      velX = e.clientX - lastX;
-      velY = e.clientY - lastY;
-      lastX = e.clientX;
-      lastY = e.clientY;
-      x = clamp(e.clientX - startX, minX, 0);
-      y = clamp(e.clientY - startY, minY, 0);
-      gsap.set(grid, { x, y });
-    });
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const offsetX = (e.clientX - cx) / cx; // -1 to 1
+      const offsetY = (e.clientY - cy) / cy; // -1 to 1
 
-    window.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      wrapper.style.cursor = 'grab';
-      x = clamp(x + velX * 6, minX, 0);
-      y = clamp(y + velY * 6, minY, 0);
-      gsap.to(grid, { x, y, duration: 1, ease: 'power3.out' });
+      const targetX = clamp(x + offsetX * 300, minX, 0);
+      const targetY = clamp(y + offsetY * 300, minY, 0);
+
+      gsap.to(grid, {
+        x: targetX,
+        y: targetY,
+        duration: 2,
+        ease: 'power2.out',
+        onUpdate: () => {
+          x = gsap.getProperty(grid, 'x');
+          y = gsap.getProperty(grid, 'y');
+        }
+      });
     });
   </script>
 </body>
