@@ -197,13 +197,16 @@
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-      gsap.to('.title-r', { x: x * -24, y: y * -8, duration: 0.2, ease: 'power2.out' });
-      gsap.to('.title-b', { x: x * 24,  y: y * 8,  duration: 0.2, ease: 'power2.out' });
+      const splitX = x * 30;
+      const splitY = y * 10;
+
+      document.querySelector('.title-r').style.transform = `translate(${-splitX}px, ${-splitY}px)`;
+      document.querySelector('.title-b').style.transform = `translate(${splitX}px, ${splitY}px)`;
     });
 
     title.addEventListener('mouseleave', () => {
-      gsap.to('.title-r', { x: -3, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-      gsap.to('.title-b', { x: 3,  y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+      document.querySelector('.title-r').style.transform = 'translate(-3px, 0)';
+      document.querySelector('.title-b').style.transform = 'translate(3px, 0)';
     });
   </script>
   <script>
