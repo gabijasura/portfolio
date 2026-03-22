@@ -6,6 +6,7 @@
   <title>Gabija Sura — Motion Designer</title>
   <meta name="description" content="Gabija Sura | Motion Designer in Stockholm" />
   <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
@@ -154,6 +155,85 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Holographic tilt effect on hero title
+    const title = document.querySelector('.hero-title');
+
+    const holoCanvas = document.createElement('canvas');
+    holoCanvas.style.cssText = `
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+    `;
+    title.style.position = 'relative';
+    title.appendChild(holoCanvas);
+
+    const holoCtx = holoCanvas.getContext('2d');
+
+    function resizeHoloCanvas() {
+      holoCanvas.width = title.offsetWidth;
+      holoCanvas.height = title.offsetHeight;
+    }
+    resizeHoloCanvas();
+
+    function drawHolo(x, y) {
+      const w = holoCanvas.width;
+      const h = holoCanvas.height;
+      holoCtx.clearRect(0, 0, w, h);
+
+      const hue = x * 360;
+      const gradient = holoCtx.createLinearGradient(0, 0, w, h);
+      gradient.addColorStop(0,   `hsla(${hue},       100%, 70%, 0.6)`);
+      gradient.addColorStop(0.3, `hsla(${hue + 60},  100%, 80%, 0.4)`);
+      gradient.addColorStop(0.6, `hsla(${hue + 140}, 100%, 70%, 0.5)`);
+      gradient.addColorStop(1,   `hsla(${hue + 220}, 100%, 75%, 0.3)`);
+      holoCtx.fillStyle = gradient;
+      holoCtx.fillRect(0, 0, w, h);
+
+      const radial = holoCtx.createRadialGradient(x * w, y * h, 0, x * w, y * h, w * 0.4);
+      radial.addColorStop(0,   'rgba(255,255,255,0.6)');
+      radial.addColorStop(0.3, 'rgba(255,255,255,0.1)');
+      radial.addColorStop(1,   'rgba(255,255,255,0)');
+      holoCtx.fillStyle = radial;
+      holoCtx.fillRect(0, 0, w, h);
+    }
+
+    title.addEventListener('mousemove', e => {
+      const rect = title.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      holoCanvas.style.opacity = '1';
+      drawHolo(x, y);
+
+      gsap.to(title, {
+        rotateX: (y - 0.5) * -15,
+        rotateY: (x - 0.5) * 20,
+        transformPerspective: 600,
+        scale: 1.03,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+    });
+
+    title.addEventListener('mouseleave', () => {
+      holoCanvas.style.opacity = '0';
+      gsap.to(title, {
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: 'elastic.out(1, 0.4)'
+      });
+    });
+
+    window.addEventListener('resize', resizeHoloCanvas);
+  </script>
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
