@@ -871,3 +871,90 @@ footer a:hover { opacity: 0.5; }
 @media (max-width: 700px) {
   .proj-split { grid-template-columns: 1fr; }
 }
+
+/* ══════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { gap: 12px; }
+  .nav-links a, .nav-logo { font-size: 11px; }
+
+  h1, .hero-title { font-size: clamp(2.5rem, 12vw, 8rem) !important; }
+
+  video, img { max-width: 100%; height: auto; }
+
+  .project-content { padding: 40px 20px !important; }
+
+  p, .about-bio { font-size: 1rem !important; }
+
+  .about-page-body { flex-direction: column !important; }
+
+  .about-img {
+    width: 100% !important;
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    min-width: unset !important;
+  }
+
+  /* Work page */
+  .projects-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    padding: 16px !important;
+  }
+  .project-title { font-size: 10px !important; }
+
+  /* Home hero */
+  .slot-machine {
+    width: 95vw !important;
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+
+  /* Playground */
+  .video-grid {
+    transform: none !important;
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: unset !important;
+    gap: 8px !important;
+    padding: 8px !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .playground-wrapper {
+    overflow: auto !important;
+    height: auto !important;
+  }
+  .video-item {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1/1 !important;
+  }
+
+  /* Lcky Group */
+  .brand-videos { flex-direction: column !important; }
+  .brand-videos .video-wrap { max-width: 100% !important; }
+  .display-ads-grid { grid-template-columns: 1fr !important; }
+
+  /* Fjällräven hero */
+  .hero-videos { flex-direction: column !important; padding: 20px !important; }
+  .hero-video-wrap { max-width: 100% !important; }
+
+  /* Mushroom layout */
+  .mushroom-layout { grid-template-columns: 1fr !important; }
+  .mushroom-right { padding: 16px 24px !important; }
+  .mushroom-left { padding: 20px 24px 40px !important; }
+
+  /* Stills grid */
+  .stills-grid { grid-template-columns: 1fr !important; padding: 0 20px !important; }
+  .section-title { padding: 0 20px !important; }
+  .gif-section { padding: 40px 20px !important; }
+}
+
+@media (max-width: 480px) {
+  .projects-grid { grid-template-columns: 1fr !important; }
+}

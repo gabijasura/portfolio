@@ -133,27 +133,29 @@
     const minY = -(grid.scrollHeight - window.innerHeight);
     const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
 
-    gsap.set(grid, { x: currentX, y: currentY });
-
-    window.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    gsap.ticker.add(() => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      const offsetX = (mouseX - cx) / cx;
-      const offsetY = (mouseY - cy) / cy;
-
-      const targetX = clamp(-(grid.scrollWidth - window.innerWidth) / 2 - offsetX * 150, minX, 0);
-      const targetY = clamp(-(grid.scrollHeight - window.innerHeight) / 2 - offsetY * 150, minY, 0);
-
-      currentX += (targetX - currentX) * 0.02;
-      currentY += (targetY - currentY) * 0.02;
-
+    if (window.innerWidth > 768) {
       gsap.set(grid, { x: currentX, y: currentY });
-    });
+
+      window.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      gsap.ticker.add(() => {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        const offsetX = (mouseX - cx) / cx;
+        const offsetY = (mouseY - cy) / cy;
+
+        const targetX = clamp(-(grid.scrollWidth - window.innerWidth) / 2 - offsetX * 150, minX, 0);
+        const targetY = clamp(-(grid.scrollHeight - window.innerHeight) / 2 - offsetY * 150, minY, 0);
+
+        currentX += (targetX - currentX) * 0.02;
+        currentY += (targetY - currentY) * 0.02;
+
+        gsap.set(grid, { x: currentX, y: currentY });
+      });
+    }
   </script>
 </body>
 </html>
