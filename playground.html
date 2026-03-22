@@ -104,36 +104,65 @@
       return a;
     }
 
-    // Fill all 72 cells (12x6) cycling through a shuffled playlist
-    const totalCells = 12 * 6;
-    const shuffledVideos = shuffle([...playgroundVideos]);
-    for (let i = 0; i < totalCells; i++) {
-      const src = shuffledVideos[i % shuffledVideos.length];
-      const item = document.createElement('div');
-      item.className = 'video-item';
-      item.innerHTML = src.endsWith('.gif')
-        ? `<img src="videos/${src}" alt="">`
-        : `<video src="videos/${src}" muted loop playsinline></video>`;
-      grid.appendChild(item);
-      const v = item.querySelector('video');
-      if (v) {
-        v.muted = true;
-        v.pause();
-        item.addEventListener('mouseenter', () => v.play().catch(() => {}));
-        item.addEventListener('mouseleave', () => v.pause());
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // Mobile: simple static grid, all videos autoplay
+      wrapper.style.overflow = 'auto';
+      wrapper.style.height = 'auto';
+      Object.assign(grid.style, {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridTemplateRows: 'unset',
+        gap: '8px',
+        padding: '8px',
+        width: '100%',
+        position: 'relative',
+        transform: 'none',
+      });
+
+      playgroundVideos.forEach(src => {
+        const item = document.createElement('div');
+        item.className = 'video-item';
+        item.style.cssText = 'width:100%;height:auto;aspect-ratio:1/1;';
+        item.innerHTML = src.endsWith('.gif')
+          ? `<img src="videos/${src}" alt="">`
+          : `<video src="videos/${src}" autoplay muted loop playsinline></video>`;
+        grid.appendChild(item);
+        const v = item.querySelector('video');
+        if (v) { v.muted = true; v.play().catch(() => {}); }
+      });
+
+    } else {
+      // Desktop: 12x6 shuffled grid with mouse parallax
+      const totalCells = 12 * 6;
+      const shuffledVideos = shuffle([...playgroundVideos]);
+      for (let i = 0; i < totalCells; i++) {
+        const src = shuffledVideos[i % shuffledVideos.length];
+        const item = document.createElement('div');
+        item.className = 'video-item';
+        item.innerHTML = src.endsWith('.gif')
+          ? `<img src="videos/${src}" alt="">`
+          : `<video src="videos/${src}" muted loop playsinline></video>`;
+        grid.appendChild(item);
+        const v = item.querySelector('video');
+        if (v) {
+          v.muted = true;
+          v.pause();
+          item.addEventListener('mouseenter', () => v.play().catch(() => {}));
+          item.addEventListener('mouseleave', () => v.pause());
+        }
       }
-    }
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let currentX = -(grid.scrollWidth - window.innerWidth) / 2;
-    let currentY = -(grid.scrollHeight - window.innerHeight) / 2;
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let currentX = -(grid.scrollWidth - window.innerWidth) / 2;
+      let currentY = -(grid.scrollHeight - window.innerHeight) / 2;
 
-    const minX = -(grid.scrollWidth - window.innerWidth);
-    const minY = -(grid.scrollHeight - window.innerHeight);
-    const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
+      const minX = -(grid.scrollWidth - window.innerWidth);
+      const minY = -(grid.scrollHeight - window.innerHeight);
+      const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
 
-    if (window.innerWidth > 768) {
       gsap.set(grid, { x: currentX, y: currentY });
 
       window.addEventListener('mousemove', e => {
