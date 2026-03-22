@@ -958,3 +958,32 @@ footer a:hover { opacity: 0.5; }
 @media (max-width: 480px) {
   .projects-grid { grid-template-columns: 1fr !important; }
 }
+
+/* ─── Work page mobile fixes ─── */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    padding: 12px !important;
+  }
+  .project-title {
+    font-size: 9px !important;
+    letter-spacing: 0.1em !important;
+    margin-top: 6px !important;
+  }
+  .work-header {
+    padding: 80px 16px 16px !important;
+  }
+  .work-page-title {
+    font-size: 15vw !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .project-media {
+    aspect-ratio: 16/9 !important;
+  }
+}
