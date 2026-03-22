@@ -42,6 +42,7 @@
       height: 277px;
       border-radius: 10px;
       overflow: hidden;
+      background: rgba(0,0,0,0.15);
     }
 
     .video-item video,
@@ -139,7 +140,7 @@
         item.style.cssText = 'width:100%;height:auto;aspect-ratio:1/1;';
         item.innerHTML = src.endsWith('.gif')
           ? `<img src="videos/${src}" alt="">`
-          : `<video src="videos/${src}" muted loop playsinline preload="none"></video>`;
+          : `<video src="videos/${src}" muted loop playsinline preload="metadata"></video>`;
         grid.appendChild(item);
         const v = item.querySelector('video');
         if (v) {

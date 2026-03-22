@@ -987,3 +987,49 @@ footer a:hover { opacity: 0.5; }
     aspect-ratio: 16/9 !important;
   }
 }
+
+/* ── Index / Hero mobile fixes ── */
+@media (max-width: 768px) {
+  /* Collapse the tall scroll-room hero to just one viewport */
+  .hero { height: 100vh; }
+
+  /* Hide floating decoratives — they overlap nav and text on small screens */
+  .hero-float,
+  .float-cat { display: none !important; }
+
+  /* Hide the card fan — GSAP scroll animation breaks on mobile */
+  .hero-cards { display: none !important; }
+
+  /* Hero title centered, smaller */
+  .hero-title {
+    font-size: clamp(2.5rem, 14vw, 5rem) !important;
+    text-align: center;
+  }
+
+  /* Slot decoratives take too much space on mobile */
+  .slot-stars,
+  .slot-cherry { display: none !important; }
+
+  /* Remove the scale() hack — flex-direction column handles it */
+  .slot-machine {
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* ── About page chip row ── */
+@media (max-width: 768px) {
+  .contact-chips {
+    justify-content: center;
+    gap: 24px;
+  }
+}
+
+/* ── Project pages: ensure videos don't overflow ── */
+@media (max-width: 768px) {
+  .proj-page { padding: 8px 16px 60px !important; }
+  .proj-title { font-size: clamp(2rem, 12vw, 4rem) !important; }
+  .project-content { padding: 30px 16px !important; }
+  .hero-videos { flex-direction: column !important; gap: 16px !important; }
+}

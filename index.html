@@ -158,6 +158,7 @@
     gsap.registerPlugin(ScrollTrigger);
 
     (function () {
+      if (window.innerWidth <= 768) return; // skip card animation on mobile
       var cards = gsap.utils.toArray('#hero-cards .playing-card');
       if (!cards.length) return;
 
