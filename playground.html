@@ -104,55 +104,76 @@
       'glass-flower-main.mp4',
     ];
 
-    const grid = document.querySelector('.video-grid');
-    const wrapper = document.querySelector('.playground-wrapper');
-
-    // Shuffle helper
-    function shuffle(arr) {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
     const isMobile = window.innerWidth <= 768;
 
     if (isMobile) {
-      // Mobile: simple static grid, all videos autoplay
-      wrapper.style.overflow = 'auto';
-      wrapper.style.height = 'auto';
-      Object.assign(grid.style, {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gridTemplateRows: 'unset',
-        gap: '8px',
-        padding: '8px',
-        width: '100%',
-        position: 'relative',
-        transform: 'none',
-      });
+      // Inject CSS overrides immediately — before anything renders
+      const style = document.createElement('style');
+      style.textContent = `
+        body, html { overflow: auto !important; height: auto !important; }
+        .playground-wrapper {
+          overflow: visible !important;
+          height: auto !important;
+          min-height: 100vh;
+          position: relative !important;
+        }
+        .video-grid {
+          position: relative !important;
+          transform: none !important;
+          display: grid !important;
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 8px !important;
+          padding: 8px !important;
+          width: 100% !important;
+          height: auto !important;
+          top: auto !important;
+          left: auto !important;
+        }
+        .video-item {
+          width: 100% !important;
+          height: auto !important;
+          aspect-ratio: 1/1 !important;
+          position: relative !important;
+        }
+        .vignette { display: none !important; }
+      `;
+      document.head.appendChild(style);
 
+      // Populate grid — no GSAP, no ticker
+      const grid = document.querySelector('.video-grid');
       playgroundVideos.forEach(src => {
         const item = document.createElement('div');
         item.className = 'video-item';
-        item.style.cssText = 'width:100%;height:auto;aspect-ratio:1/1;';
-        item.innerHTML = src.endsWith('.gif')
-          ? `<img src="videos/${src}" alt="">`
-          : `<video src="videos/${src}" muted loop playsinline preload="metadata"></video>`;
-        grid.appendChild(item);
-        const v = item.querySelector('video');
-        if (v) {
-          item.addEventListener('click', () => {
-            if (v.paused) v.play().catch(() => {});
-            else v.pause();
-          });
+        if (src.endsWith('.gif')) {
+          item.innerHTML = `<img src="videos/${src}" style="width:100%;height:100%;object-fit:cover;">`;
+        } else {
+          const v = document.createElement('video');
+          v.src = `videos/${src}`;
+          v.muted = true;
+          v.loop = true;
+          v.playsInline = true;
+          v.setAttribute('playsinline', '');
+          v.preload = 'metadata';
+          v.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+          item.appendChild(v);
+          item.addEventListener('click', () => v.paused ? v.play().catch(() => {}) : v.pause());
         }
+        grid.appendChild(item);
       });
 
     } else {
-      // Desktop: 12x6 shuffled grid with mouse parallax
+      // Desktop: 12x6 shuffled grid with GSAP mouse parallax
+      const grid = document.querySelector('.video-grid');
+
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
       const totalCells = 12 * 6;
       const shuffledVideos = shuffle([...playgroundVideos]);
       for (let i = 0; i < totalCells; i++) {
