@@ -12,12 +12,7 @@
     .reveal { opacity:0; transform:translateY(28px); transition: opacity .7s ease, transform .7s ease; }
     .playing-card .vid-controls { display: none; }
     .reveal.visible { opacity:1; transform:translateY(0); }
-    /* Pink suit cards: invert + colorize + screen blend so background drops out */
-    .card-3 .card-face,
-    .card-4 .card-face {
-      mix-blend-mode: screen;
-      filter: invert(1) sepia(1) saturate(5) hue-rotate(280deg);
-    }
+
   </style>
 </head>
 <body>
