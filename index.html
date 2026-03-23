@@ -187,7 +187,7 @@
     const titleEl = document.querySelector('.hero-title');
 
     if (window.innerWidth <= 768) {
-      // Mobile: plain chromatic aberration, no PixiJS
+      // Mobile: plain chromatic aberration spans, no PixiJS
       const t = titleEl.textContent.trim();
       titleEl.innerHTML = `
         <span class="title-r" aria-hidden="true">${t}</span>
@@ -208,7 +208,7 @@
       return;
     }
 
-    // Desktop: PixiJS displacement distortion
+    // Desktop: PixiJS fluted-glass displacement + RGB split
     document.fonts.ready.then(() => {
       const heroPin = document.querySelector('.hero-pin');
       const W = window.innerWidth;
@@ -226,71 +226,77 @@
         });
       } catch (e) { return; } // WebGL unavailable — leave plain text
 
-      // Hide underlying HTML title; PixiJS canvas replaces it
+      // Hide HTML title; PixiJS renders it (with RGB split)
       titleEl.style.opacity = '0';
+      titleEl.style.pointerEvents = 'auto'; // still catches mouse events
 
       const canvas = app.view;
       canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:4;';
       heroPin.appendChild(canvas);
 
-      // Text matching hero CSS
-      const pixiText = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({
-        fontFamily: 'Jost, sans-serif',
-        fontSize:   fontSize,
-        fontWeight: '800',
-        fill:       '#ffffff',
-        letterSpacing: -0.01 * fontSize,
-      }));
-      pixiText.anchor.set(0.5);
-      pixiText.x = W / 2;
-      pixiText.y = H / 2;
+      const CX = W / 2, CY = H / 2;
+      const baseStyle = { fontFamily: 'Jost, sans-serif', fontSize, fontWeight: '800', letterSpacing: -0.01 * fontSize };
 
-      // Procedural sine-wave noise texture for displacement
+      // Three text layers matching .title-r / .title-main / .title-b
+      const tR    = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({ ...baseStyle, fill: 'rgba(255,50,100,0.7)' }));
+      const tMain = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({ ...baseStyle, fill: '#ffffff' }));
+      const tB    = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({ ...baseStyle, fill: 'rgba(0,220,255,0.7)' }));
+
+      [tR, tMain, tB].forEach(t => { t.anchor.set(0.5); t.y = CY; });
+      tR.x    = CX - 3;   // pink offset left
+      tMain.x = CX;
+      tB.x    = CX + 3;   // cyan offset right
+
+      tR.blendMode = PIXI.BLEND_MODES.SCREEN;
+      tB.blendMode = PIXI.BLEND_MODES.SCREEN;
+
+      // ── Fluted-glass displacement texture: pure vertical sine stripes ──
+      // R channel = x-displacement ridges, G channel = 128 (neutral / no y shift)
       const NS = 512;
-      const nc  = document.createElement('canvas');
+      const nc = document.createElement('canvas');
       nc.width = nc.height = NS;
       const nctx = nc.getContext('2d');
       const id = nctx.createImageData(NS, NS);
       for (let i = 0; i < id.data.length; i += 4) {
         const px = (i / 4) % NS;
-        const py = Math.floor((i / 4) / NS);
-        id.data[i]   = (Math.sin(px * 0.05 + 0.4) * Math.cos(py * 0.06)       * 0.5 + 0.5) * 255;
-        id.data[i+1] = (Math.cos(px * 0.06 + 1.2) * Math.sin(py * 0.05 + 0.9) * 0.5 + 0.5) * 255;
+        id.data[i]   = Math.floor((Math.sin(px * 0.06) * 0.5 + 0.5) * 255); // R → x ridges
+        id.data[i+1] = 128; // G → no vertical displacement
         id.data[i+2] = 128;
         id.data[i+3] = 255;
       }
       nctx.putImageData(id, 0, 0);
 
-      const noiseTex  = PIXI.Texture.from(nc);
+      const noiseTex   = PIXI.Texture.from(nc);
       const dispSprite = new PIXI.Sprite(noiseTex);
       dispSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
       app.stage.addChild(dispSprite);
 
       const dispFilter = new PIXI.DisplacementFilter(dispSprite);
-      dispFilter.scale.set(8);
-      pixiText.filters = [dispFilter];
-      app.stage.addChild(pixiText);
+      dispFilter.scale.set(0); // off at rest
 
-      // Animation loop — drift noise + ease displacement scale
-      let currentScale = 8;
-      let targetScale  = 8;
+      // Group all text in a container — single filter on the whole group
+      const group = new PIXI.Container();
+      group.addChild(tR, tMain, tB);
+      group.filters = [dispFilter];
+      app.stage.addChild(group);
+
+      // Tick: slow horizontal drift of flute pattern + apply tweened scale
+      const state = { scale: 0 };
       app.ticker.add(delta => {
-        dispSprite.x += 0.5 * delta;
-        dispSprite.y += 0.3 * delta;
-        currentScale += (targetScale - currentScale) * 0.07;
-        dispFilter.scale.set(currentScale);
-        if (targetScale > 8) targetScale += (8 - targetScale) * 0.04; // decay
+        dispSprite.x += 0.15 * delta; // gentle horizontal drift
+        dispFilter.scale.set(state.scale);
       });
 
-      // Mouse velocity → displacement intensity
-      let lastX = 0, lastY = 0;
-      heroPin.addEventListener('mousemove', e => {
-        const vel = Math.sqrt((e.clientX - lastX) ** 2 + (e.clientY - lastY) ** 2);
-        targetScale = Math.min(80, 8 + vel * 2.5);
-        lastX = e.clientX;
-        lastY = e.clientY;
+      // ── FIX 1: trigger ONLY when mouse is over the title element ──
+      titleEl.addEventListener('mouseenter', () => {
+        gsap.killTweensOf(state);
+        gsap.to(state, { scale: 30, duration: 0.35, ease: 'power2.out' });
       });
-      heroPin.addEventListener('mouseleave', () => { targetScale = 8; });
+
+      titleEl.addEventListener('mouseleave', () => {
+        gsap.killTweensOf(state);
+        gsap.to(state, { scale: 0, duration: 0.8, ease: 'power2.out' }); // smooth 0.8s recovery
+      });
     });
   })();
   </script>
