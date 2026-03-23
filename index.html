@@ -6,6 +6,7 @@
   <title>Gabija Sura — Motion Designer</title>
   <meta name="description" content="Gabija Sura | Motion Designer in Stockholm" />
   <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
@@ -182,32 +183,116 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Chromatic aberration RGB split on hero title
-    const title = document.querySelector('.hero-title');
-    const text = title.textContent;
+  (function () {
+    const titleEl = document.querySelector('.hero-title');
 
-    title.innerHTML = `
-      <span class="title-r" aria-hidden="true">${text}</span>
-      <span class="title-main">${text}</span>
-      <span class="title-b" aria-hidden="true">${text}</span>
-    `;
+    if (window.innerWidth <= 768) {
+      // Mobile: plain chromatic aberration, no PixiJS
+      const t = titleEl.textContent.trim();
+      titleEl.innerHTML = `
+        <span class="title-r" aria-hidden="true">${t}</span>
+        <span class="title-main">${t}</span>
+        <span class="title-b" aria-hidden="true">${t}</span>
+      `;
+      titleEl.addEventListener('mousemove', e => {
+        const r = titleEl.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        document.querySelector('.title-r').style.transform = `translate(${-x*30}px, ${-y*10}px)`;
+        document.querySelector('.title-b').style.transform = `translate(${x*30}px, ${y*10}px)`;
+      });
+      titleEl.addEventListener('mouseleave', () => {
+        document.querySelector('.title-r').style.transform = 'translate(-3px, 0)';
+        document.querySelector('.title-b').style.transform = 'translate(3px, 0)';
+      });
+      return;
+    }
 
-    title.addEventListener('mousemove', e => {
-      const rect = title.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+    // Desktop: PixiJS displacement distortion
+    document.fonts.ready.then(() => {
+      const heroPin = document.querySelector('.hero-pin');
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+      const fontSize = parseFloat(window.getComputedStyle(titleEl).fontSize);
 
-      const splitX = x * 30;
-      const splitY = y * 10;
+      let app;
+      try {
+        app = new PIXI.Application({
+          width: W, height: H,
+          backgroundAlpha: 0,
+          antialias: true,
+          resolution: window.devicePixelRatio || 1,
+          autoDensity: true,
+        });
+      } catch (e) { return; } // WebGL unavailable — leave plain text
 
-      document.querySelector('.title-r').style.transform = `translate(${-splitX}px, ${-splitY}px)`;
-      document.querySelector('.title-b').style.transform = `translate(${splitX}px, ${splitY}px)`;
+      // Hide underlying HTML title; PixiJS canvas replaces it
+      titleEl.style.opacity = '0';
+
+      const canvas = app.view;
+      canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:4;';
+      heroPin.appendChild(canvas);
+
+      // Text matching hero CSS
+      const pixiText = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({
+        fontFamily: 'Jost, sans-serif',
+        fontSize:   fontSize,
+        fontWeight: '800',
+        fill:       '#ffffff',
+        letterSpacing: -0.01 * fontSize,
+      }));
+      pixiText.anchor.set(0.5);
+      pixiText.x = W / 2;
+      pixiText.y = H / 2;
+
+      // Procedural sine-wave noise texture for displacement
+      const NS = 512;
+      const nc  = document.createElement('canvas');
+      nc.width = nc.height = NS;
+      const nctx = nc.getContext('2d');
+      const id = nctx.createImageData(NS, NS);
+      for (let i = 0; i < id.data.length; i += 4) {
+        const px = (i / 4) % NS;
+        const py = Math.floor((i / 4) / NS);
+        id.data[i]   = (Math.sin(px * 0.05 + 0.4) * Math.cos(py * 0.06)       * 0.5 + 0.5) * 255;
+        id.data[i+1] = (Math.cos(px * 0.06 + 1.2) * Math.sin(py * 0.05 + 0.9) * 0.5 + 0.5) * 255;
+        id.data[i+2] = 128;
+        id.data[i+3] = 255;
+      }
+      nctx.putImageData(id, 0, 0);
+
+      const noiseTex  = PIXI.Texture.from(nc);
+      const dispSprite = new PIXI.Sprite(noiseTex);
+      dispSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+      app.stage.addChild(dispSprite);
+
+      const dispFilter = new PIXI.DisplacementFilter(dispSprite);
+      dispFilter.scale.set(8);
+      pixiText.filters = [dispFilter];
+      app.stage.addChild(pixiText);
+
+      // Animation loop — drift noise + ease displacement scale
+      let currentScale = 8;
+      let targetScale  = 8;
+      app.ticker.add(delta => {
+        dispSprite.x += 0.5 * delta;
+        dispSprite.y += 0.3 * delta;
+        currentScale += (targetScale - currentScale) * 0.07;
+        dispFilter.scale.set(currentScale);
+        if (targetScale > 8) targetScale += (8 - targetScale) * 0.04; // decay
+      });
+
+      // Mouse velocity → displacement intensity
+      let lastX = 0, lastY = 0;
+      heroPin.addEventListener('mousemove', e => {
+        const vel = Math.sqrt((e.clientX - lastX) ** 2 + (e.clientY - lastY) ** 2);
+        targetScale = Math.min(80, 8 + vel * 2.5);
+        lastX = e.clientX;
+        lastY = e.clientY;
+      });
+      heroPin.addEventListener('mouseleave', () => { targetScale = 8; });
     });
-
-    title.addEventListener('mouseleave', () => {
-      document.querySelector('.title-r').style.transform = 'translate(-3px, 0)';
-      document.querySelector('.title-b').style.transform = 'translate(3px, 0)';
-    });
+  })();
   </script>
   <script>
     gsap.registerPlugin(ScrollTrigger);
