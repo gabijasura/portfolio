@@ -6,7 +6,6 @@
   <title>Gabija Sura — Motion Designer</title>
   <meta name="description" content="Gabija Sura | Motion Designer in Stockholm" />
   <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
@@ -185,117 +184,140 @@
   <script>
   (function () {
     const titleEl = document.querySelector('.hero-title');
+    const rawText = titleEl.textContent.trim();
 
+    // Always build the three chromatic-aberration spans
+    titleEl.innerHTML = `
+      <span class="title-r"    aria-hidden="true">${rawText}</span>
+      <span class="title-main">${rawText}</span>
+      <span class="title-b"    aria-hidden="true">${rawText}</span>
+    `;
+
+    // ── Mobile: mousemove-driven split, no canvas ──
     if (window.innerWidth <= 768) {
-      // Mobile: plain chromatic aberration spans, no PixiJS
-      const t = titleEl.textContent.trim();
-      titleEl.innerHTML = `
-        <span class="title-r" aria-hidden="true">${t}</span>
-        <span class="title-main">${t}</span>
-        <span class="title-b" aria-hidden="true">${t}</span>
-      `;
       titleEl.addEventListener('mousemove', e => {
         const r = titleEl.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        document.querySelector('.title-r').style.transform = `translate(${-x*30}px, ${-y*10}px)`;
-        document.querySelector('.title-b').style.transform = `translate(${x*30}px, ${y*10}px)`;
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        titleEl.querySelector('.title-r').style.transform = `translate(${-x*30}px, ${-y*10}px)`;
+        titleEl.querySelector('.title-b').style.transform = `translate(${x*30}px,  ${y*10}px)`;
       });
       titleEl.addEventListener('mouseleave', () => {
-        document.querySelector('.title-r').style.transform = 'translate(-3px, 0)';
-        document.querySelector('.title-b').style.transform = 'translate(3px, 0)';
+        titleEl.querySelector('.title-r').style.transform = 'translate(-3px, 0)';
+        titleEl.querySelector('.title-b').style.transform = 'translate(3px, 0)';
       });
       return;
     }
 
-    // Desktop: PixiJS fluted-glass displacement + RGB split
+    // ── Desktop: 2D-canvas fluted-glass lens over the spans ──
+    // Spans stay visible; canvas is transparent except inside the lens circle.
     document.fonts.ready.then(() => {
-      const heroPin = document.querySelector('.hero-pin');
-      const W = window.innerWidth;
-      const H = window.innerHeight;
+      const heroPin  = document.querySelector('.hero-pin');
+      const W        = window.innerWidth;
+      const H        = window.innerHeight;
       const fontSize = parseFloat(window.getComputedStyle(titleEl).fontSize);
 
-      let app;
-      try {
-        app = new PIXI.Application({
-          width: W, height: H,
-          backgroundAlpha: 0,
-          antialias: true,
-          resolution: window.devicePixelRatio || 1,
-          autoDensity: true,
-        });
-      } catch (e) { return; } // WebGL unavailable — leave plain text
-
-      // Hide HTML title; PixiJS renders it (with RGB split)
-      titleEl.style.opacity = '0';
-      titleEl.style.pointerEvents = 'auto'; // still catches mouse events
-
-      const canvas = app.view;
+      // Main canvas — transparent overlay, pointer-events:none
+      const canvas = document.createElement('canvas');
+      canvas.width  = W;
+      canvas.height = H;
       canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:4;';
       heroPin.appendChild(canvas);
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-      const CX = W / 2, CY = H / 2;
-      const baseStyle = { fontFamily: 'Jost, sans-serif', fontSize, fontWeight: '800', letterSpacing: -0.01 * fontSize };
+      // Offscreen canvas — white text, never rendered to screen directly, only sampled
+      const off    = document.createElement('canvas');
+      off.width    = W;
+      off.height   = H;
+      const offCtx = off.getContext('2d', { willReadFrequently: true });
+      offCtx.font         = `800 ${fontSize}px "Jost", sans-serif`;
+      offCtx.fillStyle    = 'white';
+      offCtx.textAlign    = 'center';
+      offCtx.textBaseline = 'middle';
+      offCtx.fillText('GABIJA SURA', W / 2, H / 2);
 
-      // Three text layers matching .title-r / .title-main / .title-b
-      const tR    = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({ ...baseStyle, fill: 'rgba(255,50,100,0.7)' }));
-      const tMain = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({ ...baseStyle, fill: '#ffffff' }));
-      const tB    = new PIXI.Text('GABIJA SURA', new PIXI.TextStyle({ ...baseStyle, fill: 'rgba(0,220,255,0.7)' }));
-
-      [tR, tMain, tB].forEach(t => { t.anchor.set(0.5); t.y = CY; });
-      tR.x    = CX - 3;   // pink offset left
-      tMain.x = CX;
-      tB.x    = CX + 3;   // cyan offset right
-
-      tR.blendMode = PIXI.BLEND_MODES.SCREEN;
-      tB.blendMode = PIXI.BLEND_MODES.SCREEN;
-
-      // ── Fluted-glass displacement texture: pure vertical sine stripes ──
-      // R channel = x-displacement ridges, G channel = 128 (neutral / no y shift)
-      const NS = 512;
-      const nc = document.createElement('canvas');
-      nc.width = nc.height = NS;
-      const nctx = nc.getContext('2d');
-      const id = nctx.createImageData(NS, NS);
-      for (let i = 0; i < id.data.length; i += 4) {
-        const px = (i / 4) % NS;
-        id.data[i]   = Math.floor((Math.sin(px * 0.06) * 0.5 + 0.5) * 255); // R → x ridges
-        id.data[i+1] = 128; // G → no vertical displacement
-        id.data[i+2] = 128;
-        id.data[i+3] = 255;
+      // Smooth-step helper (matches GLSL smoothstep)
+      function smoothstep(a, b, x) {
+        const t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+        return t * t * (3 - 2 * t);
       }
-      nctx.putImageData(id, 0, 0);
 
-      const noiseTex   = PIXI.Texture.from(nc);
-      const dispSprite = new PIXI.Sprite(noiseTex);
-      dispSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-      app.stage.addChild(dispSprite);
+      let mouseX = W / 2, mouseY = H / 2;
+      let currentRadius = 0, targetRadius = 0;
 
-      const dispFilter = new PIXI.DisplacementFilter(dispSprite);
-      dispFilter.scale.set(0); // off at rest
+      function render() {
+        const time = performance.now() * 0.001;
 
-      // Group all text in a container — single filter on the whole group
-      const group = new PIXI.Container();
-      group.addChild(tR, tMain, tB);
-      group.filters = [dispFilter];
-      app.stage.addChild(group);
+        // Ease radius: fast in (0.3 s), slower out (0.5 s)
+        const lerpRate = targetRadius > currentRadius ? 0.18 : 0.10;
+        currentRadius += (targetRadius - currentRadius) * lerpRate;
 
-      // Tick: slow horizontal drift of flute pattern + apply tweened scale
-      const state = { scale: 0 };
-      app.ticker.add(delta => {
-        dispSprite.x += 0.15 * delta; // gentle horizontal drift
-        dispFilter.scale.set(state.scale);
-      });
+        // Always clear — canvas is transparent outside the lens
+        ctx.clearRect(0, 0, W, H);
 
-      // ── FIX 1: trigger ONLY when mouse is over the title element ──
-      titleEl.addEventListener('mouseenter', () => {
-        gsap.killTweensOf(state);
-        gsap.to(state, { scale: 30, duration: 0.35, ease: 'power2.out' });
-      });
+        const r = Math.floor(currentRadius);
+        if (r >= 2) {
+          const MARGIN = 30; // extra px so displaced samples don't clip
+          const x0 = Math.max(0, Math.floor(mouseX - r));
+          const y0 = Math.max(0, Math.floor(mouseY - r));
+          const x1 = Math.min(W, Math.ceil(mouseX  + r));
+          const y1 = Math.min(H, Math.ceil(mouseY  + r));
+          const rw = x1 - x0, rh = y1 - y0;
 
-      titleEl.addEventListener('mouseleave', () => {
-        gsap.killTweensOf(state);
-        gsap.to(state, { scale: 0, duration: 0.8, ease: 'power2.out' }); // smooth 0.8s recovery
+          if (rw > 0 && rh > 0) {
+            const sx0 = Math.max(0, x0 - MARGIN);
+            const sy0 = Math.max(0, y0 - MARGIN);
+            const sw  = Math.min(W, x1 + MARGIN) - sx0;
+            const sh  = Math.min(H, y1 + MARGIN) - sy0;
+
+            const srcData  = offCtx.getImageData(sx0, sy0, sw, sh);
+            const destData = ctx.createImageData(rw, rh); // starts fully transparent
+
+            for (let dy = 0; dy < rh; dy++) {
+              for (let dx = 0; dx < rw; dx++) {
+                const px = x0 + dx, py = y0 + dy;
+                const distX = px - mouseX, distY = py - mouseY;
+                const dist  = Math.sqrt(distX * distX + distY * distY);
+
+                if (dist >= r || dist < 0.5) continue; // outside lens or dead center
+
+                // UV-space distance keeps wave frequency viewport-independent
+                const distNorm = dist / W;
+                const falloff  = 1 - smoothstep(0, r, dist);
+                // Sine wave ripple — ribbed/fluted glass along radial direction
+                const wave  = Math.sin(distNorm * 40 - time * 2) * falloff * 0.018;
+                const inv   = 1 / dist;
+                const waveX = distX * inv * wave * W;
+                const waveY = distY * inv * wave * H;
+
+                const sampleX = Math.max(sx0, Math.min(sx0 + sw - 1, Math.round(px + waveX)));
+                const sampleY = Math.max(sy0, Math.min(sy0 + sh - 1, Math.round(py + waveY)));
+
+                const si = ((sampleY - sy0) * sw + (sampleX - sx0)) * 4;
+                const di = (dy * rw + dx) * 4;
+                destData.data[di]     = srcData.data[si];
+                destData.data[di + 1] = srcData.data[si + 1];
+                destData.data[di + 2] = srcData.data[si + 2];
+                destData.data[di + 3] = srcData.data[si + 3];
+              }
+            }
+
+            ctx.putImageData(destData, x0, y0);
+          }
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      render();
+
+      // Trigger only when mouse enters/leaves the title element
+      titleEl.addEventListener('mouseenter', () => { targetRadius = 120; });
+      titleEl.addEventListener('mouseleave', () => { targetRadius = 0; });
+      titleEl.addEventListener('mousemove', e => {
+        const rect = heroPin.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
       });
     });
   })();
