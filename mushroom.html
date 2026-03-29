@@ -14,26 +14,27 @@
       grid-template-columns: 1fr 1fr;
       position: relative;
     }
-    /* Left column: title at bottom, text below */
+    /* Left column: back at top, title+text at bottom */
     .mushroom-left {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 40px 40px 60px 80px;
+      justify-content: space-between;
+      padding: 80px 40px 60px 80px;
     }
     .mushroom-title {
-      font-size: clamp(52px, 8vw, 105px);
+      font-size: clamp(36px, 7vw, 90px);
       font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 0.02em;
       line-height: 1.05;
       color: #fff;
       margin-bottom: 18px;
     }
     .mushroom-text p {
       font-family: 'Urbanist', sans-serif;
-      font-size: 14px;
+      font-size: 16px;
       line-height: 1.7;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.85);
       max-width: 400px;
     }
     /* Right column: video fills from top */
@@ -77,11 +78,14 @@
 
   <main class="mushroom-layout">
     <div class="mushroom-left" style="position:relative;z-index:1;">
+      <a href="work.html" class="proj-back">← BACK</a>
+      <div>
       <h1 class="mushroom-title">Mushroom<br>Festival</h1>
       <div class="mushroom-text">
         <p>
           This is a moving poster I created as part of a group project at school. The task was to design a poster inspired by a real event. Our group came up with the concept together, but we each created three different posters individually. I challenged myself by trying to create a 3D Mushroom in Blender.
         </p>
+      </div>
       </div>
     </div>
     <div class="mushroom-right">

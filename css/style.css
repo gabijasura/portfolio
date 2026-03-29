@@ -5,11 +5,19 @@
 
 html { scroll-behavior: smooth; }
 
+:root {
+  --grad:
+    radial-gradient(ellipse at 20% 20%, #2d0a1e 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, #052220 0%, transparent 50%),
+    radial-gradient(ellipse at 65% 10%, #0a1f1e 0%, transparent 40%),
+    #080508;
+}
+
 body {
   font-family: 'Jost', sans-serif;
   color: #fff;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f4a0c8 0%, #f5bc90 24%, #cc90e4 56%, #6890f8 100%);
+  background: var(--grad);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -70,7 +78,7 @@ nav {
 }
 
 .nav-logo {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -648,15 +656,19 @@ footer a:hover { opacity: 0.5; }
 
 .proj-back {
   display: inline-block;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: .14em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.7);
   padding: 20px 0 24px;
-  transition: color .2s;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
 }
-.proj-back:hover { color: #fff; }
+.proj-back:hover {
+  opacity: 0.6;
+  transform: translateX(-4px);
+}
 
 /* media hero */
 .proj-media {
@@ -717,22 +729,24 @@ footer a:hover { opacity: 0.5; }
 
 /* big project title */
 .proj-title {
-  font-size: clamp(52px, 8vw, 110px);
+  font-size: clamp(36px, 7vw, 90px);
   font-weight: 800;
   text-transform: uppercase;
   line-height: 1;
+  letter-spacing: 0.02em;
   margin-bottom: 20px;
 }
 
 /* text area */
 .proj-text {
-  max-width: 560px;
+  max-width: 620px;
+  margin-top: 32px;
 }
 .proj-text p {
   font-family: 'Urbanist', sans-serif;
-  font-size: 14px;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.75);
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
   margin-bottom: 16px;
 }
 
@@ -743,10 +757,22 @@ footer a:hover { opacity: 0.5; }
 .proj-section-label {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: .2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  margin-bottom: 20px;
+  color: rgba(255,255,255,0.6);
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+
+/* Section title — used in lckygroup, meno-male */
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Jost', sans-serif;
+  margin-bottom: 16px;
 }
 .proj-section .proj-text {
   max-width: 540px;
