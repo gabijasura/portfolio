@@ -6,36 +6,29 @@
   <title>Meno Male — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .stills-section { padding: 60px 0; }
-    .section-title {
-      padding: 0 60px;
-    }
-    .stills-grid {
+    .mm-stills {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      padding: 0 60px;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 8px 60px 0;
+      gap: 8px;
     }
-    .stills-grid video {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      border-radius: 8px;
+    .mm-stills video {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px;
     }
-    .gif-section { text-align: center; padding: 60px; }
-    .email-gif { max-width: 600px; width: 100%; border-radius: 8px; }
-    @media (max-width: 700px) {
-      .section-title { padding: 0 24px; }
-      .stills-grid { grid-template-columns: 1fr; padding: 0 24px; }
-      .stills-grid video { aspect-ratio: 16/9; }
-      .gif-section { padding: 40px 24px; }
+    .mm-gif-wrap { margin: 48px 60px 0; }
+    .mm-gif-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px;
+    }
+    .mm-gif-wrap img { width: 100%; display: block; border-radius: 4px; }
+    @media (max-width: 768px) {
+      .mm-stills { grid-template-columns: repeat(2,1fr); margin: 8px 24px 0; }
+      .mm-gif-wrap { margin: 32px 24px 0; }
     }
   </style>
 </head>
 <body>
-
   <canvas class="cursor-canvas"></canvas>
-
   <nav>
     <a href="index.html" class="nav-logo">Gabija Sura</a>
     <ul class="nav-links">
@@ -44,49 +37,32 @@
       <li><a href="about.html">About</a></li>
     </ul>
   </nav>
-
-  <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-
   <main class="proj-page">
+    <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
+    <div class="proj-media">
+      <video src="videos/meno-male.mp4" autoplay muted loop playsinline></video>
+    </div>
     <div class="project-content">
-
-      <div class="proj-media">
-        <video src="videos/meno-male.mp4" autoplay muted loop playsinline style="object-fit:cover;width:100%;height:100%;"></video>
-      </div>
-
       <h1 class="proj-title">Meno Male</h1>
-
       <div class="proj-text">
-        <p>
-          During my internship at Bsmart, I had the opportunity to lead this project together with two other interns. I was responsible for editing, animation, and co-planning the film alongside the producer intern. The film was shot by our photography intern. Our goal was to promote Meno Male's catering service by showcasing their delicious Italian food and the inviting atmosphere of their events. We aimed to create a warm, appetizing, and vibrant look that reflects the Meno Male brand.
-        </p>
-        <p>
-          We created a 24-second hero film in both 16:9 and 9:16 formats to promote Meno Male's catering service. In addition to the film, we delivered five still images with playful hand-drawn doodles to match the warm and vibrant feel of the brand. The result was a lively and visually engaging campaign that brought out the essence of Meno Male's Italian food experience.
-        </p>
+        <p>During my internship at Bsmart, I had the opportunity to lead this project together with two other interns. I was responsible for editing, animation, and co-planning the film alongside the producer intern. Our goal was to promote Meno Male's catering service by showcasing their delicious Italian food and the inviting atmosphere of their events.</p>
+        <p>We created a 24-second hero film in both 16:9 and 9:16 formats, plus five still images with playful hand-drawn doodles to match the warm and vibrant feel of the brand.</p>
       </div>
     </div>
-
-    <section class="stills-section">
-      <h2 class="section-title">Doodled Stills</h2>
-      <div class="stills-grid">
-        <video src="img/menomale/aperitivo.mp4" autoplay muted loop playsinline></video>
-        <video src="img/menomale/pass_the_pizza.mp4" autoplay muted loop playsinline></video>
-        <video src="img/menomale/pizza.mp4" autoplay muted loop playsinline></video>
-        <video src="img/menomale/pizza_catering 9x16.mp4" autoplay muted loop playsinline></video>
-      </div>
-    </section>
-
-    <section class="gif-section">
-      <h2 class="section-title">Email Gif</h2>
-      <img src="img/menomale/16x9-ezgif.com-optimize.gif" class="email-gif" alt="Meno Male email gif">
-    </section>
-
+    <div class="mm-stills">
+      <video src="img/menomale/aperitivo.mp4" autoplay muted loop playsinline></video>
+      <video src="img/menomale/pass_the_pizza.mp4" autoplay muted loop playsinline></video>
+      <video src="img/menomale/pizza.mp4" autoplay muted loop playsinline></video>
+      <video src="img/menomale/pizza_catering 9x16.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="mm-gif-wrap">
+      <p class="mm-gif-label">Email GIF</p>
+      <img src="img/menomale/16x9-ezgif.com-optimize.gif" alt="Meno Male email gif" />
+    </div>
   </main>
-
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>

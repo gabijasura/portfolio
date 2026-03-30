@@ -6,52 +6,53 @@
   <title>Lcky Group — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .brand-section { padding: 48px 0 0; }
-    .section-title {
+    .brand-section { margin: 48px 0 0; }
+    .brand-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
       padding: 0 60px;
     }
     .brand-videos {
-      display: flex;
-      gap: 24px;
-      padding: 0 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 0 60px;
     }
-    .brand-videos .video-wrap {
-      flex: 1;
-      max-width: 45%;
+    .bv-item {
+      overflow: hidden;
       position: relative;
+      border-radius: 4px;
     }
-    .brand-videos .video-wrap video {
-      width: 100%;
-      border-radius: 12px;
-      display: block;
+    .bv-item video { width: 100%; display: block; }
+    .display-ads {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 0 60px;
     }
-    .display-ads-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      padding: 0 60px;
-      align-items: flex-start;
-    }
-    .display-ads-grid .ad-item video {
-      display: block;
-      max-height: 400px;
-      width: auto;
-      border-radius: 12px;
-    }
+    .ad-item { position: relative; overflow: hidden; border-radius: 4px; }
+    .ad-item video { width: 100%; display: block; }
     .ad-caption {
-      color: rgba(255,255,255,0.6);
-      font-size: 12px;
-      letter-spacing: 0.1em;
+      position: absolute;
+      bottom: 10px; left: 12px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      font-family: 'Jost', sans-serif;
-      margin-top: 8px;
+      color: rgba(255,255,255,0.5);
+    }
+    @media (max-width: 900px) {
+      .brand-videos, .display-ads { grid-template-columns: 1fr; margin: 0 24px; }
+      .brand-label { padding: 0 24px; }
     }
   </style>
 </head>
 <body>
-
   <canvas class="cursor-canvas"></canvas>
-
   <nav>
     <a href="index.html" class="nav-logo">Gabija Sura</a>
     <ul class="nav-links">
@@ -60,79 +61,73 @@
       <li><a href="about.html">About</a></li>
     </ul>
   </nav>
-
-  <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-
   <main class="proj-page">
+    <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
     <div class="project-content">
-
       <h1 class="proj-title">Lcky Group</h1>
-
       <div class="proj-text">
         <p>Currently working at Lcky Group (formerly Glitnor) as a graphic and motion designer across four casino brands — Lucky Casino, Flax Casino, Happy Casino, and Vera&amp;John. My work spans social media content, Meta ads, seasonal campaigns, and display ads.</p>
       </div>
     </div>
 
     <section class="brand-section">
-      <h2 class="section-title">Lucky Casino</h2>
+      <p class="brand-label">Lucky Casino</p>
       <div class="brand-videos">
-        <div class="video-wrap"><video src="videos/LC  - Christmas 8s V2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="video-wrap"><video src="videos/LSE-Reddit-V2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/LC  - Christmas 8s V2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/LSE-Reddit-V2.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
     <section class="brand-section">
-      <h2 class="section-title">Happy Casino</h2>
+      <p class="brand-label">Happy Casino</p>
       <div class="brand-videos">
-        <div class="video-wrap"><video src="videos/HC-Meta-Raptor 2 2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="video-wrap"><video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/HC-Meta-Raptor 2 2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
     <section class="brand-section">
-      <h2 class="section-title">Flax Casino</h2>
+      <p class="brand-label">Flax Casino</p>
       <div class="brand-videos">
-        <div class="video-wrap"><video src="videos/FSE-DonnyandDanny-140126.mp4" autoplay muted loop playsinline></video></div>
-        <div class="video-wrap"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/FSE-DonnyandDanny-140126.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
     <section class="brand-section">
-      <h2 class="section-title">Vera&amp;John</h2>
+      <p class="brand-label">Vera&amp;John</p>
       <div class="brand-videos">
-        <div class="video-wrap"><video src="videos/VJ - Flex - GamesGlobal_1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="video-wrap"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/VJ - Flex - GamesGlobal_1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" autoplay muted loop playsinline></video></div>
       </div>
     </section>
 
     <section class="brand-section">
-      <h2 class="section-title">Display Ads</h2>
-      <div class="display-ads-grid">
+      <p class="brand-label">Display Ads</p>
+      <div class="display-ads">
         <div class="ad-item">
-          <div class="video-wrap"><video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video></div>
-          <p class="ad-caption">Lucky Casino — 300x600</p>
+          <video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video>
+          <span class="ad-caption">Lucky — 300×600</span>
         </div>
         <div class="ad-item">
-          <div class="video-wrap"><video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video></div>
-          <p class="ad-caption">Flax Casino — 300x600</p>
+          <video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video>
+          <span class="ad-caption">Flax — 300×600</span>
         </div>
         <div class="ad-item">
-          <div class="video-wrap"><video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" autoplay muted loop playsinline></video></div>
-          <p class="ad-caption">Happy Casino — 980x240</p>
+          <video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" autoplay muted loop playsinline></video>
+          <span class="ad-caption">Happy — 980×240</span>
         </div>
         <div class="ad-item">
-          <div class="video-wrap"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" autoplay muted loop playsinline></video></div>
-          <p class="ad-caption">Vera&amp;John — 640x360</p>
+          <video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" autoplay muted loop playsinline></video>
+          <span class="ad-caption">Vera&amp;John — 640×360</span>
         </div>
       </div>
     </section>
 
   </main>
-
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -196,6 +196,8 @@
 (function() {
   document.querySelectorAll('video').forEach(video => {
     if (video.closest('.work-thumb')) return; // skip work page thumbnails
+    if (video.closest('.hero-cards'))  return; // skip hero playing cards
+    if (video.closest('.slot-section')) return; // skip slot machine
     const container = video.parentElement;
     container.style.position = 'relative';
 

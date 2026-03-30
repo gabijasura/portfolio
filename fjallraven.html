@@ -6,35 +6,22 @@
   <title>Fjällräven — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .hero-videos {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 60px;
+    .dual-video {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin: 0 60px;
     }
-    .hero-video-wrap {
-      flex: 1;
-      max-width: 45%;
+    .dual-video-item { position: relative; overflow: hidden; border-radius: 4px; }
+    .dual-video-item video { width: 100%; display: block; }
+    .dual-video-label {
+      position: absolute; bottom: 14px; left: 18px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
     }
-    .hero-video-wrap video {
-      width: 100%;
-      border-radius: 12px;
-    }
-    .video-label {
-      color: white;
-      text-align: center;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-top: 12px;
-      font-size: 13px;
-    }
+    @media (max-width: 768px) { .dual-video { grid-template-columns: 1fr; margin: 0 24px; } }
   </style>
 </head>
 <body>
-
   <canvas class="cursor-canvas"></canvas>
-
   <nav>
     <a href="index.html" class="nav-logo">Gabija Sura</a>
     <ul class="nav-links">
@@ -43,41 +30,29 @@
       <li><a href="about.html">About</a></li>
     </ul>
   </nav>
-
-  <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-
   <main class="proj-page">
-    <div class="project-content">
-
-      <h1 class="proj-title">Fjällräven</h1>
-
-      <div class="proj-text">
-        <p>
-          During my internship at Bsmart, I worked on an internal presentation for Fjällräven showcasing their upcoming Spring/Summer 2026 collection. The highlight of the project was bringing the Kånken Graphics backpack to life — a series featuring two distinct animal-themed designs.
-        </p>
-        <p>
-          To make the presentation engaging and memorable for Fjällräven's team, I created frame-by-frame animations where the animals on each backpack — a seal and a bird — literally came to life. The result transformed static product images into playful, animated moments that added energy and personality to the collection reveal.
-        </p>
-      </div>
-    </div>
-
-    <div class="hero-videos">
-      <div class="hero-video-wrap">
+    <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
+    <div class="dual-video">
+      <div class="dual-video-item">
         <video src="videos/Säl.mp4" autoplay muted loop playsinline></video>
-        <p class="video-label">The Seal</p>
+        <span class="dual-video-label">The Seal</span>
       </div>
-      <div class="hero-video-wrap">
+      <div class="dual-video-item">
         <video src="videos/Fågel.mp4" autoplay muted loop playsinline></video>
-        <p class="video-label">The Bird</p>
+        <span class="dual-video-label">The Bird</span>
       </div>
     </div>
-
+    <div class="project-content">
+      <h1 class="proj-title">Fjällräven</h1>
+      <div class="proj-text">
+        <p>During my internship at Bsmart, I worked on an internal presentation for Fjällräven showcasing their upcoming Spring/Summer 2026 collection. The highlight of the project was bringing the Kånken Graphics backpack to life — a series featuring two distinct animal-themed designs.</p>
+        <p>I created frame-by-frame animations where the animals on each backpack — a seal and a bird — literally came to life, transforming static product images into playful, animated moments.</p>
+      </div>
+    </div>
   </main>
-
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>

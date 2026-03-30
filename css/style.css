@@ -670,22 +670,18 @@ footer a:hover { opacity: 0.5; }
 /* ══════════════════════════════
    PROJECT PAGES
 ══════════════════════════════ */
-.project-content {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px 60px 60px;
-}
+
+/* Shared left margin — everything lines up on this column */
+:root { --proj-pad: 60px; }
 
 .proj-page {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 48px 80px;
+  width: 100%;
+  padding: 0 0 100px;
 }
 
+/* Back button */
 .proj-header {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 96px 60px 0;
+  padding: 88px var(--proj-pad) 0;
 }
 
 .proj-back {
@@ -699,18 +695,25 @@ footer a:hover { opacity: 0.5; }
   color: rgba(255,255,255,0.4);
   text-decoration: none;
   transition: color 0.2s, transform 0.2s;
-  margin-bottom: 40px;
 }
 .proj-back:hover { color: rgba(255,255,255,0.9); transform: translateX(-4px); }
 
-/* media hero */
+/* Title + text block — left-aligned, same indent as back button */
+.project-content {
+  padding: 40px var(--proj-pad) 48px;
+  max-width: none;
+  margin: 0;
+}
+
+/* Media block — left-aligned, same indent, not full-bleed */
 .proj-media {
-  width: 100%;
+  margin: 0 var(--proj-pad);
+  width: calc(100% - var(--proj-pad) * 2);
   aspect-ratio: 16/9;
   background: rgba(0,0,0,0.2);
   overflow: hidden;
-  margin-bottom: 24px;
   position: relative;
+  border-radius: 4px;
 }
 
 /* ─── Video controls overlay ─── */
@@ -731,9 +734,9 @@ footer a:hover { opacity: 0.5; }
   width: 100%;
   display: flex;
   gap: 12px;
-  padding: 10px 16px;
-  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-  border-radius: 0 0 12px 12px;
+  padding: 10px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+  border-radius: 0 0 4px 4px;
   box-sizing: border-box;
   z-index: 20;
 }
@@ -762,18 +765,18 @@ footer a:hover { opacity: 0.5; }
 
 /* big project title */
 .proj-title {
-  font-size: clamp(36px, 7vw, 90px);
+  font-size: clamp(42px, 7vw, 96px);
   font-weight: 800;
   text-transform: uppercase;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  margin-bottom: 20px;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  margin-bottom: 0;
 }
 
 /* text area */
 .proj-text {
-  max-width: 620px;
-  margin-top: 32px;
+  max-width: 560px;
+  margin-top: 28px;
 }
 .proj-text p {
   font-family: 'Urbanist', sans-serif;

@@ -6,69 +6,41 @@
   <title>Coral — Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    body { overflow-x: hidden; }
-    .coral-layout {
-      min-height: 100vh;
-      padding-top: 56px;
+    .split-hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      position: relative;
+      gap: 8px;
+      margin: 0 60px;
+      min-height: 75vh;
     }
-    /* Left column: back at top, title+text at bottom */
-    .coral-left {
+    .split-hero-video {
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .split-hero-video img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    .split-hero-text {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      padding: 80px 40px 60px 80px;
-    }
-    .coral-title {
-      font-size: clamp(36px, 7vw, 90px);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 1;
-      color: #fff;
-      margin-bottom: 18px;
-    }
-    .coral-text p {
-      font-family: 'Urbanist', sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.85);
-      max-width: 400px;
-    }
-    /* Right column: video fills from top */
-    .coral-right {
-      display: flex;
-      align-items: flex-start;
       justify-content: center;
-      padding: 20px 80px 40px 20px;
+      padding: 0 0 0 48px;
     }
-    .coral-video-wrap {
-      width: 100%;
-      max-width: 320px;
-      aspect-ratio: 9/16;
-      background: radial-gradient(ellipse at 50% 40%, #1e6a9a 0%, #0a2a50 50%, #030e20 100%);
-      overflow: hidden;
-      position: relative;
-    }
-    .coral-video-wrap video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    @media (max-width: 700px) {
-      .coral-layout { grid-template-columns: 1fr; }
-      .coral-right { padding: 16px 24px; }
-      .coral-left { padding: 20px 24px 60px; }
+    @media (max-width: 768px) {
+      .split-hero { grid-template-columns: 1fr; margin: 0 24px; min-height: auto; }
+      .split-hero-video { aspect-ratio: 9/16; }
+      .split-hero-text { padding: 32px 0 0; }
     }
   </style>
 </head>
 <body>
-
   <canvas class="cursor-canvas"></canvas>
-
   <nav>
     <a href="index.html" class="nav-logo">Gabija Sura</a>
     <ul class="nav-links">
@@ -77,31 +49,23 @@
       <li><a href="about.html">About</a></li>
     </ul>
   </nav>
-
-  <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-
-  <main class="coral-layout">
-    <div class="coral-left">
-      <div>
-      <h1 class="coral-title">Coral</h1>
-      <div class="coral-text">
-        <p>
-          My first 3D animation project. The task was to create something abstract that fits one of 3 suggested songs and can be used for Spotify Canvas. I chose a song that reminded me of the underwater world, leading me to create a shape that could resemble a growing coral.
-        </p>
+  <main class="proj-page">
+    <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
+    <div class="split-hero">
+      <div class="split-hero-video">
+        <img src="videos/Coral.gif" alt="Coral" />
       </div>
-      </div>
-    </div>
-    <div class="coral-right">
-      <div class="coral-video-wrap">
-        <img src="videos/Coral.gif" alt="Coral" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      <div class="split-hero-text">
+        <h1 class="proj-title">Coral</h1>
+        <div class="proj-text">
+          <p>My first 3D animation project. The task was to create something abstract that fits one of 3 suggested songs and can be used for Spotify Canvas. I chose a song that reminded me of the underwater world, leading me to create a shape that could resemble a growing coral.</p>
+        </div>
       </div>
     </div>
   </main>
-
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>
