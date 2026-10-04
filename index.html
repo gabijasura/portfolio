@@ -35,15 +35,6 @@
 </head>
 <body>
 
-  <!-- SVG torn-edge filter for playing cards -->
-  <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
-    <defs>
-      <filter id="torn-edge" x="-5%" y="-5%" width="110%" height="110%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="2" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-    </defs>
-  </svg>
 
   <canvas class="cursor-canvas"></canvas>
 
@@ -80,6 +71,21 @@
         <img src="assets/dice-pink2.png" alt="" />
       </div>
 
+      <!-- Twinkling sparkles -->
+      <div class="hero-float sparkle sparkle-1" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 0 C22 14 26 18 40 20 C26 22 22 26 20 40 C18 26 14 22 0 20 C14 18 18 14 20 0Z"/></svg></div>
+      <div class="hero-float sparkle sparkle-2" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 0 C22 14 26 18 40 20 C26 22 22 26 20 40 C18 26 14 22 0 20 C14 18 18 14 20 0Z"/></svg></div>
+      <div class="hero-float sparkle sparkle-3" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 0 C22 14 26 18 40 20 C26 22 22 26 20 40 C18 26 14 22 0 20 C14 18 18 14 20 0Z"/></svg></div>
+      <div class="hero-float sparkle sparkle-4" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 0 C22 14 26 18 40 20 C26 22 22 26 20 40 C18 26 14 22 0 20 C14 18 18 14 20 0Z"/></svg></div>
+
+      <!-- Spinning badge -->
+      <a href="#spin" class="hero-badge" aria-label="Scroll to the slot machine">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="badge-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <text><textPath href="#badge-circle" textLength="286" lengthAdjust="spacing">MOTION ✦ AI CREATIVE ✦ STOCKHOLM ✦</textPath></text>
+        </svg>
+        <span class="hero-badge-core">↓</span>
+      </a>
+
       <!-- Black cat — left edge, partially peeking -->
       <div class="hero-float float-cat">
         <img src="assets/fenyx.gif" alt="" />
@@ -89,32 +95,35 @@
       <div class="hero-cards" id="hero-cards">
 
         <a href="ball.html" class="playing-card card-1">
-          <video src="videos/TheBall.mp4" autoplay muted loop playsinline></video>
-          <img class="card-face" src="assets/card-clubs-new.webp" alt="" />
+          <span class="card-art"><video src="videos/TheBall.mp4" autoplay muted loop playsinline></video></span>
+          <img class="card-idx card-idx-tl" src="assets/idx-clubs.png" alt="" />
+          <img class="card-idx card-idx-br" src="assets/idx-clubs.png" alt="" />
         </a>
 
         <a href="mushroom.html" class="playing-card card-2">
-          <video src="videos/Mushroom.mp4" autoplay muted loop playsinline></video>
-          <img class="card-face" src="assets/card-spades-new.webp" alt="" />
+          <span class="card-art"><video src="videos/Mushroom.mp4" autoplay muted loop playsinline></video></span>
+          <img class="card-idx card-idx-tl" src="assets/idx-spades.png" alt="" />
+          <img class="card-idx card-idx-br" src="assets/idx-spades.png" alt="" />
         </a>
 
         <a href="coral.html" class="playing-card card-3">
-          <video src="videos/Coral.mp4" autoplay muted loop playsinline></video>
-          <img class="card-face" src="assets/card-diamonds-new.webp" alt="" />
+          <span class="card-art"><video src="videos/Coral.mp4" autoplay muted loop playsinline></video></span>
+          <img class="card-idx card-idx-tl" src="assets/idx-diamonds.png" alt="" />
+          <img class="card-idx card-idx-br" src="assets/idx-diamonds.png" alt="" />
         </a>
 
         <a href="nightfall.html" class="playing-card card-4">
-          <video src="videos/footprint.mp4" autoplay muted loop playsinline></video>
-          <img class="card-face" src="assets/card-hearts-new.webp" alt="" />
+          <span class="card-art"><video src="videos/footprint.mp4" autoplay muted loop playsinline></video></span>
+          <img class="card-idx card-idx-tl" src="assets/idx-hearts.png" alt="" />
+          <img class="card-idx card-idx-br" src="assets/idx-hearts.png" alt="" />
         </a>
 
       </div><!-- /hero-cards -->
 
-      <span id="hero-source">GABIJA</span>
+      <span id="hero-source">GABIJA SURA</span>
       <div id="hero-container"></div>
 
-      <!-- Mobile only: role line + shortcut to the work page -->
-      <p class="hero-sub">Motion Designer · Stockholm</p>
+      <p class="hero-sub">Motion &amp; AI Creative Designer · Stockholm</p>
       <a href="work.html" class="hero-cta">See all work →</a>
 
     </div><!-- /hero-pin -->
@@ -123,7 +132,7 @@
   <!-- ══════════════════════════════
        SLOT MACHINE SECTION
   ══════════════════════════════ -->
-  <section class="slot-section">
+  <section class="slot-section" id="spin">
 
     <!-- Decorative stars — left -->
     <div class="slot-stars">
@@ -143,6 +152,8 @@
 
     <!-- The machine -->
     <div class="slot-machine">
+      <div class="slot-lights" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="slot-jackpot" aria-live="polite">Jackpot!</div>
       <div class="slot-reels">
 
         <div class="slot-reel">
@@ -170,6 +181,7 @@
     </div>
 
     <p class="slot-subtitle">Pull the lever</p>
+    <a href="work.html" class="slot-more">Or see all work →</a>
 
   </section>
 
@@ -238,7 +250,7 @@
         }
       });
 
-      tl.to('.hero-float', { opacity: 0, ease: 'none', duration: 3 }, 0);
+      tl.to('.hero-float, .hero-badge, .hero-sub', { opacity: 0, ease: 'none', duration: 3 }, 0);
       tl.to(cards, {
         y:        0,
         x:        0,
@@ -284,7 +296,7 @@ function initHeroEffect() {
     var lineH = Math.ceil(r.height);
     return {
       w: Math.ceil(r.width) + PAD_X * 2,
-      h: Math.ceil(lineH * 2 * 0.92) + PAD_Y * 2,
+      h: lineH + PAD_Y * 2,
       lineH: lineH
     };
   }
@@ -300,14 +312,12 @@ function initHeroEffect() {
     ctx.fillStyle    = 'white';
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'alphabetic';
-    var m = ctx.measureText('GABIJA');
+    var m = ctx.measureText('GABIJA SURA');
     var lineAscent  = m.actualBoundingBoxAscent  || parseFloat(cs.fontSize) * 0.75;
     var lineDescent = m.actualBoundingBoxDescent || parseFloat(cs.fontSize) * 0.2;
     var lineH = lineAscent + lineDescent;
-    var totalH = lineH * 2 * 0.92;
-    var blockTop = (h - totalH) / 2;
-    ctx.fillText('GABIJA', w / 2, blockTop + lineAscent);
-    ctx.fillText('SURA',   w / 2, blockTop + lineAscent + lineH * 0.92);
+    var blockTop = (h - lineH) / 2;
+    ctx.fillText('GABIJA SURA', w / 2, blockTop + lineAscent);
     return oc;
   }
 
@@ -470,7 +480,11 @@ function initHeroEffect() {
     uniform float     uIOR;
     uniform float     uRefractionRoughness;
     uniform float     uActive;
+    uniform float     uGlitch;
+    uniform float     uTime;
     varying vec2      vUv;
+
+    float hash(float n) { return fract(sin(n) * 43758.5453); }
 
     void main() {
       vec2 uv = vUv;
@@ -522,6 +536,28 @@ function initHeroEffect() {
       vec3 finalColor = mix(white, R, splitAmount);
       float haloAlpha = max(max(R.r, R.g), R.b) * splitAmount;
       float finalAlpha = max(baseAlpha, haloAlpha);
+
+      /* Digital glitch: sliced rows jump sideways, pink/teal channel split */
+      if (uGlitch > 0.001) {
+        float rows  = 22.0;
+        float row   = floor(vUv.y * rows);
+        float tick  = floor(uTime * 20.0);
+        float on    = step(1.0 - 0.6 * uGlitch, hash(row * 13.1 + tick * 7.7));
+        float shift = (hash(row * 3.7 + tick * 3.3) - 0.5) * 0.14 * uGlitch * on;
+        float split = 0.006 + 0.014 * uGlitch;
+        vec2  g     = vec2(vUv.x + shift, vUv.y);
+        float gp = texture2D(uTexture, clamp(g + vec2(split, 0.0), 0.001, 0.999)).a;
+        float gw = texture2D(uTexture, clamp(g, 0.001, 0.999)).a;
+        float gt = texture2D(uTexture, clamp(g - vec2(split, 0.0), 0.001, 0.999)).a;
+        float core = min(min(gp, gt), gw);
+        vec3 pink = vec3(1.0, 0.37, 0.64);
+        vec3 teal = vec3(0.24, 0.9, 0.82);
+        vec3 gCol = vec3(1.0) * core + pink * max(gp - core, 0.0) + teal * max(gt - core, 0.0);
+        float gA  = max(max(gp, gt), gw);
+        float k   = clamp(uGlitch * 3.0, 0.0, 1.0);
+        finalColor = mix(finalColor, gCol / max(gA, 0.001), k);
+        finalAlpha = mix(finalAlpha, gA, k);
+      }
       gl_FragColor = vec4(finalColor, finalAlpha);
     }
   `;
@@ -554,8 +590,27 @@ function initHeroEffect() {
     uIorP:                ul(renderProg, 'uIorP'),
     uIOR:                 ul(renderProg, 'uIOR'),
     uRefractionRoughness: ul(renderProg, 'uRefractionRoughness'),
-    uActive:              ul(renderProg, 'uActive')
+    uActive:              ul(renderProg, 'uActive'),
+    uGlitch:              ul(renderProg, 'uGlitch'),
+    uTime:                ul(renderProg, 'uTime')
   };
+
+  /* Glitch level: strong burst on load that settles, then rare micro-glitches */
+  var glitchStart = performance.now();
+  var nextBurst = glitchStart + 4500;
+  var burstEnd = 0;
+  function glitchLevel(now) {
+    var intro = now - glitchStart;
+    if (intro < 1300) {
+      var decay = 1 - intro / 1300;
+      return decay * (Math.random() < 0.8 ? 1 : 0.25);
+    }
+    if (now > nextBurst) {
+      burstEnd = now + 90 + Math.random() * 160;
+      nextBurst = now + 3500 + Math.random() * 4500;
+    }
+    return now < burstEnd ? 0.25 + Math.random() * 0.2 : 0;
+  }
 
   var mouse     = { x: 0.5, y: 0.5 };
   var lastMouse = { x: 0.5, y: 0.5 };
@@ -637,6 +692,8 @@ function initHeroEffect() {
     gl.uniform1f(ren.uIOR, IOR_BASE);
     gl.uniform1f(ren.uRefractionRoughness, REFRAC_ROUGH);
     gl.uniform1f(ren.uActive, currentActive);
+    gl.uniform1f(ren.uGlitch, glitchLevel(now));
+    gl.uniform1f(ren.uTime, t);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
 

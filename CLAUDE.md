@@ -18,12 +18,12 @@ npx serve .
 
 ## Design System
 
-- **Background:** `linear-gradient(135deg, #f4a0c8 0%, #f5bc90 24%, #cc90e4 56%, #6890f8 100%)` fixed, covers every page (pink → peach → lavender → periwinkle)
+- **Background:** dark-but-not-black plum (`--bg: #2a2030`) with raspberry / teal / violet radial glows (`--grad`), painted on a fixed `html::before` layer (not background-attachment). User wants it this light — don't go back to near-black. (The pastel gradient was the March version.)
 - **Fonts:** Jost 800 (headings) + Urbanist (body) — Google Fonts
 - **Text:** white throughout (`rgba(255,255,255,0.7–0.9)` for body)
-- **Nav:** fixed, transparent, "GABIJA SURA" top-left, "WORK ABOUT" top-right
+- **Nav:** fixed, transparent (soft blurred bar once scrolled), "GABIJA SURA" top-left, links top-right; on ≤768px a hamburger + full-screen menu built by `js/main.js`
 - **Footer:** centered single line
-- **Grain overlay:** animated SVG noise via `body::before`, z-index 9000
+- **Grain overlay:** animated SVG noise via `body::before`, z-index 9000, opacity 0.022 (user found more too noisy)
 - **Custom cursor:** `.cursor` div, `mix-blend-mode: difference`, `cursor: none` on body
 
 ## Key Interactions (`js/main.js`)
@@ -58,10 +58,13 @@ Missing/placeholder: coral video, yennenga video.
 - `float-8ball`: 8ball.png, right:24%, top:22%
 
 ## Cards (hero)
-Width: 130px. Card order: clubs(nightfall) → spades(mushroom) → diamonds(ball) → hearts(fenyx).
-Artwork inset: top/bottom 16%, left/right 8%, border-radius 2px (rectangular).
+320×480 desktop. Paper = `assets/card-paper.webp` (blank torn card), video in `.card-art` window (inset 7% / 16%), corner indices `assets/idx-<suit>.png` — clubs & spades black, diamonds & hearts pink. Never put the indices over the video with mix-blend (pink turns black over dark footage).
+
+## Hero title
+One line "GABIJA SURA" (WebGL canvas) — the dice/8-ball positions depend on that width. Intro glitch + rare micro-glitches via `uGlitch` in RENDER_FRAG. Subtitle "Motion & AI Creative Designer · Stockholm", spinning badge, twinkling sparkles.
 
 ## Slot machine
+- Pastel style on purpose (user liked it): lilac #c4bef8, 4px #111 border, hard black drop shadow, marquee bulbs, white tilted "Spin to explore" pill, pink lever. Three matching reels → "Jackpot!" badge + coin burst (main.js).
 - Frame: background #c4bef8, border 4px solid #111, border-radius 24px, max-width 860px
 - Reels: background rgba(255,215,232,0.5), border 3px solid #111, border-radius 14px, overflow hidden
 - Lever: no border/background on button element — lever-ball and lever-base use box-shadow only

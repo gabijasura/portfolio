@@ -7,97 +7,227 @@
   <meta name="description" content="Motion design, AI-driven creative and social ads for Lucky, Happy, Flax and Vera&amp;John." />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .brand-section { margin: 48px 0 0; scroll-margin-top: 80px; }
-    .brand-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 12px;
-      padding: 0 60px;
-    }
-    .brand-videos {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin: 0 60px;
-    }
-    .bv-item {
-      overflow: hidden;
-      position: relative;
-      border-radius: 4px;
-    }
-    .bv-item video { width: 100%; display: block; }
-    .display-ads {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin: 0 60px;
-    }
-    .ad-item { position: relative; overflow: hidden; border-radius: 4px; }
-    .ad-item video { width: 100%; display: block; }
-    .ad-item .vid-controls { display: none; } /* banners are silent */
-    .ad-caption {
-      position: absolute;
-      bottom: 10px; left: 12px;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      z-index: 21;
-      pointer-events: none;
-    }
-
-    /* Jump links under the intro */
+    /* ── Section jump bar — sticks under the nav ── */
     .lg-jump {
+      position: sticky;
+      top: 58px;
+      z-index: 400;
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
-      margin-top: 28px;
+      padding: 12px var(--proj-pad);
+      margin-bottom: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      transition: background .3s;
     }
+    .lg-jump.is-stuck { background: linear-gradient(to bottom, rgba(42,32,48,0.95) 78%, rgba(42,32,48,0)); }
+    .lg-jump::-webkit-scrollbar { display: none; }
     .lg-jump a {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      padding: 10px 16px;
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 999px;
-      color: rgba(255,255,255,0.85);
-      transition: background .2s, border-color .2s;
+      color: rgba(255,255,255,0.75);
+      transition: background .25s, border-color .25s, color .25s;
     }
-    .lg-jump a:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+    .lg-jump a:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .lg-jump a.is-active { background: #fff; border-color: #fff; color: #111; }
+    .lg-jump a.is-ai::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff5fa3, #3de6d1);
+    }
 
-    .bv-item { position: relative; }
-    .ai-tag {
-      position: absolute;
-      top: 10px; left: 10px;
-      font-size: 9px;
+    /* ── Sections ── */
+    .lg-section {
+      padding: 0 var(--proj-pad);
+      margin-top: 28px;
+      scroll-margin-top: 120px;
+    }
+    .lg-panel {
+      display: grid;
+      grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+      padding: 36px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .lg-kicker {
+      display: block;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 14px;
+    }
+    .lg-head h2 {
+      font-size: clamp(30px, 3.4vw, 48px);
+      font-weight: 800;
+      line-height: 0.98;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .lg-head p {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 14px;
+    }
+    .lg-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      margin-top: 18px;
+    }
+    .lg-tags li {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ── Media rows: videos keep a fixed height, so they never get huge ── */
+    .lg-media {
+      --clip-h: clamp(300px, 30vw, 440px);
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .lg-media::-webkit-scrollbar { display: none; }
+    .lg-clip {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+    .lg-frame {
+      height: var(--clip-h);
+      aspect-ratio: 9 / 16;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.35);
+    }
+    .lg-frame.is-43   { aspect-ratio: 4 / 3; }
+    .lg-frame.is-12   { aspect-ratio: 1 / 2; }
+    .lg-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .lg-clip figcaption {
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .lg-clip figcaption span {
+      display: block;
+      margin-top: 3px;
+      font-family: 'Urbanist', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── AI Work: highlighted panel + process steps ── */
+    .lg-ai .lg-panel {
+      background:
+        radial-gradient(120% 90% at 0% 0%, rgba(255,95,163,0.12), transparent 55%),
+        radial-gradient(100% 80% at 100% 100%, rgba(61,230,209,0.10), transparent 55%),
+        rgba(255,255,255,0.035);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .lg-steps {
+      grid-column: 1 / -1;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      counter-reset: step;
+    }
+    .lg-steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 8px;
+      padding: 20px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      font-family: 'Urbanist', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+    }
+    .lg-steps li::before {
+      content: '0' counter(step);
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #ff7fb5;
+      padding-top: 2px;
+    }
+    .lg-steps strong {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #fff;
-      background: rgba(0,0,0,0.45);
-      border-radius: 999px;
-      padding: 5px 9px;
-      pointer-events: none;
+      margin-bottom: 2px;
     }
-    .brand-videos.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
-    @media (max-width: 900px) {
-      .brand-label { padding: 0 24px; }
-      .brand-videos, .display-ads { margin: 0 24px; }
-      .brand-videos.cols-3 { grid-template-columns: 1fr 1fr; }
-      .display-ads { grid-template-columns: 1fr 1fr; }
-      .ad-wide { grid-column: 1 / -1; }
+    /* ── Display ads: mixed banner sizes ── */
+    .lg-media.is-display { align-items: flex-start; }
+    .lg-media.is-display .lg-frame { height: auto; width: 200px; }
+    .lg-media.is-display .lg-frame.is-wide-banner { width: 440px; aspect-ratio: 980 / 240; }
+    .lg-media.is-display .lg-frame.is-169 { width: 340px; aspect-ratio: 16 / 9; }
+    .lg-display-col { display: flex; flex-direction: column; gap: 16px; flex-shrink: 0; }
+
+    @media (max-width: 1100px) {
+      .lg-steps { grid-template-columns: 1fr 1fr; }
+      .lg-panel { grid-template-columns: 1fr; gap: 28px; }
+      .lg-head { max-width: 620px; }
     }
     @media (max-width: 768px) {
-      .brand-section { margin-top: 36px; }
-      .lg-jump { flex-wrap: nowrap; overflow-x: auto; margin-right: -24px; padding-right: 24px; scrollbar-width: none; }
-      .lg-jump::-webkit-scrollbar { display: none; }
-      .lg-jump a { flex-shrink: 0; }
+      .lg-jump { top: 63px; padding: 8px var(--proj-pad) 14px; }
+      .lg-section { padding: 0; margin-top: 20px; }
+      .lg-panel {
+        padding: 28px 0;
+        border-radius: 0;
+        border-left: 0; border-right: 0;
+      }
+      .lg-head { padding: 0 var(--proj-pad); }
+      .lg-steps { grid-template-columns: 1fr; padding: 0 var(--proj-pad); }
+      .lg-media {
+        --clip-h: 420px;
+        padding: 0 var(--proj-pad) 4px;
+        scroll-padding: 0 var(--proj-pad);
+      }
+      .lg-frame.is-43 { aspect-ratio: 3 / 4; }
+      .lg-media.is-display .lg-frame.is-wide-banner { width: 300px; }
+      .lg-media.is-display .lg-frame.is-169 { width: 300px; }
+      .lg-media.is-display .lg-frame { width: 170px; }
     }
   </style>
 </head>
@@ -116,71 +246,172 @@
     <div class="project-content">
       <h1 class="proj-title">Lcky Group</h1>
       <div class="proj-text">
-        <p>Currently working at Lcky Group (formerly Glitnor) as a graphic and motion designer across four casino brands — Lucky Casino, Flax Casino, Happy Casino, and Vera&amp;John. My work spans social media content, Meta ads, seasonal campaigns, display ads.</p>
-        <p>AI is a natural part of how I work. I build node-based generative workflows in Figma Weave — chaining image and video models to create stadiums, crowds and characters — and finish everything by hand in After Effects so it stays on-brand. I also use Claude as a production assistant, scripting After Effects comps and cloning Figma templates so one concept can become variations across brands and formats. Pieces made with AI are tagged below.</p>
-      </div>
-      <div class="lg-jump" role="navigation" aria-label="Sections">
-        <a href="#lucky">Lucky</a>
-        <a href="#happy">Happy</a>
-        <a href="#flax">Flax</a>
-        <a href="#verajohn">Vera&amp;John</a>
-        <a href="#display">Display Ads</a>
+        <p>Graphic and motion designer at Lcky Group (formerly Glitnor), creating social ads, Meta and TikTok content, seasonal campaigns and display ads for four casino brands — Lucky Casino, Happy Casino, Flax Casino and Vera&amp;John. Each brand has its own voice, and a big part of the job is making four very different looks feel right every single week.</p>
       </div>
     </div>
 
-    <section class="brand-section" id="lucky">
-      <p class="brand-label">Lucky Casino</p>
-      <div class="brand-videos">
-        <div class="bv-item"><video src="videos/LC  - Christmas 8s V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-        <div class="bv-item"><video src="videos/LSE-Reddit-V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-        <div class="bv-item"><video src="videos/ai/lucky-lyckokampen.mp4" muted loop playsinline preload="metadata" data-lazy></video><span class="ai-tag">Figma Weave</span></div>
-        <div class="bv-item"><video src="videos/ai/lucky-pl-vinnarspel.mp4" muted loop playsinline preload="metadata" data-lazy></video><span class="ai-tag">Figma Weave</span></div>
-      </div>
-    </section>
+    <div class="lg-jump" role="navigation" aria-label="Sections">
+      <a href="#ai-work" class="is-ai">AI Work</a>
+      <a href="#lucky">Lucky</a>
+      <a href="#happy">Happy</a>
+      <a href="#flax">Flax</a>
+      <a href="#verajohn">Vera&amp;John</a>
+      <a href="#display">Display Ads</a>
+    </div>
 
-    <section class="brand-section" id="happy">
-      <p class="brand-label">Happy Casino</p>
-      <div class="brand-videos cols-3">
-        <div class="bv-item"><video src="videos/HC-Meta-Raptor 2 2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-        <div class="bv-item"><video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-        <div class="bv-item"><video src="videos/ai/happy-welcome-offer.mp4" muted loop playsinline preload="metadata" data-lazy></video><span class="ai-tag">Figma Weave</span></div>
-      </div>
-    </section>
-
-    <section class="brand-section" id="flax">
-      <p class="brand-label">Flax Casino</p>
-      <div class="brand-videos">
-        <div class="bv-item"><video src="videos/FSE-DonnyandDanny-140126.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-        <div class="bv-item"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-      </div>
-    </section>
-
-    <section class="brand-section" id="verajohn">
-      <p class="brand-label">Vera&amp;John</p>
-      <div class="brand-videos">
-        <div class="bv-item"><video src="videos/VJ - Flex - GamesGlobal_1.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-        <div class="bv-item"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-      </div>
-    </section>
-
-    <section class="brand-section" id="display">
-      <p class="brand-label">Display Ads</p>
-      <div class="display-ads">
-        <div class="ad-item">
-          <video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" muted loop playsinline preload="metadata" data-lazy></video>
-          <span class="ad-caption">Lucky — 300×600</span>
+    <!-- ── AI WORK ── -->
+    <section class="lg-section lg-ai" id="ai-work">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">01 — AI Work</span>
+          <h2>How I work with AI</h2>
+          <p>AI is part of my everyday toolkit, not a shortcut. I use it where it makes the idea bigger — worlds, crowds and characters I couldn't shoot — and to take repetitive production off my plate, so more time goes into the story.</p>
+          <ul class="lg-tags">
+            <li>Figma Weave</li>
+            <li>Claude</li>
+            <li>After Effects</li>
+            <li>Figma</li>
+          </ul>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/ai/lucky-lyckokampen.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Lyckokampen<span>Lucky Casino · TikTok 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/ai/happy-welcome-offer.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Welcome Offer<span>Happy Casino · Meta 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/ai/lucky-pl-vinnarspel.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Premier League Vinnarspel<span>Lucky Sport · 9:16</span></figcaption>
+          </figure>
         </div>
-        <div class="ad-item">
-          <video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" muted loop playsinline preload="metadata" data-lazy></video>
-          <span class="ad-caption">Flax — 300×600</span>
+        <ol class="lg-steps">
+            <li><div><strong>Concept</strong>The hook and the story beats come first. What should someone feel in the first second, and why would they watch to the end?</div></li>
+            <li><div><strong>Generate</strong>Node-based workflows in Figma Weave, chaining image and video models into one graph. Stadiums, crowds and 3D characters — and the graph can be re-run for the next campaign.</div></li>
+            <li><div><strong>Craft</strong>Everything is composited, animated, typeset and edited by hand in After Effects, with the brand's own elements, legal lines and platform safe zones.</div></li>
+            <li><div><strong>Scale</strong>Claude as a production assistant: scripting After Effects comps, cloning Figma templates for monthly release ads across all four brands and automating thumbnail production. One idea, many variations.</div></li>
+          </ol>
+      </div>
+    </section>
+
+    <!-- ── LUCKY ── -->
+    <section class="lg-section" id="lucky">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">02 — Brand</span>
+          <h2>Lucky Casino</h2>
+          <p>Jackpots and energy. Lucky is fast and loud — tilted black text plates, big numbers and the neon lightning bolt as the frame for everything.</p>
+          <ul class="lg-tags"><li>Meta</li><li>Reddit</li><li>Seasonal</li></ul>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/LC  - Christmas 8s V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Christmas campaign<span>Meta · 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame is-43"><video src="videos/LSE-Reddit-V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Reddit ad<span>Lucky Sport · 4:3</span></figcaption>
+          </figure>
         </div>
-        <div class="ad-item ad-wide">
-          <video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video>
-          <span class="ad-caption">Happy — 980×240</span>
+      </div>
+    </section>
+
+    <!-- ── HAPPY ── -->
+    <section class="lg-section" id="happy">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">03 — Brand</span>
+          <h2>Happy Casino</h2>
+          <p>Gaming first. Colourful 3D shapes, game characters front and centre and a playful, arcade-like rhythm in the edit.</p>
+          <ul class="lg-tags"><li>Meta</li><li>Game launches</li></ul>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/HC-Meta-Raptor 2 2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Raptor<span>Meta · 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Pirots 4 Inferno<span>Meta · 9:16</span></figcaption>
+          </figure>
         </div>
-        <div class="ad-item ad-wide">
-          <video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video>
-          <span class="ad-caption">Vera&amp;John — 640×360</span>
+      </div>
+    </section>
+
+    <!-- ── FLAX ── -->
+    <section class="lg-section" id="flax">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">04 — Brand</span>
+          <h2>Flax Casino</h2>
+          <p>Swedish to the core. Neon one-liners, local references and a twist that makes the ad feel like it could only be from Flax.</p>
+          <ul class="lg-tags"><li>Meta</li><li>Characters</li></ul>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/FSE-DonnyandDanny-140126.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Donny &amp; Danny<span>Meta · 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Phoenix<span>Meta · 9:16</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VERA&JOHN ── -->
+    <section class="lg-section" id="verajohn">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">05 — Brand</span>
+          <h2>Vera&amp;John</h2>
+          <p>Close and personal. Vera and John speak like friends giving a tip — warmer, calmer and more local than the other brands.</p>
+          <ul class="lg-tags"><li>Meta</li><li>Display</li></ul>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/VJ - Flex - GamesGlobal_1.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Games Global<span>Meta · 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame is-12"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Welcome Offer<span>Display · 300×600</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DISPLAY ADS ── -->
+    <section class="lg-section" id="display">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">06 — All brands</span>
+          <h2>Display Ads</h2>
+          <p>Animated banners for acquisition campaigns, built as one system per campaign and adapted to every size — from tall skyscrapers to wide billboards.</p>
+          <ul class="lg-tags"><li>300×600</li><li>980×240</li><li>640×360</li></ul>
+        </header>
+        <div class="lg-media is-display">
+          <figure class="lg-clip">
+            <div class="lg-frame is-12"><video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Lucky<span>300×600</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame is-12"><video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Flax<span>300×600</span></figcaption>
+          </figure>
+          <div class="lg-display-col">
+            <figure class="lg-clip">
+              <div class="lg-frame is-wide-banner"><video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+              <figcaption>Happy<span>980×240</span></figcaption>
+            </figure>
+            <figure class="lg-clip">
+              <div class="lg-frame is-169"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+              <figcaption>Vera&amp;John<span>640×360</span></figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -190,5 +421,35 @@
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2026</span>
   </footer>
   <script src="js/main.js"></script>
+  <script>
+    /* Jump bar gets a backdrop only once it sticks under the nav */
+    (function () {
+      var bar = document.querySelector('.lg-jump');
+      var update = function () {
+        bar.classList.toggle('is-stuck', bar.getBoundingClientRect().top <= parseFloat(getComputedStyle(bar).top) + 1);
+      };
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+
+    /* Highlight the jump-bar pill for the section in view */
+    (function () {
+      var links = [].slice.call(document.querySelectorAll('.lg-jump a'));
+      var map = {};
+      links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          links.forEach(function (a) { a.classList.remove('is-active'); });
+          var a = map[e.target.id];
+          if (a) {
+            a.classList.add('is-active');
+            a.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      document.querySelectorAll('.lg-section').forEach(function (s) { obs.observe(s); });
+    })();
+  </script>
 </body>
 </html>
