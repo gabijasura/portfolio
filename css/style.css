@@ -1750,3 +1750,92 @@ footer a:hover { opacity: 0.5; }
 /* AI Work holds four portrait clips — keep them all in view on desktop */
 .lg-ai .lg-media { --clip-h: clamp(300px, 24vw, 360px); }
 @media (max-width: 768px) { .lg-ai .lg-media { --clip-h: 420px; } }
+
+/* ══════════════════════════════
+   MOBILE LANDING
+══════════════════════════════ */
+@media (max-width: 768px) {
+  /* Nothing may stick out sideways — phones zoom the whole page out if it does */
+  html, body { overflow-x: clip; }
+  .hero { overflow-x: clip; }
+
+  /* Hero: name, two-line role, a fanned hand of all four cards */
+  .hero-pin { padding: 120px 0 56px; gap: 22px; min-height: auto; }
+  .hero-sub span { display: block; }
+  .hero-sub .hero-sub-sep { display: none; }
+  .hero-sub { font-size: 11px !important; letter-spacing: 0.24em; line-height: 1.9; margin-top: -4px !important; }
+
+  .hero-cards {
+    justify-content: center !important;
+    overflow: visible !important;
+    scroll-snap-type: none;
+    padding: 18px 0 8px !important;
+    gap: 0 !important;
+  }
+  .hero-cards .playing-card {
+    width: 33vw !important;
+    max-width: 150px !important;
+    flex-shrink: 0;
+    transform-origin: 50% 110%;
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .hero-cards .playing-card + .playing-card { margin-left: -19vw; }
+  .hero-cards .playing-card:nth-child(1) { transform: rotate(-13deg) translateY(12px); }
+  .hero-cards .playing-card:nth-child(2) { transform: rotate(-5deg)  translateY(2px); }
+  .hero-cards .playing-card:nth-child(3) { transform: rotate(5deg)   translateY(2px); }
+  .hero-cards .playing-card:nth-child(4) { transform: rotate(13deg)  translateY(12px); }
+  .hero-cards .playing-card:active { z-index: 10; }
+  .hero-cards .playing-card:nth-child(1):active { transform: rotate(-13deg) translateY(-6px); }
+  .hero-cards .playing-card:nth-child(2):active { transform: rotate(-5deg)  translateY(-14px); }
+  .hero-cards .playing-card:nth-child(3):active { transform: rotate(5deg)   translateY(-14px); }
+  .hero-cards .playing-card:nth-child(4):active { transform: rotate(13deg)  translateY(-6px); }
+  .hero-cta { margin-top: 18px; }
+
+  /* Bring a few props back, small */
+  .hero-float.float-dice,
+  .hero-float.float-8ball,
+  .hero-float.sparkle-1,
+  .hero-float.sparkle-3 { display: block !important; }
+  .float-dice  { width: 58px !important; top: 92px !important; left: 7% !important; right: auto !important; transform: rotate(-12deg); }
+  .float-8ball { width: 44px !important; top: 96px !important; right: 9% !important; }
+  .sparkle-1   { top: 64px !important; left: 44% !important; right: auto !important; width: 18px !important; height: 18px !important; }
+  .sparkle-3   { top: 260px !important; right: auto !important; left: 9% !important; }
+
+  /* Slot section */
+  .slot-section { padding: 48px 20px 64px !important; }
+  .slot-stars, .slot-cherry { display: block !important; }
+  .slot-stars { left: 4%; top: 8px; }
+  .slot-star-big { width: 54px; }
+  .slot-star-small { width: 34px; margin-left: 14px; }
+  .slot-cherry { right: 3%; top: 0; }
+  .cherry-img { width: 76px; }
+  .slot-heading { font-size: 15vw; margin-top: 18px; }
+  .slot-machine { flex-direction: column !important; padding: 18px !important; gap: 18px !important; }
+  .slot-reels { width: 100%; gap: 10px; }
+
+  /* Lever becomes a clear pink Spin button */
+  .slot-lever {
+    width: 100%;
+    flex-direction: row !important;
+    justify-content: center;
+    padding: 15px 0 !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, #ff8fc0, #e05890) !important;
+    box-shadow: 0 8px 22px rgba(224,88,144,0.35);
+  }
+  .slot-lever .lever-ball, .slot-lever .lever-stick, .slot-lever .lever-base { display: none; }
+  .slot-lever::after {
+    content: 'Spin';
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .slot-lever:active { transform: scale(0.97); }
+  .slot-subtitle { display: none; }
+
+  /* Video rows a bit shorter so the next clip peeks in */
+  .lg-media { --clip-h: 380px; }
+}

@@ -19,6 +19,11 @@
       text-decoration-color: #ff7fb5;
     }
     .contact-chips { align-self: center; justify-content: flex-start; padding: 0; }
+    @media (max-width: 768px) {
+      .about-intro { padding-top: 104px !important; }
+      .contact-chips { padding: 0 var(--proj-pad) !important; justify-content: flex-start !important; gap: 16px !important; }
+      .chip-link { width: 120px; }
+    }
   </style>
 </head>
 <body>
@@ -35,7 +40,7 @@
   </nav>
 
   <main class="proj-page">
-    <div class="project-content" style="padding-top:110px">
+    <div class="project-content about-intro" style="padding-top:110px">
       <h1 class="proj-title about-hey">Hey you!</h1>
     </div>
 
