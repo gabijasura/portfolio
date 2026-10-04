@@ -481,7 +481,6 @@ function initHeroEffect() {
     uniform float     uIOR;
     uniform float     uRefractionRoughness;
     uniform float     uActive;
-    uniform float     uGlitch;
     uniform float     uTime;
     varying vec2      vUv;
 
@@ -538,27 +537,26 @@ function initHeroEffect() {
       float haloAlpha = max(max(R.r, R.g), R.b) * splitAmount;
       float finalAlpha = max(baseAlpha, haloAlpha);
 
-      /* Digital glitch: sliced rows jump sideways, pink/teal channel split */
-      if (uGlitch > 0.001) {
-        float rows  = 22.0;
-        float row   = floor(vUv.y * rows);
-        float tick  = floor(uTime * 20.0);
-        float on    = step(1.0 - 0.6 * uGlitch, hash(row * 13.1 + tick * 7.7));
-        float shift = (hash(row * 3.7 + tick * 3.3) - 0.5) * 0.14 * uGlitch * on;
-        float split = 0.006 + 0.014 * uGlitch;
-        vec2  g     = vec2(vUv.x + shift, vUv.y);
-        float gp = texture2D(uTexture, clamp(g + vec2(split, 0.0), 0.001, 0.999)).a;
-        float gw = texture2D(uTexture, clamp(g, 0.001, 0.999)).a;
-        float gt = texture2D(uTexture, clamp(g - vec2(split, 0.0), 0.001, 0.999)).a;
-        float core = min(min(gp, gt), gw);
-        vec3 pink = vec3(1.0, 0.37, 0.64);
-        vec3 teal = vec3(0.24, 0.9, 0.82);
-        vec3 gCol = vec3(1.0) * core + pink * max(gp - core, 0.0) + teal * max(gt - core, 0.0);
-        float gA  = max(max(gp, gt), gw);
-        float k   = clamp(uGlitch * 3.0, 0.0, 1.0);
-        finalColor = mix(finalColor, gCol / max(gA, 0.001), k);
-        finalAlpha = mix(finalAlpha, gA, k);
-      }
+      /* Subtle always-on glitch: thin cyan/green split (like the cursor) with
+         small random jitters; fades out while the hover lens is active */
+      float tick = floor(uTime * 12.0);
+      float jump = step(0.92, hash(tick)) * hash(tick + 3.1);
+      float off  = 0.0016 + 0.006 * jump;
+      float row  = floor(vUv.y * 30.0);
+      float sl   = step(0.985, hash(row * 7.3 + tick * 1.7)) * (hash(row + tick) - 0.5) * 0.012;
+      vec2  g    = vec2(vUv.x + sl, vUv.y);
+      float aW = texture2D(uTexture, clamp(g, 0.001, 0.999)).a;
+      float aC = texture2D(uTexture, clamp(g + vec2(off, 0.0), 0.001, 0.999)).a;
+      float aG = texture2D(uTexture, clamp(g - vec2(off, 0.0), 0.001, 0.999)).a;
+      vec3  cyan  = vec3(0.0, 0.86, 1.0);
+      vec3  green = vec3(0.39, 1.0, 0.31);
+      float fc = max(aC - aW, 0.0) * 0.75;
+      float fg = max(aG - aW, 0.0) * 0.75;
+      float sA = max(aW, max(fc, fg));
+      vec3  sCol = (vec3(1.0) * aW + cyan * fc + green * fg) / max(aW + fc + fg, 0.001);
+      float h = clamp(uActive * 2.0, 0.0, 1.0);
+      finalColor = mix(sCol, finalColor, h);
+      finalAlpha = mix(sA, finalAlpha, h);
       gl_FragColor = vec4(finalColor, finalAlpha);
     }
   `;
@@ -592,27 +590,9 @@ function initHeroEffect() {
     uIOR:                 ul(renderProg, 'uIOR'),
     uRefractionRoughness: ul(renderProg, 'uRefractionRoughness'),
     uActive:              ul(renderProg, 'uActive'),
-    uGlitch:              ul(renderProg, 'uGlitch'),
     uTime:                ul(renderProg, 'uTime')
   };
 
-  /* Glitch level: strong burst on load that settles, then rare micro-glitches */
-  var glitchStart = performance.now();
-  var nextBurst = glitchStart + 4500;
-  var burstEnd = 0;
-  function glitchLevel(now) {
-    var intro = now - glitchStart;
-    if (intro < 1300) {
-      var decay = 1 - intro / 1300;
-      return decay * (Math.random() < 0.8 ? 1 : 0.25);
-    }
-    if (now > nextBurst) {
-      burstEnd = now + 90 + Math.random() * 160;
-      nextBurst = now + 3500 + Math.random() * 4500;
-    }
-    if (now < hoverBurst) return 0.45 + Math.random() * 0.3;
-    return now < burstEnd ? 0.25 + Math.random() * 0.2 : 0;
-  }
 
   var mouse     = { x: 0.5, y: 0.5 };
   var lastMouse = { x: 0.5, y: 0.5 };
@@ -627,9 +607,8 @@ function initHeroEffect() {
   var IOR_BASE     = 0.055;
   var REFRAC_ROUGH = 0.25;
 
-  /* Hover = a short burst of the digital glitch (the old refraction lens is off) */
-  var hoverBurst = 0;
-  canvas.addEventListener('mouseenter', function() { hoverBurst = performance.now() + 380; });
+  canvas.addEventListener('mouseenter', function() { hovering = true;  targetActive = 1; });
+  canvas.addEventListener('mouseleave', function() { hovering = false; targetActive = 0; });
   canvas.addEventListener('mousemove', function(e) {
     var rect = canvas.getBoundingClientRect();
     var nx = (e.clientX - rect.left) / rect.width;
@@ -695,7 +674,6 @@ function initHeroEffect() {
     gl.uniform1f(ren.uIOR, IOR_BASE);
     gl.uniform1f(ren.uRefractionRoughness, REFRAC_ROUGH);
     gl.uniform1f(ren.uActive, currentActive);
-    gl.uniform1f(ren.uGlitch, glitchLevel(now));
     gl.uniform1f(ren.uTime, t);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }

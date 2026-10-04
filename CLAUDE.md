@@ -58,10 +58,10 @@ Missing/placeholder: coral video, yennenga video.
 - `float-8ball`: 8ball.png, right:24%, top:22%
 
 ## Cards (hero)
-320×480 desktop. Video fills the whole card (`.card-art`, masked with `assets/card-paper.webp` for the torn edge). Corner indices `assets/idx-<suit>.png` sit straight on the video with a thin white glyph outline (stacked drop-shadows): clubs & spades black, diamonds & hearts pink. User rejected: white frame around the video, white tabs behind the indices, mix-blend indices (pink turns black).
+320×480 desktop. Video fills the whole card (`.card-art`, masked with `assets/card-paper.webp` for the torn edge). Corner indices `assets/idx-<suit>.png` sit straight on the video, no outline/backing: clubs & spades black, diamonds & hearts pink. User rejected: white frame around the video, white tabs, white outlines, mix-blend indices (pink turns black).
 
 ## Hero title
-Two lines "GABIJA / SURA" (WebGL canvas). Only the digital glitch (`uGlitch`: intro burst, rare micro-glitches, burst on hover). The old refraction/rainbow lens on hover is disabled on purpose — user hates it. Subtitle, spinning badge, sparkles.
+Two lines "GABIJA / SURA" (WebGL canvas). Effects: (1) subtle always-on glitch in RENDER_FRAG — thin cyan/green split like the cursor, small random jitters/slices; (2) the original refraction lens on hover (mouseenter/leave → targetActive). User rejected the pink/teal sliced intro glitch — don't bring it back. Subtitle, spinning badge, sparkles.
 
 ## Slot machine
 - Dark glass machine (as in March). Above it: big "Creative Jackpot" heading + white tilted "Spin to explore" pill (user likes the pill). No bulbs/coins — user disliked them. Big black stars left, cherry right.

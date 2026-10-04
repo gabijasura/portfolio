@@ -317,16 +317,11 @@ footer a:hover { opacity: 0.5; }
   display: block;
 }
 
-/* Corner indices straight on the video: clubs/spades black, diamonds/hearts pink.
-   A thin white outline that hugs the glyph keeps them readable on any footage. */
+/* Corner indices straight on the video: clubs/spades black, diamonds/hearts pink */
 .card-pip {
   position: absolute;
   width: 8.5%;
   pointer-events: none;
-  filter:
-    drop-shadow(1.2px 0 0 #fff) drop-shadow(-1.2px 0 0 #fff)
-    drop-shadow(0 1.2px 0 #fff) drop-shadow(0 -1.2px 0 #fff)
-    drop-shadow(0 3px 6px rgba(0,0,0,0.35));
 }
 .card-pip img { width: 100%; height: auto; display: block; }
 .card-pip-tl { top: 4%; left: 5%; }
