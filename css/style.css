@@ -2123,3 +2123,8 @@ footer a:hover { opacity: 0.5; }
   .hero-float.chip-1 { top: 192px !important; }
   .hero-float.chip-2 { top: 192px !important; }
 }
+
+/* Name in the nav matches the menu links */
+.nav-logo { font-size: 16px; letter-spacing: 0.12em; opacity: 0.85; }
+.nav-logo:hover { opacity: 1; }
+@media (max-width: 768px) { .nav-logo { font-size: 13px !important; } }
