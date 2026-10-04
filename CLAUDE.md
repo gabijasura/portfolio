@@ -43,7 +43,7 @@ npx serve .
 
 ## Project Pages
 
-All share `css/style.css`. Every project page, About and Lcky Group use the shared panel layout: `.proj-title` on top, then `.lg-section > .lg-panel` with `.lg-head` (kicker, h2, text, `.proj-meta` facts) and `.lg-media` (`.lg-clip > .lg-frame` + figcaption; `.is-wide` for 16:9, fixed height for vertical). Work page: 3-col grid with gaps, rounded tiles, title + category under each tile.
+All share `css/style.css`. Every project page, About and Lcky Group use the shared panel layout: `.proj-title` on top, then `.lg-section > .lg-panel` with `.lg-head` (kicker, h2, text, `.proj-meta` facts) and `.lg-media` (`.lg-clip > .lg-frame` + figcaption; `.is-wide` for 16:9, fixed height for vertical). Project pages use `.lg-panel.is-wide` (landscape media full width, then intro | copy | facts columns) or `.lg-panel.is-vert` (portrait media left, wide text + facts column right). Lcky brand panels / Meno stills keep the head + media-row layout. Work page: 3-col grid with gaps, rounded tiles, UPPERCASE title + category under each tile.
 
 ## Assets
 

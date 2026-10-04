@@ -1655,3 +1655,98 @@ footer a:hover { opacity: 0.5; }
 .lg-frame.is-contain video, .lg-frame.is-contain img { object-fit: contain; }
 .lg-head .proj-meta { margin-top: 22px; }
 .proj-page > .lg-section:first-of-type { margin-top: 0; }
+
+/* ── Panel layouts for project pages ──
+   .is-wide : landscape media full width on top, text + facts in columns below
+   .is-vert : portrait media on the left, wide text column + facts beside it   */
+.lg-panel { padding: 44px; border-radius: 28px; gap: 56px; }
+.lg-head p, .lg-copy p {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 18px;
+}
+.lg-copy p:last-child { margin-bottom: 0; }
+.lg-copy { max-width: 64ch; }
+.lg-intro h2 {
+  font-size: clamp(30px, 3.4vw, 50px);
+  font-weight: 800;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.lg-panel.is-wide { display: block; }
+.lg-media.is-hero { display: block; overflow: visible; }
+.lg-media.is-hero .lg-clip { width: 100%; }
+.lg-body {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.8fr) minmax(0, 1.7fr) minmax(180px, 0.7fr);
+  gap: 56px;
+  margin-top: 44px;
+  align-items: start;
+}
+.lg-body.no-meta { grid-template-columns: minmax(200px, 0.8fr) minmax(0, 2.4fr); }
+
+.lg-panel.is-vert {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+}
+.lg-panel.is-vert .lg-media { --clip-h: clamp(420px, 42vw, 620px); overflow: visible; }
+.lg-side { display: flex; flex-direction: column; gap: 30px; }
+.lg-copy-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 48px;
+  align-items: start;
+}
+.lg-copy-wrap.no-meta { grid-template-columns: 1fr; }
+
+/* Facts as a column next to the text */
+.proj-meta.is-col {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 20px;
+  margin: 0;
+  padding: 2px 0 0 24px;
+  border-top: 0;
+  border-left: 1px solid rgba(255,255,255,0.14);
+  max-width: none;
+}
+
+@media (max-width: 1100px) {
+  .lg-body { grid-template-columns: 1fr 1fr; }
+  .lg-body .lg-intro { grid-column: 1 / -1; }
+  .lg-body.no-meta { grid-template-columns: 1fr; }
+  .lg-panel.is-vert { grid-template-columns: 1fr; }
+  .lg-panel.is-vert .lg-media { --clip-h: 520px; justify-content: center; }
+}
+@media (max-width: 768px) {
+  .lg-panel, .lg-panel.is-wide, .lg-panel.is-vert { padding: 28px 0; border-radius: 0; gap: 28px; }
+  .lg-media.is-hero { padding: 0 var(--proj-pad); }
+  .lg-body { grid-template-columns: 1fr; gap: 24px; margin-top: 28px; padding: 0 var(--proj-pad); }
+  .lg-side { padding: 0 var(--proj-pad); gap: 22px; }
+  .lg-copy-wrap { grid-template-columns: 1fr; gap: 26px; }
+  .lg-panel.is-vert .lg-media { --clip-h: 460px; justify-content: flex-start; }
+  .proj-meta.is-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    padding: 20px 0 0;
+    border-left: 0;
+    border-top: 1px solid rgba(255,255,255,0.14);
+  }
+}
+
+/* Two or more portrait clips: shorter, so the text column keeps its width */
+.lg-panel.is-vert { grid-template-columns: auto minmax(440px, 1fr); }
+.lg-panel.is-vert .lg-media:has(.lg-clip + .lg-clip) { --clip-h: clamp(320px, 27vw, 440px); }
+@media (max-width: 1100px) {
+  .lg-panel.is-vert { grid-template-columns: 1fr; }
+  .lg-panel.is-vert .lg-media:has(.lg-clip + .lg-clip) { --clip-h: 460px; }
+}
+
+/* AI Work holds four portrait clips — keep them all in view on desktop */
+.lg-ai .lg-media { --clip-h: clamp(300px, 24vw, 360px); }
+@media (max-width: 768px) { .lg-ai .lg-media { --clip-h: 420px; } }
