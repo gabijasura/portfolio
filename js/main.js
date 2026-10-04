@@ -84,26 +84,6 @@ if (IS_TOUCH) document.documentElement.classList.add('touch');
   if (!reels.length || !lever) return;
 
   let spinning = false;
-  const machine = document.querySelector('.slot-machine');
-
-  function coinBurst() {
-    if (!machine) return;
-    for (let i = 0; i < 18; i++) {
-      const c = document.createElement('span');
-      c.className = 'slot-coin';
-      c.style.left = (35 + Math.random() * 30) + '%';
-      c.style.top = '10%';
-      machine.appendChild(c);
-      const dx = (Math.random() - 0.5) * 520;
-      const dy = -160 - Math.random() * 220;
-      c.animate([
-        { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
-        { transform: `translate(${dx * 0.6}px, ${dy}px) rotate(${dx}deg)`, opacity: 1, offset: 0.45 },
-        { transform: `translate(${dx}px, ${dy + 520}px) rotate(${dx * 2}deg)`, opacity: 0 }
-      ], { duration: 1400 + Math.random() * 500, easing: 'cubic-bezier(.2,.6,.4,1)' })
-        .onfinish = () => c.remove();
-    }
-  }
 
   // Reels start with their hardcoded GIFs (set in HTML) — no JS init needed
 
@@ -142,8 +122,7 @@ if (IS_TOUCH) document.documentElement.classList.add('touch');
 
     // Remove landed state
     reels.forEach(r => r.classList.remove('landed'));
-    if (machine) machine.classList.remove('is-jackpot');
-    if (machine) machine.classList.add('is-spinning');
+
 
     // Spin each reel, staggered stop
     reels.forEach((reel, i) => {
@@ -166,16 +145,7 @@ if (IS_TOUCH) document.documentElement.classList.add('touch');
         // Pick final project
         const picked = projects[Math.floor(Math.random() * projects.length)];
         setReel(reel, picked);
-        if (i === reels.length - 1) {
-          spinning = false;
-          if (machine) machine.classList.remove('is-spinning');
-          const names = reels.map(r => r._project && r._project.name);
-          if (machine && names.every(n => n === names[0])) {
-            machine.classList.add('is-jackpot');
-            coinBurst();
-            setTimeout(() => machine.classList.remove('is-jackpot'), 2600);
-          }
-        }
+        if (i === reels.length - 1) spinning = false;
       }, stopDelay);
     });
   }

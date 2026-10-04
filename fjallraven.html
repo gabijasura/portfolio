@@ -5,20 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fjällräven | Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .dual-video {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin: 0 60px;
-    }
-    .dual-video-item { position: relative; overflow: hidden; border-radius: 4px; }
-    .dual-video-item video { width: 100%; display: block; }
-    .dual-video-label {
-      position: absolute; bottom: 14px; left: 18px;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.6);
-    }
-    @media (max-width: 768px) { .dual-video { grid-template-columns: 1fr; margin: 0 24px; } }
-  </style>
 </head>
 <body>
   <canvas class="cursor-canvas"></canvas>
@@ -32,23 +18,31 @@
   </nav>
   <main class="proj-page">
     <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-    <div class="dual-video">
-      <div class="dual-video-item">
-        <video src="videos/Säl.mp4" autoplay muted loop playsinline></video>
-        <span class="dual-video-label">The Seal</span>
-      </div>
-      <div class="dual-video-item">
-        <video src="videos/Fågel.mp4" autoplay muted loop playsinline></video>
-        <span class="dual-video-label">The Bird</span>
-      </div>
-    </div>
     <div class="project-content">
       <h1 class="proj-title">Fjällräven</h1>
-      <div class="proj-text">
-        <p>During my internship at Bsmart, I worked on an internal presentation for Fjällräven showcasing their upcoming Spring/Summer 2026 collection. The highlight of the project was bringing the Kånken Graphics backpack to life. The series has two different animal-themed designs.</p>
-        <p>I created frame-by-frame animations where the animals on each backpack, a seal and a bird, literally came to life, transforming static product images into playful, animated moments.</p>
-      </div>
     </div>
+
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">01 / Internship at Bsmart</span>
+          <h2>Kånken Graphics</h2>
+          <p>During my internship at Bsmart, I worked on an internal presentation for Fjällräven, introducing their Spring/Summer 2026 collection. My part was the Kånken Graphics backpack, a series with two animal-themed prints.</p>
+          <p>I animated the animals frame by frame so they could leave the backpack and move around the model. On one bag a little seal swims through the air, on the other a bird flies around and lands again. It turned plain product photos into small playful moments and gave the presentation some life.</p>
+          <dl class="proj-meta"><div><dt>Context</dt><dd>Internship at Bsmart</dd></div><div><dt>Client</dt><dd>Fjällräven</dd></div><div><dt>Role</dt><dd>Frame-by-frame animation</dd></div></dl>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame is-45"><video src="videos/Säl.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+            <figcaption>The Seal<span>Kånken Graphics</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame is-45"><video src="videos/Fågel.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+            <figcaption>The Bird<span>Kånken Graphics</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
   </main>
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2026</span>

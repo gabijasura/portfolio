@@ -5,27 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meno Male | Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .mm-stills {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      margin: 8px 60px 0;
-      gap: 8px;
-    }
-    .mm-stills video {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 4px;
-    }
-    .mm-gif-wrap { margin: 48px 60px 0; }
-    .mm-gif-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px;
-    }
-    .mm-gif-wrap img { width: 100%; display: block; border-radius: 4px; }
-    @media (max-width: 768px) {
-      .mm-stills { grid-template-columns: repeat(2,1fr); margin: 8px 24px 0; }
-      .mm-gif-wrap { margin: 32px 24px 0; }
-    }
-  </style>
 </head>
 <body>
   <canvas class="cursor-canvas"></canvas>
@@ -39,26 +18,70 @@
   </nav>
   <main class="proj-page">
     <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-    <div class="proj-media">
-      <video src="videos/meno-male.mp4" autoplay muted loop playsinline></video>
-    </div>
     <div class="project-content">
       <h1 class="proj-title">Meno Male</h1>
-      <div class="proj-text">
-        <p>During my internship at Bsmart, I had the opportunity to lead this project together with two other interns. I was responsible for editing, animation, and co-planning the film alongside the producer intern. Our goal was to promote Meno Male's catering service by showcasing their delicious Italian food and the inviting atmosphere of their events.</p>
-        <p>We created a 24-second hero film in both 16:9 and 9:16 formats, plus five still images with playful hand-drawn doodles to match the warm and vibrant feel of the brand.</p>
+    </div>
+
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">01 / Internship at Bsmart</span>
+          <h2>Catering hero film</h2>
+          <p>During my internship at Bsmart, I led this project together with two other interns. I was responsible for the editing and animation, and I planned the film together with our producer intern. The goal was to promote Meno Male's catering service by showing off their Italian food and the warm, social feeling of their events.</p>
+          <p>The film shows everything from the wood-fired oven and the big wheels of cheese to people sharing pizza at a party. In the edit I kept the pace quick and the close-ups tight, so you can almost smell the food.</p>
+          <p>We delivered a 24-second hero film in 16:9 and 9:16, five stills with playful hand-drawn doodles that match the brand, and an animated GIF for their emails.</p>
+          <dl class="proj-meta"><div><dt>Context</dt><dd>Internship at Bsmart</dd></div><div><dt>Client</dt><dd>Meno Male</dd></div><div><dt>Role</dt><dd>Co-lead, editing and animation</dd></div><div><dt>Deliverables</dt><dd>Hero film 16:9 + 9:16, 5 stills, email GIF</dd></div></dl>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip is-full">
+            <div class="lg-frame is-wide"><video src="videos/meno-male.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+          </figure>
+        </div>
       </div>
-    </div>
-    <div class="mm-stills">
-      <video src="img/menomale/aperitivo.mp4" autoplay muted loop playsinline></video>
-      <video src="img/menomale/pass_the_pizza.mp4" autoplay muted loop playsinline></video>
-      <video src="img/menomale/pizza.mp4" autoplay muted loop playsinline></video>
-      <video src="img/menomale/pizza_catering 9x16.mp4" autoplay muted loop playsinline></video>
-    </div>
-    <div class="mm-gif-wrap">
-      <p class="mm-gif-label">Email GIF</p>
-      <img src="img/menomale/16x9-ezgif.com-optimize.gif" alt="Meno Male email gif" />
-    </div>
+    </section>
+
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">02 / Stills</span>
+          <h2>Stills with doodles</h2>
+          <p>Stills from the shoot with playful hand-drawn doodles on top, made to match the warm and fun feel of the brand.</p>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="img/menomale/aperitivo.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+            <figcaption>Aperitivo<span>9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="img/menomale/pass_the_pizza.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+            <figcaption>Pass the pizza<span>9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="img/menomale/pizza.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+            <figcaption>Pizza<span>9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="img/menomale/pizza_catering 9x16.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+            <figcaption>Catering<span>9:16</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">03 / Email</span>
+          <h2>Email GIF</h2>
+          <p>A short animated GIF made for Meno Male's emails.</p>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip is-full">
+            <div class="lg-frame is-wide"><img src="img/menomale/16x9-ezgif.com-optimize.gif" alt="" /></div>
+          </figure>
+        </div>
+      </div>
+    </section>
   </main>
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2026</span>

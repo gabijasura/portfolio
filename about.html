@@ -6,23 +6,19 @@
   <title>About | Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .about-img {
-      width: 350px;
-      min-width: 350px;
-      height: 420px;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 8px;
-      flex-shrink: 0;
+    .about-hey { font-size: clamp(56px, 10vw, 140px); }
+    .about-photo-frame { --clip-h: clamp(340px, 34vw, 500px); }
+    .about-photo-frame img { object-position: center top; }
+    .about-mail {
+      font-family: 'Jost', sans-serif;
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 700;
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+      text-decoration-color: #ff7fb5;
     }
-    .about-page-body {
-      align-items: flex-start;
-    }
-    .about-page-text p {
-      font-size: 1.3rem;
-      line-height: 1.8;
-      max-width: 600px;
-    }
+    .contact-chips { align-self: center; justify-content: flex-start; padding: 0; }
   </style>
 </head>
 <body>
@@ -38,39 +34,50 @@
     </ul>
   </nav>
 
-  <main class="about-page">
-
-    <h1 class="about-hey reveal">Hey you!</h1>
-
-    <div class="about-page-body reveal">
-      <div class="about-page-text">
-        <p>
-          I'm Gabija, a Stockholm-based motion and graphic designer with a thing for glitchy, experimental visuals that are satisfying to stare at.
-        </p>
-        <p>
-          I spend my days at Lcky Group making content for four casino brands. Lately a lot of that work involves AI. I use Figma Weave to build scenes and characters, and Claude to take care of the repetitive parts of production. In my free time I find inspiration in the most random everyday things.
-        </p>
-        <p>
-          When I'm not animating, I'm probably crocheting, painting, or making something with my hands. Creativity doesn't really have an off switch.
-        </p>
-      </div>
-      <div class="about-page-photo">
-        <img src="PNG/me.jpeg" alt="Gabija Sura" class="about-img" />
-      </div>
+  <main class="proj-page">
+    <div class="project-content" style="padding-top:110px">
+      <h1 class="proj-title about-hey">Hey you!</h1>
     </div>
 
-    <div class="contact-chips reveal">
-      <a href="https://www.linkedin.com/in/gabija-sura-8154081b7/"
-         target="_blank" rel="noopener"
-         class="chip-link" aria-label="LinkedIn">
-        <img src="assets/chip-linkedin.webp" alt="LinkedIn" />
-      </a>
-      <a href="mailto:gabijasura@gmail.com"
-         class="chip-link" aria-label="Email">
-        <img src="assets/chip-email.webp" alt="Email" />
-      </a>
-    </div>
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head about-head">
+          <span class="lg-kicker">01 / About me</span>
+          <h2>Motion designer in Stockholm</h2>
+          <p>I'm Gabija, a Stockholm-based motion and graphic designer with a thing for glitchy, experimental visuals that are satisfying to stare at.</p>
+          <p>I studied media and design at Södertörn University, and later motion design at Hyper Island, which is where I really found my thing: making stuff move. After that I did my internship at Bsmart, working on projects like Fjällräven's Kånken animations and a catering film for Meno Male.</p>
+          <p>Today I'm a graphic and motion designer at Lcky Group, where I make social ads, campaigns and banners for four casino brands, each with its own personality. Lately a lot of that work involves AI. I build scenes and characters in Figma Weave and use Claude to take care of the repetitive parts of production, but the idea and the final touches are still mine.</p>
+          <p>I find inspiration in the most random everyday things, and I care a lot about the small details that make something fun to watch more than once.</p>
+          <p>When I'm not animating, I'm probably crocheting, painting, or making something with my hands. Creativity doesn't really have an off switch for me.</p>
+          <dl class="proj-meta"><div><dt>Now</dt><dd>Graphic &amp; motion designer, Lcky Group</dd></div><div><dt>Studied</dt><dd>Hyper Island, Södertörn University</dd></div><div><dt>Tools</dt><dd>After Effects, Figma, Figma Weave, Blender, Illustrator</dd></div></dl>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame is-45 about-photo-frame"><img src="PNG/me.jpeg" alt="Gabija Sura" /></div>
+            <figcaption>Gabija Sura<span>Motion &amp; AI Creative Designer</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
 
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">02 / Say hi</span>
+          <h2>Let's work together</h2>
+          <p>Have a project in mind, want to chat about motion and AI, or just want to say hi? Send me an email or find me on LinkedIn.</p>
+          <p><a class="about-mail" href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a></p>
+        </header>
+        <div class="contact-chips">
+          <a href="https://www.linkedin.com/in/gabija-sura-8154081b7/" target="_blank" rel="noopener" class="chip-link" aria-label="LinkedIn">
+            <img src="assets/chip-linkedin.webp" alt="LinkedIn" />
+          </a>
+          <a href="mailto:gabijasura@gmail.com" class="chip-link" aria-label="Email">
+            <img src="assets/chip-email.webp" alt="Email" />
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>

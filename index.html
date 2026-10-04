@@ -96,31 +96,31 @@
 
         <a href="ball.html" class="playing-card card-1">
           <span class="card-art"><video src="videos/TheBall.mp4" autoplay muted loop playsinline></video></span>
-          <img class="card-idx card-idx-tl" src="assets/idx-clubs.png" alt="" />
-          <img class="card-idx card-idx-br" src="assets/idx-clubs.png" alt="" />
+          <span class="card-pip card-pip-tl"><img src="assets/idx-clubs.png" alt="" /></span>
+          <span class="card-pip card-pip-br"><img src="assets/idx-clubs.png" alt="" /></span>
         </a>
 
         <a href="mushroom.html" class="playing-card card-2">
           <span class="card-art"><video src="videos/Mushroom.mp4" autoplay muted loop playsinline></video></span>
-          <img class="card-idx card-idx-tl" src="assets/idx-spades.png" alt="" />
-          <img class="card-idx card-idx-br" src="assets/idx-spades.png" alt="" />
+          <span class="card-pip card-pip-tl"><img src="assets/idx-spades.png" alt="" /></span>
+          <span class="card-pip card-pip-br"><img src="assets/idx-spades.png" alt="" /></span>
         </a>
 
         <a href="coral.html" class="playing-card card-3">
           <span class="card-art"><video src="videos/Coral.mp4" autoplay muted loop playsinline></video></span>
-          <img class="card-idx card-idx-tl" src="assets/idx-diamonds.png" alt="" />
-          <img class="card-idx card-idx-br" src="assets/idx-diamonds.png" alt="" />
+          <span class="card-pip card-pip-tl"><img src="assets/idx-diamonds.png" alt="" /></span>
+          <span class="card-pip card-pip-br"><img src="assets/idx-diamonds.png" alt="" /></span>
         </a>
 
         <a href="nightfall.html" class="playing-card card-4">
           <span class="card-art"><video src="videos/footprint.mp4" autoplay muted loop playsinline></video></span>
-          <img class="card-idx card-idx-tl" src="assets/idx-hearts.png" alt="" />
-          <img class="card-idx card-idx-br" src="assets/idx-hearts.png" alt="" />
+          <span class="card-pip card-pip-tl"><img src="assets/idx-hearts.png" alt="" /></span>
+          <span class="card-pip card-pip-br"><img src="assets/idx-hearts.png" alt="" /></span>
         </a>
 
       </div><!-- /hero-cards -->
 
-      <span id="hero-source">GABIJA SURA</span>
+      <span id="hero-source">GABIJA</span>
       <div id="hero-container"></div>
 
       <p class="hero-sub">Motion &amp; AI Creative Designer · Stockholm</p>
@@ -145,15 +145,14 @@
       <img src="assets/cherry.webp" class="cherry-img" alt="" />
     </div>
 
-    <!-- Title pill -->
+    <!-- Title + pill -->
+    <h2 class="slot-heading">Creative<br>Jackpot</h2>
     <div class="slot-title-pill">
-      <h2>Spin to explore</h2>
+      <p>Spin to explore</p>
     </div>
 
     <!-- The machine -->
     <div class="slot-machine">
-      <div class="slot-lights" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <div class="slot-jackpot" aria-live="polite">Jackpot!</div>
       <div class="slot-reels">
 
         <div class="slot-reel">
@@ -296,7 +295,7 @@ function initHeroEffect() {
     var lineH = Math.ceil(r.height);
     return {
       w: Math.ceil(r.width) + PAD_X * 2,
-      h: lineH + PAD_Y * 2,
+      h: Math.ceil(lineH * 2 * 0.92) + PAD_Y * 2,
       lineH: lineH
     };
   }
@@ -312,12 +311,14 @@ function initHeroEffect() {
     ctx.fillStyle    = 'white';
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'alphabetic';
-    var m = ctx.measureText('GABIJA SURA');
+    var m = ctx.measureText('GABIJA');
     var lineAscent  = m.actualBoundingBoxAscent  || parseFloat(cs.fontSize) * 0.75;
     var lineDescent = m.actualBoundingBoxDescent || parseFloat(cs.fontSize) * 0.2;
     var lineH = lineAscent + lineDescent;
-    var blockTop = (h - lineH) / 2;
-    ctx.fillText('GABIJA SURA', w / 2, blockTop + lineAscent);
+    var totalH = lineH * 2 * 0.92;
+    var blockTop = (h - totalH) / 2;
+    ctx.fillText('GABIJA', w / 2, blockTop + lineAscent);
+    ctx.fillText('SURA',   w / 2, blockTop + lineAscent + lineH * 0.92);
     return oc;
   }
 
@@ -609,6 +610,7 @@ function initHeroEffect() {
       burstEnd = now + 90 + Math.random() * 160;
       nextBurst = now + 3500 + Math.random() * 4500;
     }
+    if (now < hoverBurst) return 0.45 + Math.random() * 0.3;
     return now < burstEnd ? 0.25 + Math.random() * 0.2 : 0;
   }
 
@@ -625,8 +627,9 @@ function initHeroEffect() {
   var IOR_BASE     = 0.055;
   var REFRAC_ROUGH = 0.25;
 
-  canvas.addEventListener('mouseenter', function() { hovering = true;  targetActive = 1; });
-  canvas.addEventListener('mouseleave', function() { hovering = false; targetActive = 0; });
+  /* Hover = a short burst of the digital glitch (the old refraction lens is off) */
+  var hoverBurst = 0;
+  canvas.addEventListener('mouseenter', function() { hoverBurst = performance.now() + 380; });
   canvas.addEventListener('mousemove', function(e) {
     var rect = canvas.getBoundingClientRect();
     var nx = (e.clientX - rect.left) / rect.width;

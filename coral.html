@@ -5,39 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coral | Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .split-hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin: 0 60px;
-      min-height: 75vh;
-    }
-    .split-hero-video {
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .split-hero-video img {
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      display: block;
-      object-fit: contain;
-    }
-    .split-hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 0 0 48px;
-    }
-    @media (max-width: 768px) {
-      .split-hero { grid-template-columns: 1fr; margin: 0 24px; min-height: auto; }
-      .split-hero-video { aspect-ratio: 9/16; }
-      .split-hero-text { padding: 32px 0 0; }
-    }
-  </style>
 </head>
 <body>
   <canvas class="cursor-canvas"></canvas>
@@ -51,17 +18,27 @@
   </nav>
   <main class="proj-page">
     <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-    <div class="split-hero">
-      <div class="split-hero-video">
-        <img src="videos/Coral.gif" alt="Coral" />
-      </div>
-      <div class="split-hero-text">
-        <h1 class="proj-title">Coral</h1>
-        <div class="proj-text">
-          <p>My first 3D animation project. The task was to create something abstract that fits one of 3 suggested songs and can be used for Spotify Canvas. I chose a song that reminded me of the underwater world, leading me to create a shape that could resemble a growing coral.</p>
+    <div class="project-content">
+      <h1 class="proj-title">Coral</h1>
+    </div>
+
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">01 / School project</span>
+          <h2>Spotify Canvas</h2>
+          <p>My first 3D animation. The brief was to make something abstract that fits one of three suggested songs and could work as a Spotify Canvas, the short looping visual that plays behind a track in the app.</p>
+          <p>The song I picked made me think of the underwater world, so I started building a shape that slowly grows and unfolds, almost like a coral reaching for light. Since a Canvas loops endlessly and sits behind the music, I kept the movement calm and soft rather than flashy.</p>
+          <p>Learning 3D from scratch was a lot, but it's also where I fell for the mix of shape, light and motion.</p>
+          <dl class="proj-meta"><div><dt>Context</dt><dd>School project</dd></div><div><dt>Role</dt><dd>3D modeling and animation</dd></div><div><dt>Format</dt><dd>Spotify Canvas, vertical loop</dd></div></dl>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame is-coral"><img src="videos/Coral.gif" alt="" /></div>
+          </figure>
         </div>
       </div>
-    </div>
+    </section>
   </main>
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2026</span>

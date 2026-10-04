@@ -43,7 +43,7 @@ npx serve .
 
 ## Project Pages
 
-All share `css/style.css`. Custom layouts are inlined per page (mushroom.html, duck.html). Standard layout uses `.proj-page` + `.proj-media` (16:9) + `.proj-title` + `.proj-text`.
+All share `css/style.css`. Every project page, About and Lcky Group use the shared panel layout: `.proj-title` on top, then `.lg-section > .lg-panel` with `.lg-head` (kicker, h2, text, `.proj-meta` facts) and `.lg-media` (`.lg-clip > .lg-frame` + figcaption; `.is-wide` for 16:9, fixed height for vertical). Work page: 3-col grid with gaps, rounded tiles, title + category under each tile.
 
 ## Assets
 
@@ -58,13 +58,13 @@ Missing/placeholder: coral video, yennenga video.
 - `float-8ball`: 8ball.png, right:24%, top:22%
 
 ## Cards (hero)
-320×480 desktop. Paper = `assets/card-paper.webp` (blank torn card), video in `.card-art` window (inset 7% / 16%), corner indices `assets/idx-<suit>.png` — clubs & spades black, diamonds & hearts pink. Never put the indices over the video with mix-blend (pink turns black over dark footage).
+320×480 desktop. Video fills the whole card (`.card-art`, masked with `assets/card-paper.webp` for the torn edge). Corner indices `assets/idx-<suit>.png` sit straight on the video with a thin white glyph outline (stacked drop-shadows): clubs & spades black, diamonds & hearts pink. User rejected: white frame around the video, white tabs behind the indices, mix-blend indices (pink turns black).
 
 ## Hero title
-One line "GABIJA SURA" (WebGL canvas) — the dice/8-ball positions depend on that width. Intro glitch + rare micro-glitches via `uGlitch` in RENDER_FRAG. Subtitle "Motion & AI Creative Designer · Stockholm", spinning badge, twinkling sparkles.
+Two lines "GABIJA / SURA" (WebGL canvas). Only the digital glitch (`uGlitch`: intro burst, rare micro-glitches, burst on hover). The old refraction/rainbow lens on hover is disabled on purpose — user hates it. Subtitle, spinning badge, sparkles.
 
 ## Slot machine
-- Pastel style on purpose (user liked it): lilac #c4bef8, 4px #111 border, hard black drop shadow, marquee bulbs, white tilted "Spin to explore" pill, pink lever. Three matching reels → "Jackpot!" badge + coin burst (main.js).
+- Dark glass machine (as in March). Above it: big "Creative Jackpot" heading + white tilted "Spin to explore" pill (user likes the pill). No bulbs/coins — user disliked them. Big black stars left, cherry right.
 - Frame: background #c4bef8, border 4px solid #111, border-radius 24px, max-width 860px
 - Reels: background rgba(255,215,232,0.5), border 3px solid #111, border-radius 14px, overflow hidden
 - Lever: no border/background on button element — lever-ball and lever-base use box-shadow only

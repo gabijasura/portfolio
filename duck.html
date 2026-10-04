@@ -5,38 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Duck | Gabija Sura</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .split-hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin: 0 60px;
-      min-height: 75vh;
-    }
-    .split-hero-video {
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .split-hero-video img {
-      max-width: 100%;
-      max-height: 100%;
-      display: block;
-      object-fit: contain;
-    }
-    .split-hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 0 0 48px;
-    }
-    @media (max-width: 768px) {
-      .split-hero { grid-template-columns: 1fr; margin: 0 24px; min-height: auto; }
-      .split-hero-video { aspect-ratio: 1; min-height: 300px; }
-      .split-hero-text { padding: 32px 0 0; }
-    }
-  </style>
 </head>
 <body>
   <canvas class="cursor-canvas"></canvas>
@@ -50,17 +18,27 @@
   </nav>
   <main class="proj-page">
     <div class="proj-header"><a href="work.html" class="proj-back">← Back</a></div>
-    <div class="split-hero">
-      <div class="split-hero-video">
-        <img src="assets/duck.gif" alt="The Duck animation" />
-      </div>
-      <div class="split-hero-text">
-        <h1 class="proj-title">The Duck</h1>
-        <div class="proj-text">
-          <p>The Duck is a project that features my first walk cycle, made frame by frame in Adobe Animate. This project was inspired by the Untitled Goose Game and my personal obsession and collection of duck-themed items.</p>
+    <div class="project-content">
+      <h1 class="proj-title">The Duck</h1>
+    </div>
+
+    <section class="lg-section">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">01 / School project</span>
+          <h2>My first walk cycle</h2>
+          <p>The Duck is my first walk cycle, drawn frame by frame in Adobe Animate. It was inspired by Untitled Goose Game and, honestly, by my slightly out of hand collection of duck-themed things.</p>
+          <p>A walk cycle sounds simple until you try it. Getting the weight right in the body, the head bob and the little waddle took a lot of drawing, flipping back and forth and redrawing. It taught me more about timing than almost anything else I've done.</p>
+          <p>It's still one of my favorite pieces, and the duck lives on in the slot machine on my start page.</p>
+          <dl class="proj-meta"><div><dt>Context</dt><dd>School project</dd></div><div><dt>Role</dt><dd>Frame-by-frame animation</dd></div><div><dt>Tools</dt><dd>Adobe Animate</dd></div></dl>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame is-sq is-contain"><img src="assets/duck.gif" alt="" /></div>
+          </figure>
         </div>
       </div>
-    </div>
+    </section>
   </main>
   <footer>
     <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2026</span>
