@@ -18,11 +18,36 @@
       text-underline-offset: 6px;
       text-decoration-color: #ff7fb5;
     }
-    .contact-chips { align-self: center; justify-content: flex-start; padding: 0; }
+    .about-contact {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px 40px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+    .about-contact-text .lg-kicker { margin-bottom: 8px; }
+    .contact-chips { justify-content: flex-start; padding: 0; gap: 22px; }
+    .chip-link { width: 120px; }
+    /* Chips idle with a small wobble, now and then a quick shake */
+    .chip-link img { animation: chip-wobble 3.2s ease-in-out infinite; transform-origin: 50% 60%; }
+    .chip-link:nth-child(2) img { animation-delay: -1.4s; animation-duration: 3.6s; }
+    @keyframes chip-wobble {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      20%      { transform: rotate(-3deg) translateY(-3px); }
+      40%      { transform: rotate(2deg) translateY(0); }
+      70%      { transform: rotate(0deg) translateY(-2px); }
+      78%      { transform: rotate(-4deg); }
+      82%      { transform: rotate(4deg); }
+      86%      { transform: rotate(-3deg); }
+      90%      { transform: rotate(2deg); }
+    }
+    @media (prefers-reduced-motion: reduce) { .chip-link img { animation: none; } }
     @media (max-width: 768px) {
       .about-intro { padding-top: 104px !important; }
-      .contact-chips { padding: 0 var(--proj-pad) !important; justify-content: flex-start !important; gap: 16px !important; }
-      .chip-link { width: 120px; }
+      .contact-chips { padding: 0 !important; justify-content: flex-start !important; gap: 16px !important; }
+      .chip-link { width: 110px; }
     }
   </style>
 </head>
@@ -67,28 +92,24 @@
             </div>
             <dl class="proj-meta is-col"><div><dt>Now</dt><dd>Graphic &amp; motion designer, Lcky Group</dd></div><div><dt>Studied</dt><dd>Hyper Island, Södertörn University</dd></div><div><dt>Tools</dt><dd>After Effects, Figma, Figma Weave, Blender, Illustrator</dd></div></dl>
           </div>
+          <div class="about-contact">
+            <div class="about-contact-text">
+              <span class="lg-kicker">Say hi</span>
+              <a class="about-mail" href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a>
+            </div>
+            <div class="contact-chips">
+              <a href="https://www.linkedin.com/in/gabija-sura-8154081b7/" target="_blank" rel="noopener" class="chip-link" aria-label="LinkedIn">
+                <img src="assets/chip-linkedin.webp" alt="LinkedIn" />
+              </a>
+              <a href="mailto:gabijasura@gmail.com" class="chip-link" aria-label="Email">
+                <img src="assets/chip-email.webp" alt="Email" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="lg-section">
-      <div class="lg-panel">
-        <header class="lg-head">
-          <span class="lg-kicker">02 / Say hi</span>
-          <h2>Let's work together</h2>
-          <p>Have a project in mind, want to chat about motion and AI, or just want to say hi? Send me an email or find me on LinkedIn.</p>
-          <p><a class="about-mail" href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a></p>
-        </header>
-        <div class="contact-chips">
-          <a href="https://www.linkedin.com/in/gabija-sura-8154081b7/" target="_blank" rel="noopener" class="chip-link" aria-label="LinkedIn">
-            <img src="assets/chip-linkedin.webp" alt="LinkedIn" />
-          </a>
-          <a href="mailto:gabijasura@gmail.com" class="chip-link" aria-label="Email">
-            <img src="assets/chip-email.webp" alt="Email" />
-          </a>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
