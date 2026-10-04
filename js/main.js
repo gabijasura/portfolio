@@ -331,3 +331,65 @@ document.querySelectorAll('video[data-lazy], video[autoplay]').forEach(v => {
   menu.addEventListener('click', e => { if (e.target.closest('a')) toggle(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
 })();
+
+/* ─── Swipe rows on phones: dots, "Swipe" hint, edge fade and a one-time nudge ─── */
+(function() {
+  const rows = [...document.querySelectorAll('.lg-media')];
+  if (!rows.length) return;
+  const mq = window.matchMedia('(max-width: 768px)');
+
+  rows.forEach(row => {
+    const clips = [...row.querySelectorAll(':scope > .lg-clip, :scope > .lg-display-col > .lg-clip')];
+    if (clips.length < 2) return;
+
+    const hint = document.createElement('div');
+    hint.className = 'swipe-hint';
+    hint.innerHTML =
+      '<span class="swipe-label">Swipe <span class="swipe-arrow">→</span></span>' +
+      '<span class="swipe-dots">' + clips.map((_, i) =>
+        `<button type="button" aria-label="Show item ${i + 1}"></button>`).join('') + '</span>';
+    row.after(hint);
+    const dots = [...hint.querySelectorAll('button')];
+
+    const update = () => {
+      const scrollable = row.scrollWidth > row.clientWidth + 4;
+      hint.classList.toggle('is-off', !scrollable || !mq.matches);
+      row.classList.toggle('has-more', scrollable && row.scrollLeft + row.clientWidth < row.scrollWidth - 8);
+      const left = row.getBoundingClientRect().left;
+      let active = 0, best = Infinity;
+      clips.forEach((c, i) => {
+        const d = Math.abs(c.getBoundingClientRect().left - left - parseFloat(getComputedStyle(row).paddingLeft || 0));
+        if (d < best) { best = d; active = i; }
+      });
+      if (row.scrollLeft + row.clientWidth >= row.scrollWidth - 8) active = clips.length - 1;
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
+      if (row.scrollLeft > 20 && !row.dataset.nudging) hint.classList.add('was-swiped');
+    };
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    dots.forEach((d, i) => d.addEventListener('click', () => {
+      row.scrollTo({ left: clips[i].offsetLeft - row.offsetLeft - parseFloat(getComputedStyle(row).paddingLeft || 0), behavior: 'smooth' });
+    }));
+    update();
+
+    // Nudge once when the row first comes into view, so it's obvious it moves
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting || !mq.matches || row.scrollLeft > 0) return;
+          io.disconnect();
+          setTimeout(() => {
+            row.style.scrollSnapType = 'none';   // let the nudge stop half-way
+            row.dataset.nudging = '1';
+            row.scrollTo({ left: 56, behavior: 'smooth' });
+            setTimeout(() => {
+              row.scrollTo({ left: 0, behavior: 'smooth' });
+              setTimeout(() => { row.style.scrollSnapType = ''; delete row.dataset.nudging; }, 600);
+            }, 650);
+          }, 350);
+        });
+      }, { threshold: 0.6 });
+      io.observe(row);
+    }
+  });
+})();

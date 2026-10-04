@@ -2045,3 +2045,70 @@ footer a:hover { opacity: 0.5; }
 @media (max-width: 768px) {
   .lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) .lg-media .lg-frame { height: var(--clip-h); }
 }
+
+/* ══════════════════════════════
+   SWIPE ROWS (phones)
+══════════════════════════════ */
+.swipe-hint { display: none; }
+@media (max-width: 768px) {
+  /* Clips never wider than ~3/4 of the screen, so the next one always peeks in */
+  .lg-media .lg-frame,
+  .lg-panel.is-vert .lg-media .lg-frame,
+  #lucky .lg-frame, #happy .lg-frame, #flax .lg-frame, #verajohn .lg-frame,
+  .lg-media.is-fill .lg-frame,
+  .lg-ai .lg-frame {
+    height: auto !important;
+    width: min(74vw, calc(var(--ar) * 420px)) !important;
+  }
+  .lg-media.is-display .lg-frame { width: min(74vw, calc(var(--ar) * 360px)) !important; }
+  .lg-clip:has(.is-wide-banner) { --ar: 4.0833; }
+  .lg-clip:has(.is-169) { --ar: 1.7778; }
+  .lg-media { scroll-snap-type: x mandatory; scroll-padding-left: var(--proj-pad); }
+  .lg-media .lg-clip { scroll-snap-align: start; }
+  .lg-media::after { content: ''; flex: 0 0 calc(var(--proj-pad) - 14px); }
+
+  /* Fade the right edge while there is more to see */
+  .lg-media.has-more {
+    -webkit-mask-image: linear-gradient(to right, #000 82%, transparent);
+            mask-image: linear-gradient(to right, #000 82%, transparent);
+  }
+
+  .swipe-hint {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px var(--proj-pad) 0;
+  }
+  .swipe-hint.is-off { display: none; }
+  .swipe-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    transition: opacity .4s;
+  }
+  .swipe-arrow { display: inline-block; animation: swipe-nudge 1.4s ease-in-out infinite; }
+  .swipe-hint.was-swiped .swipe-label { opacity: 0.35; }
+  @keyframes swipe-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+  .swipe-dots { display: flex; gap: 6px; }
+  .swipe-dots button {
+    width: 8px; height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.3);
+    transition: width .3s, background .3s;
+  }
+  .swipe-dots button.is-active { width: 22px; background: #ff7fb5; }
+
+  /* Section pills: fade the edge too */
+  .lg-jump {
+    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
+            mask-image: linear-gradient(to right, #000 85%, transparent);
+  }
+}
+
+@media (max-width: 1100px) {
+  .lg-section:not(.lg-ai) .lg-panel:not(.is-wide):not(.is-vert) { grid-template-columns: 1fr; }
+}
