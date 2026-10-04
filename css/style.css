@@ -2112,3 +2112,14 @@ footer a:hover { opacity: 0.5; }
 @media (max-width: 1100px) {
   .lg-section:not(.lg-ai) .lg-panel:not(.is-wide):not(.is-vert) { grid-template-columns: 1fr; }
 }
+
+/* Dice + 8-ball: the hero's main props, extra big */
+.float-dice   { width: clamp(130px, 14vw, 225px); top: 22%; right: calc(50% + 21vw); }
+.float-dice-2 { width: clamp(105px, 11vw, 180px); top: 47%; right: calc(50% + 17.5vw); }
+.float-8ball  { width: clamp(100px, 10vw, 165px); top: 7%;  left: calc(50% + 15vw); }
+@media (max-width: 768px) {
+  .float-dice  { width: 92px !important; top: 70px !important; left: 2% !important; }
+  .float-8ball { width: 74px !important; top: 80px !important; right: 3% !important; }
+  .hero-float.chip-1 { top: 192px !important; }
+  .hero-float.chip-2 { top: 192px !important; }
+}
