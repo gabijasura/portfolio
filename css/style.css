@@ -2089,3 +2089,80 @@ footer a:hover { opacity: 0.5; }
 .nav-logo { font-size: 16px; letter-spacing: 0.12em; opacity: 0.85; }
 .nav-logo:hover { opacity: 1; }
 @media (max-width: 768px) { .nav-logo { font-size: 13px !important; } }
+
+/* Landscape media on phones: edge to edge, not capped like the swipe rows */
+@media (max-width: 768px) {
+  .lg-media.is-hero { padding: 0 !important; }
+  .lg-media.is-hero .lg-frame { width: 100% !important; height: auto !important; border-radius: 0; }
+  .lg-media.is-hero figcaption { padding: 0 var(--proj-pad); }
+}
+
+/* ══════════════════════════════
+   PREV / NEXT PROJECT
+══════════════════════════════ */
+.proj-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 48px var(--proj-pad) 0;
+}
+.proj-pager a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 26px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: background .25s, border-color .25s, transform .25s;
+}
+.proj-pager a:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
+.proj-pager .pager-next { text-align: right; align-items: flex-end; }
+.pager-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.pager-title {
+  font-size: clamp(18px, 2.2vw, 30px);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  /* Fixed thumb-reach bar at the bottom */
+  .proj-pager {
+    position: fixed;
+    left: 12px; right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 450;
+    margin: 0;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 999px;
+    background: rgba(42,32,48,0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .proj-pager a {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+    min-width: 0;
+  }
+  .proj-pager .pager-next { justify-content: flex-end; background: #fff; color: #111; }
+  .proj-pager .pager-next .pager-label { color: rgba(17,17,17,0.6); }
+  .pager-label { display: none; }
+  .pager-title { font-size: 12px; letter-spacing: 0.1em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  body.has-pager { padding-bottom: 88px; }
+  body.menu-open .proj-pager { display: none; }
+}

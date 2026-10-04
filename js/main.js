@@ -393,3 +393,28 @@ document.querySelectorAll('video[data-lazy], video[autoplay]').forEach(v => {
     }
   });
 })();
+
+/* ─── Previous / next project (same order as the Work page) ─── */
+(function() {
+  const order = [
+    ['lckygroup.html', 'Lcky Group'], ['fjallraven.html', 'Fjällräven'], ['meno-male.html', 'Meno Male'],
+    ['yennenga.html', 'Yennenga'], ['passion.html', 'Passion'], ['nightfall.html', 'Nightfall'],
+    ['fenyx.html', 'Fenyx'], ['mushroom.html', 'Mushroom Festival'], ['frog.html', 'The Frog'],
+    ['ball.html', 'Pass the Ball'], ['coral.html', 'Coral'], ['duck.html', 'The Duck']
+  ];
+  const here = location.pathname.split('/').pop();
+  const i = order.findIndex(([f]) => f === here);
+  const main = document.querySelector('main.proj-page');
+  if (i < 0 || !main) return;
+  const prev = order[(i - 1 + order.length) % order.length];
+  const next = order[(i + 1) % order.length];
+  const nav = document.createElement('div');   // not <nav>: the global nav styles are for the top bar
+  nav.className = 'proj-pager';
+  nav.setAttribute('role', 'navigation');
+  nav.setAttribute('aria-label', 'More projects');
+  nav.innerHTML =
+    `<a class="pager-prev" href="${prev[0]}"><span class="pager-label">Previous</span><span class="pager-title">← ${prev[1]}</span></a>` +
+    `<a class="pager-next" href="${next[0]}"><span class="pager-label">Next project</span><span class="pager-title">${next[1]} →</span></a>`;
+  main.appendChild(nav);
+  document.body.classList.add('has-pager');
+})();
