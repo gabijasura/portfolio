@@ -1968,3 +1968,80 @@ footer a:hover { opacity: 0.5; }
   .sparkle-1 { width: 22px !important; height: 22px !important; top: 66px !important; left: 46% !important; right: auto !important; }
   .sparkle-3 { width: 24px !important; height: 24px !important; top: 286px !important; left: auto !important; right: 8% !important; }
 }
+
+/* ══════════════════════════════
+   FILL ROWS — clips share one height and fill the media column
+   (each clip grows by its aspect ratio; capped at --max-h tall)
+══════════════════════════════ */
+.lg-clip { --ar: 0.5625; }
+.lg-clip:has(.is-43)    { --ar: 1.3333; }
+.lg-clip:has(.is-12)    { --ar: 0.5; }
+.lg-clip:has(.is-45)    { --ar: 0.8; }
+.lg-clip:has(.is-sq)    { --ar: 1; }
+.lg-clip:has(.is-coral) { --ar: 0.5455; }
+
+.lg-panel.is-vert .lg-media,
+#lucky .lg-media, #happy .lg-media, #flax .lg-media, #verajohn .lg-media,
+.lg-media.is-fill {
+  --max-h: 640px;
+  display: flex;
+  gap: 18px;
+  overflow: visible;
+  justify-content: center;
+}
+.lg-panel.is-vert .lg-media .lg-clip,
+#lucky .lg-clip, #happy .lg-clip, #flax .lg-clip, #verajohn .lg-clip,
+.lg-media.is-fill .lg-clip {
+  flex: var(--ar) 1 0%;
+  min-width: 0;
+  max-width: calc(var(--ar) * var(--max-h));
+}
+.lg-panel.is-vert .lg-media .lg-frame,
+#lucky .lg-frame, #happy .lg-frame, #flax .lg-frame, #verajohn .lg-frame,
+.lg-media.is-fill .lg-frame {
+  width: 100%;
+  height: auto;
+}
+.lg-panel.is-vert { grid-template-columns: minmax(0, 1.15fr) minmax(440px, 1fr); }
+.lg-section:not(.lg-ai) .lg-panel:not(.is-wide):not(.is-vert) { grid-template-columns: minmax(250px, 300px) minmax(0, 1fr); }
+
+@media (max-width: 1100px) {
+  .lg-panel.is-vert { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .lg-panel.is-vert .lg-media,
+  #lucky .lg-media, #happy .lg-media, #flax .lg-media, #verajohn .lg-media,
+  .lg-media.is-fill { justify-content: flex-start; overflow-x: auto; gap: 14px; }
+  .lg-panel.is-vert .lg-media .lg-clip,
+  #lucky .lg-clip, #happy .lg-clip, #flax .lg-clip, #verajohn .lg-clip,
+  .lg-media.is-fill .lg-clip { flex: none; max-width: none; }
+  .lg-panel.is-vert .lg-media .lg-frame,
+  #lucky .lg-frame, #happy .lg-frame, #flax .lg-frame, #verajohn .lg-frame,
+  .lg-media.is-fill .lg-frame { height: var(--clip-h); width: auto; }
+}
+
+/* Portrait panels: give the media most of the width */
+.lg-panel.is-vert { grid-template-columns: minmax(0, 1.4fr) minmax(380px, 0.8fr); }
+.lg-panel.is-vert:has(.lg-clip + .lg-clip) .lg-copy-wrap { grid-template-columns: 1fr; gap: 28px; }
+.lg-panel.is-vert:has(.lg-clip + .lg-clip) .proj-meta.is-col {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  padding: 22px 0 0;
+  border-left: 0;
+  border-top: 1px solid rgba(255,255,255,0.14);
+}
+@media (max-width: 1100px) { .lg-panel.is-vert { grid-template-columns: 1fr; } }
+
+/* Single portrait clip: media takes its natural width, text gets the rest */
+.lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) { grid-template-columns: auto minmax(0, 1fr); }
+.lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) .lg-media .lg-clip { flex: none; max-width: none; }
+.lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) .lg-media .lg-frame { height: clamp(420px, 40vw, 600px); width: auto; }
+.lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) .lg-clip:has(.is-sq) .lg-frame { height: clamp(360px, 32vw, 500px); }
+@media (max-width: 1100px) {
+  .lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) { grid-template-columns: 1fr; }
+  .lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) .lg-media { justify-content: flex-start; }
+}
+@media (max-width: 768px) {
+  .lg-panel.is-vert:not(:has(.lg-clip + .lg-clip)) .lg-media .lg-frame { height: var(--clip-h); }
+}

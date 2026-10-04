@@ -9,25 +9,17 @@
     .about-hey { font-size: clamp(56px, 10vw, 140px); }
     .about-photo-frame { --clip-h: clamp(340px, 34vw, 500px); }
     .about-photo-frame img { object-position: center top; }
-    .about-mail {
-      font-family: 'Jost', sans-serif;
-      font-size: clamp(18px, 2vw, 26px);
-      font-weight: 700;
-      color: #fff;
-      text-decoration: underline;
-      text-underline-offset: 6px;
-      text-decoration-color: #ff7fb5;
-    }
     .about-contact {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       flex-wrap: wrap;
-      gap: 24px 40px;
+      gap: 24px 56px;
       padding-top: 28px;
       border-top: 1px solid rgba(255,255,255,0.14);
     }
-    .about-contact-text .lg-kicker { margin-bottom: 8px; }
+    .about-contact-text .lg-kicker { margin-bottom: 6px; }
+    .about-hi { font-family: 'Jost', sans-serif; font-size: clamp(20px, 2vw, 28px); font-weight: 700; color: #fff; margin: 0 !important; }
     .contact-chips { justify-content: flex-start; padding: 0; gap: 22px; }
     .chip-link { width: 120px; }
     /* Chips idle with a small wobble, now and then a quick shake */
@@ -95,7 +87,7 @@
           <div class="about-contact">
             <div class="about-contact-text">
               <span class="lg-kicker">Say hi</span>
-              <a class="about-mail" href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a>
+              <p class="about-hi">LinkedIn or email, pick a chip.</p>
             </div>
             <div class="contact-chips">
               <a href="https://www.linkedin.com/in/gabija-sura-8154081b7/" target="_blank" rel="noopener" class="chip-link" aria-label="LinkedIn">
