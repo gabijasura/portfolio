@@ -2229,3 +2229,36 @@ footer a:hover { opacity: 0.5; }
   }
   .card-deck-dots button.is-active { width: 22px; background: #ff7fb5; }
 }
+
+/* Desktop: prev/next pinned in the middle of the top bar */
+@media (min-width: 769px) {
+  .proj-pager {
+    position: fixed;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 510;
+    margin: 0;
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border-radius: 999px;
+    background: rgba(42,32,48,0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .proj-pager a {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+  }
+  .proj-pager a:hover { background: rgba(255,255,255,0.1); transform: none; }
+  .proj-pager .pager-next { background: #fff; color: #111; }
+  .proj-pager .pager-next:hover { background: #ffd3e6; }
+  .pager-label { display: none; }
+  .pager-title { font-size: 12px; letter-spacing: 0.12em; white-space: nowrap; }
+}
