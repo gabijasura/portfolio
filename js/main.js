@@ -418,3 +418,66 @@ document.querySelectorAll('video[data-lazy], video[autoplay]').forEach(v => {
   main.appendChild(nav);
   document.body.classList.add('has-pager');
 })();
+
+/* ─── Mobile: hero cards as a swipeable deck ─── */
+(function() {
+  const deck = document.getElementById('hero-cards');
+  if (!deck) return;
+  const mq = window.matchMedia('(max-width: 768px)');
+  const cards = [...deck.querySelectorAll('.playing-card')];
+  const names = { 'ball.html': 'Pass the Ball', 'mushroom.html': 'Mushroom Festival', 'coral.html': 'Coral', 'nightfall.html': 'Nightfall' };
+
+  const ui = document.createElement('div');
+  ui.className = 'card-deck-ui';
+  ui.innerHTML = '<p class="card-deck-title"></p><div class="card-deck-dots">' +
+    cards.map((_, i) => `<button type="button" aria-label="Show card ${i + 1}"></button>`).join('') + '</div>';
+  deck.after(ui);
+  const title = ui.querySelector('.card-deck-title');
+  const dots = [...ui.querySelectorAll('button')];
+  let active = -1, ticking = false;
+
+  function layout() {
+    ticking = false;
+    if (!mq.matches) { cards.forEach(c => { c.style.transform = ''; c.style.zIndex = ''; }); return; }
+    const mid = deck.scrollLeft + deck.clientWidth / 2;
+    let best = 0, bestD = Infinity;
+    cards.forEach((c, i) => {
+      const d = (c.offsetLeft + c.offsetWidth / 2 - mid) / (c.offsetWidth * 0.9);
+      const a = Math.min(Math.abs(d), 1.6);
+      c.style.transform = `translateY(${a * 16}px) rotate(${Math.max(-1.6, Math.min(1.6, d)) * 8}deg) scale(${1 - Math.min(a, 1) * 0.14})`;
+      c.style.zIndex = String(20 - Math.round(a * 5));
+      if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = i; }
+    });
+    if (best !== active) {
+      active = best;
+      const href = cards[best].getAttribute('href');
+      title.innerHTML = `${names[href] || ''}<span>Tap the card to open</span>`;
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === best));
+    }
+  }
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(layout); } };
+  deck.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  dots.forEach((d, i) => d.addEventListener('click', () => {
+    const c = cards[i];
+    deck.scrollTo({ left: c.offsetLeft + c.offsetWidth / 2 - deck.clientWidth / 2, behavior: 'smooth' });
+  }));
+  layout();
+
+  // One gentle nudge so it's clear the deck moves
+  if (mq.matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => {
+      if (!es[0].isIntersecting || deck.scrollLeft > 4) return;
+      io.disconnect();
+      setTimeout(() => {
+        deck.style.scrollSnapType = 'none';
+        deck.scrollTo({ left: 70, behavior: 'smooth' });
+        setTimeout(() => {
+          deck.scrollTo({ left: 0, behavior: 'smooth' });
+          setTimeout(() => { deck.style.scrollSnapType = ''; }, 600);
+        }, 600);
+      }, 900);
+    }, { threshold: 0.6 });
+    io.observe(deck);
+  }
+})();

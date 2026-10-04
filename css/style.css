@@ -2166,3 +2166,66 @@ footer a:hover { opacity: 0.5; }
   body.has-pager { padding-bottom: 88px; }
   body.menu-open .proj-pager { display: none; }
 }
+
+/* ══════════════════════════════
+   MOBILE CARD CAROUSEL — swipe through the deck
+══════════════════════════════ */
+.card-deck-ui { display: none; }
+@media (max-width: 768px) {
+  .hero-cards {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 0 !important;
+    width: 100%;
+    padding: 28px calc(50% - min(28vw, 115px)) 30px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hero-cards::-webkit-scrollbar { display: none; }
+  .hero-cards .playing-card {
+    width: 56vw !important;
+    max-width: 230px !important;
+    margin-left: 0 !important;
+    scroll-snap-align: center;
+    transform-origin: 50% 80%;
+    transition: none;
+    will-change: transform;
+  }
+  .hero-cards .playing-card + .playing-card { margin-left: -8vw !important; }
+  .hero-cards .playing-card:active { transform: none; }
+
+  .card-deck-ui {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: -6px;
+  }
+  .card-deck-title {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .card-deck-title span {
+    display: block;
+    margin-top: 4px;
+    text-align: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    color: rgba(255,255,255,0.55);
+  }
+  .card-deck-dots { display: flex; gap: 6px; }
+  .card-deck-dots button {
+    width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px;
+    background: rgba(255,255,255,0.3);
+    transition: width .3s, background .3s;
+  }
+  .card-deck-dots button.is-active { width: 22px; background: #ff7fb5; }
+}
