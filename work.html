@@ -110,6 +110,15 @@
       </div>
 
       <div class="project">
+        <a href="lckygroup.html#ai-work">
+          <div class="project-media">
+            <video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" muted loop playsinline preload="metadata" data-start="5"></video>
+          </div>
+          <div class="project-overlay"><p class="project-title">AI Work</p></div>
+        </a>
+      </div>
+
+      <div class="project">
         <a href="fjallraven.html">
           <div class="project-media">
             <video src="videos/Säl.mp4" muted loop playsinline preload="metadata" data-start="0"></video>
@@ -212,7 +221,7 @@
   </main>
 
   <footer>
-    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
+    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2026</span>
   </footer>
 
   <script src="js/main.js"></script>
@@ -224,6 +233,8 @@
       const seekToStart = () => { video.currentTime = startTime; };
       if (video.readyState >= 1) { seekToStart(); }
       else { video.addEventListener('loadedmetadata', seekToStart, { once: true }); }
+      // Phones/tablets have no hover — play tiles while they're on screen instead
+      if (IS_TOUCH) { window.lazyPlay(video); return; }
       project.addEventListener('mouseenter', () => {
         video.currentTime = startTime;
         video.play().catch(() => {});

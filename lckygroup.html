@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lcky Group — Gabija Sura</title>
+  <meta name="description" content="Motion design, AI-animated characters and social ads for Lucky, Happy, Flax and Vera&amp;John." />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .brand-section { margin: 48px 0 0; }
+    .brand-section { margin: 48px 0 0; scroll-margin-top: 80px; }
     .brand-label {
       font-size: 10px;
       font-weight: 700;
@@ -36,6 +37,7 @@
     }
     .ad-item { position: relative; overflow: hidden; border-radius: 4px; }
     .ad-item video { width: 100%; display: block; }
+    .ad-item .vid-controls { display: none; } /* banners are silent */
     .ad-caption {
       position: absolute;
       bottom: 10px; left: 12px;
@@ -44,10 +46,123 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.5);
+      z-index: 21;
+      pointer-events: none;
     }
+
+    /* Jump links under the intro */
+    .lg-jump {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .lg-jump a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.85);
+      transition: background .2s, border-color .2s;
+    }
+    .lg-jump a:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+    .lg-jump a.is-ai { border-color: rgba(200,160,255,0.7); color: #fff; }
+
+    /* ── AI Work ── */
+    .ai-section { margin: 24px 0 0; scroll-margin-top: 80px; }
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ai-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #c8a0ff;
+      box-shadow: 0 0 10px #c8a0ff;
+    }
+    .ai-feature {
+      display: grid;
+      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      gap: 48px;
+      align-items: center;
+      margin: 0 60px;
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+    }
+    .ai-feature-media { position: relative; overflow: hidden; border-radius: 8px; }
+    .ai-feature-media video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; display: block; }
+    .ai-feature-title {
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 20px;
+    }
+    .ai-feature-text p {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 14px;
+      max-width: 520px;
+    }
+    .ai-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      margin-top: 20px;
+    }
+    .ai-tags li {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* Extra AI pieces — add videos to videos/ai/ and a .ai-item below.
+       The block hides itself while the grid is empty. */
+    .ai-more { margin-top: 32px; }
+    .ai-more:has(.ai-grid:empty) { display: none; }
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 0 60px;
+    }
+    .ai-item { position: relative; overflow: hidden; border-radius: 4px; background: rgba(0,0,0,0.2); }
+    .ai-item video { width: 100%; display: block; }
+
     @media (max-width: 900px) {
-      .brand-videos, .display-ads { grid-template-columns: 1fr; margin: 0 24px; }
       .brand-label { padding: 0 24px; }
+      .brand-videos, .display-ads, .ai-grid { margin: 0 24px; }
+      .display-ads { grid-template-columns: 1fr 1fr; }
+      .ad-wide { grid-column: 1 / -1; }
+      .ai-feature {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin: 0 24px;
+        padding: 16px;
+      }
+      .ai-feature-media { max-width: 360px; width: 100%; margin: 0 auto; }
+      .ai-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .brand-section { margin-top: 36px; }
+      .lg-jump { flex-wrap: nowrap; overflow-x: auto; margin-right: -24px; padding-right: 24px; scrollbar-width: none; }
+      .lg-jump::-webkit-scrollbar { display: none; }
+      .lg-jump a { flex-shrink: 0; }
     }
   </style>
 </head>
@@ -66,59 +181,96 @@
     <div class="project-content">
       <h1 class="proj-title">Lcky Group</h1>
       <div class="proj-text">
-        <p>Currently working at Lcky Group (formerly Glitnor) as a graphic and motion designer across four casino brands — Lucky Casino, Flax Casino, Happy Casino, and Vera&amp;John. My work spans social media content, Meta ads, seasonal campaigns, and display ads.</p>
+        <p>Currently working at Lcky Group (formerly Glitnor) as a graphic and motion designer across four casino brands — Lucky Casino, Flax Casino, Happy Casino, and Vera&amp;John. My work spans social media content, Meta ads, seasonal campaigns, display ads — and more and more, AI-driven animation.</p>
+      </div>
+      <div class="lg-jump" role="navigation" aria-label="Sections">
+        <a href="#ai-work" class="is-ai">AI Work</a>
+        <a href="#lucky">Lucky</a>
+        <a href="#happy">Happy</a>
+        <a href="#flax">Flax</a>
+        <a href="#verajohn">Vera&amp;John</a>
+        <a href="#display">Display Ads</a>
       </div>
     </div>
 
-    <section class="brand-section">
+    <!-- ── AI WORK ── -->
+    <section class="ai-section" id="ai-work">
+      <p class="brand-label"><span class="ai-badge">AI Work</span></p>
+      <div class="ai-feature">
+        <div class="ai-feature-media">
+          <video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" muted loop playsinline preload="metadata" data-lazy></video>
+        </div>
+        <div class="ai-feature-text">
+          <h2 class="ai-feature-title">Happy Casino ×<br>Pirots 4</h2>
+          <p>A social ad for Happy Casino where the game's characters come to life. Instead of a static key visual, the characters were animated in Weavy — a node-based AI tool where image and video models are chained together into one workflow.</p>
+          <p>From there I took the AI-generated motion into my usual motion design process: timing, transitions, typography, the brand's graphic elements and the final 9:16 edit for Meta. AI does the heavy lifting on character animation, and I make sure it feels on-brand and tells a story in under ten seconds.</p>
+          <ul class="ai-tags">
+            <li>Weavy</li>
+            <li>AI character animation</li>
+            <li>Motion design</li>
+            <li>Meta 9:16</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ai-more">
+        <p class="brand-label" style="margin-top:0">More AI experiments</p>
+        <div class="ai-grid"><!--
+          Add AI videos here, one per line, e.g.:
+          <div class="ai-item"><video src="videos/ai/my-video.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+        --></div>
+      </div>
+    </section>
+
+    <section class="brand-section" id="lucky">
       <p class="brand-label">Lucky Casino</p>
       <div class="brand-videos">
-        <div class="bv-item"><video src="videos/LC  - Christmas 8s V2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="bv-item"><video src="videos/LSE-Reddit-V2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/LC  - Christmas 8s V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+        <div class="bv-item"><video src="videos/LSE-Reddit-V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
       </div>
     </section>
 
-    <section class="brand-section">
+    <section class="brand-section" id="happy">
       <p class="brand-label">Happy Casino</p>
       <div class="brand-videos">
-        <div class="bv-item"><video src="videos/HC-Meta-Raptor 2 2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="bv-item"><video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/HC-Meta-Raptor 2 2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+        <div class="bv-item"><video src="videos/HSE-ACQ-CASINO-BONUS-300x600-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
       </div>
     </section>
 
-    <section class="brand-section">
+    <section class="brand-section" id="flax">
       <p class="brand-label">Flax Casino</p>
       <div class="brand-videos">
-        <div class="bv-item"><video src="videos/FSE-DonnyandDanny-140126.mp4" autoplay muted loop playsinline></video></div>
-        <div class="bv-item"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/FSE-DonnyandDanny-140126.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+        <div class="bv-item"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
       </div>
     </section>
 
-    <section class="brand-section">
+    <section class="brand-section" id="verajohn">
       <p class="brand-label">Vera&amp;John</p>
       <div class="brand-videos">
-        <div class="bv-item"><video src="videos/VJ - Flex - GamesGlobal_1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="bv-item"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" autoplay muted loop playsinline></video></div>
+        <div class="bv-item"><video src="videos/VJ - Flex - GamesGlobal_1.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+        <div class="bv-item"><video src="videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
       </div>
     </section>
 
-    <section class="brand-section">
+    <section class="brand-section" id="display">
       <p class="brand-label">Display Ads</p>
       <div class="display-ads">
         <div class="ad-item">
-          <video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video>
+          <video src="videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4" muted loop playsinline preload="metadata" data-lazy></video>
           <span class="ad-caption">Lucky — 300×600</span>
         </div>
         <div class="ad-item">
-          <video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" autoplay muted loop playsinline></video>
+          <video src="videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4" muted loop playsinline preload="metadata" data-lazy></video>
           <span class="ad-caption">Flax — 300×600</span>
         </div>
-        <div class="ad-item">
-          <video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" autoplay muted loop playsinline></video>
+        <div class="ad-item ad-wide">
+          <video src="videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video>
           <span class="ad-caption">Happy — 980×240</span>
         </div>
-        <div class="ad-item">
-          <video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" autoplay muted loop playsinline></video>
+        <div class="ad-item ad-wide">
+          <video src="videos/VJ-SWE-AWA-BRAND-WO-26-640x360-Swedish.mp4" muted loop playsinline preload="metadata" data-lazy></video>
           <span class="ad-caption">Vera&amp;John — 640×360</span>
         </div>
       </div>
@@ -126,7 +278,7 @@
 
   </main>
   <footer>
-    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2025</span>
+    <span>Gabija Sura | <a href="mailto:gabijasura@gmail.com">gabijasura@gmail.com</a> | 2026</span>
   </footer>
   <script src="js/main.js"></script>
 </body>

@@ -67,3 +67,14 @@ Artwork inset: top/bottom 16%, left/right 8%, border-radius 2px (rectangular).
 - Lever: no border/background on button element — lever-ball and lever-base use box-shadow only
 - Stars: star-big.webp (88px) + star-small.webp (58px), positioned left of section
 - Cherry: cherry.webp (110px), positioned top-right of section
+
+## Lcky Group page — AI Work section
+- `#ai-work` sits at the top of `lckygroup.html` (also linked from the "AI Work" tile on `work.html`).
+- Feature: Happy Casino × Pirots 4 — characters animated in Weavy.
+- "More AI experiments" grid (`.ai-grid`) hides itself while empty. To add a video: put the file in `videos/ai/` and add
+  `<div class="ai-item"><video src="videos/ai/NAME.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>` inside `.ai-grid`.
+
+## Mobile / touch
+- `js/main.js` sets `IS_TOUCH` + `html.touch`; custom cursor and hover parallax are skipped on touch screens.
+- Videos with `data-lazy` (or `autoplay`) only play while on screen — use `data-lazy` + `preload="metadata"` for new videos.
+- Mobile home (≤768px) shows the playing cards as a swipeable row plus a "See all work" button.
