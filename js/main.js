@@ -2,10 +2,15 @@
    Portfolio — main.js
    ════════════════════════════ */
 
+/* Touch devices (phones, tablets) have no mouse — skip cursor/hover effects */
+const IS_TOUCH = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+if (IS_TOUCH) document.documentElement.classList.add('touch');
+
 /* ─── Cursor ─── */
 (function() {
   const canvas = document.querySelector('.cursor-canvas');
   if (!canvas) return;
+  if (IS_TOUCH) { canvas.remove(); return; }
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -157,6 +162,45 @@
   });
 })();
 
+/* ─── Play videos only while on screen ───
+   Videos marked data-lazy (or autoplay) play when visible and pause
+   when scrolled away — saves battery and data, especially on mobile. */
+window.lazyPlay = (function() {
+  if (!('IntersectionObserver' in window)) {
+    return v => { v.muted = true; v.play().catch(() => {}); };
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting) {
+        if (v.dataset.userPaused) return;
+        v.play().catch(() => {});
+      } else if (!v.paused) {
+        v.pause();
+        delete v.dataset.userPaused;
+      }
+    });
+  }, { threshold: 0.25 });
+  return v => {
+    v.muted = true;
+    v.playsInline = true;
+    obs.observe(v);
+  };
+})();
+document.querySelectorAll('video[data-lazy], video[autoplay]').forEach(v => {
+  if (v.closest('.hero-cards') && window.innerWidth > 768) return; // desktop card fan is always visible
+  window.lazyPlay(v);
+});
+
+/* ─── Nav background once the page is scrolled (readability on mobile) ─── */
+(function() {
+  const nav = document.querySelector('body > nav');
+  if (!nav) return;
+  const update = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
 /* ─── Scroll reveal ─── */
 (function() {
   const els = document.querySelectorAll('.reveal');
@@ -206,7 +250,7 @@
 
     const playBtn = document.createElement('button');
     playBtn.className = 'vid-btn vid-play';
-    playBtn.textContent = '❚❚';
+    playBtn.textContent = (video.paused && !video.autoplay) ? '▶' : '❚❚';
     playBtn.title = 'Play / Pause';
 
     const muteBtn = document.createElement('button');
@@ -219,7 +263,8 @@
     container.appendChild(bar);
 
     playBtn.addEventListener('click', () => {
-      if (video.paused) { video.play(); } else { video.pause(); }
+      if (video.paused) { delete video.dataset.userPaused; video.play(); }
+      else { video.dataset.userPaused = '1'; video.pause(); }
     });
     muteBtn.addEventListener('click', () => {
       video.muted = !video.muted;
@@ -235,7 +280,7 @@
 /* ─── Floating elements parallax on mousemove ─── */
 (function() {
   const floats = document.querySelectorAll('.hero-float');
-  if (!floats.length) return;
+  if (!floats.length || IS_TOUCH) return;
   document.addEventListener('mousemove', e => {
     const cx = window.innerWidth / 2;
     const cy = window.innerHeight / 2;
