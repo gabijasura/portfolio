@@ -1942,3 +1942,29 @@ footer a:hover { opacity: 0.5; }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .chip { animation: none; }
 }
+
+/* ══════════════════════════════
+   HERO PROPS — bigger, composed around the title
+   (positions are relative to the centre; the title is ~±21vw wide)
+══════════════════════════════ */
+.float-dice   { width: clamp(100px, 11vw, 175px); top: 27%; left: auto; right: calc(50% + 21.5vw); }
+.float-dice-2 { width: clamp(80px, 8.5vw, 140px); top: 47%; left: auto; right: calc(50% + 18.5vw); }
+.float-8ball  { width: clamp(76px, 7.5vw, 125px); top: 11%; right: auto; left: calc(50% + 16vw); }
+.chip-1 { width: clamp(70px, 7vw, 112px); height: clamp(70px, 7vw, 112px); top: 63%; left: auto; right: calc(50% + 31vw); }
+.chip-2 { width: clamp(52px, 5vw, 84px);  height: clamp(52px, 5vw, 84px);  top: 10%; left: auto; right: calc(50% + 11vw); }
+.chip-3 { width: clamp(44px, 4.2vw, 70px); height: clamp(44px, 4.2vw, 70px); top: 67%; right: auto; left: calc(50% + 23vw); }
+.hero-badge { width: clamp(118px, 9.5vw, 155px); height: clamp(118px, 9.5vw, 155px); top: 37%; right: auto; left: calc(50% + 27vw); }
+.hero-badge-core { width: 38%; height: 38%; font-size: clamp(18px, 1.6vw, 26px); }
+.sparkle-1 { width: 42px; height: 42px; top: 19%; left: calc(50% - 5vw); }
+.sparkle-2 { width: 28px; height: 28px; top: 78%; left: calc(50% - 15vw); }
+.sparkle-3 { width: 34px; height: 34px; top: 52%; right: auto; left: calc(50% + 36vw); }
+.sparkle-4 { width: 22px; height: 22px; top: 9%;  left: calc(50% + 5vw); }
+
+@media (max-width: 768px) {
+  .float-dice  { width: 74px !important; top: 82px !important; left: 4% !important; right: auto !important; }
+  .float-8ball { width: 58px !important; top: 88px !important; left: auto !important; right: 5% !important; }
+  .hero-float.chip-1 { width: 44px !important; height: 44px !important; top: 166px !important; left: 3% !important; right: auto !important; }
+  .hero-float.chip-2 { width: 38px !important; height: 38px !important; top: 176px !important; left: auto !important; right: 3% !important; }
+  .sparkle-1 { width: 22px !important; height: 22px !important; top: 66px !important; left: 46% !important; right: auto !important; }
+  .sparkle-3 { width: 24px !important; height: 24px !important; top: 286px !important; left: auto !important; right: 8% !important; }
+}
