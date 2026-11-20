@@ -22,12 +22,20 @@
     <div class="project-content">
       <h1 class="proj-title">Lcky Group</h1>
       <div class="proj-text">
-        <p>I work as a graphic and motion designer at Lcky Group (formerly Glitnor). I make social ads, Meta and TikTok content, seasonal campaigns and display ads for four casino brands: Lucky Casino, Happy Casino, Flax Casino and Vera&amp;John. Every brand has its own personality, so a big part of my job is switching between four very different styles every week.</p>
+        <p>I make the paid social, display and CRM creative for four casino brands at Lcky Group (formerly Glitnor): Lucky Casino, Happy Casino, Flax Casino and Vera&amp;John. I plan the concepts with our performance team, build many variants of each idea for testing on Meta, and use what wins to shape the next round. Every brand has its own personality, so I switch between four very different styles every week.</p>
       </div>
+      <ul class="lg-stats" aria-label="Sep 2025 – Nov 2026 in numbers">
+        <li><b>16 800</b><span>assets delivered</span></li>
+        <li><b>518</b><span>videos</span></li>
+        <li><b>~50%</b><span>of everything our team delivers</span></li>
+        <li><b>12</b><span>production tools I built</span></li>
+      </ul>
     </div>
 
     <div class="lg-jump" role="navigation" aria-label="Sections">
       <a href="#ai-work" class="is-ai">AI Work</a>
+      <a href="#creator">Creator Ads</a>
+      <a href="#tools">Tools I Built</a>
       <a href="#lucky">Lucky</a>
       <a href="#happy">Happy</a>
       <a href="#flax">Flax</a>
@@ -71,8 +79,64 @@
             <li><div><strong>Concept</strong>I start with the hook and the story. What should people feel in the first second, and what makes them watch until the end?</div></li>
             <li><div><strong>Generate</strong>I build node-based workflows in Figma Weave where image and video models are connected in one graph. That's how I make stadiums, crowds and 3D characters, and I can reuse the same graph for the next campaign.</div></li>
             <li><div><strong>Craft</strong>Then I put it all together in After Effects. I composite, animate, add type and edit everything by hand, using the brand's own elements, the legal text and the safe zones for each platform.</div></li>
-            <li><div><strong>Scale</strong>I use Claude as a production assistant. It helps me script After Effects comps, duplicate Figma templates for the monthly release ads for all four brands and automate thumbnail production, so one idea can quickly turn into many versions.</div></li>
+            <li><div><strong>Scale</strong>I design the original, then Claude scales it. One agent per brand builds from my templates, and a separate reviewer agent checks every card against my originals before I see anything: no borrowed elements, no reused games, safe zones and legal in place.</div></li>
           </ol>
+      </div>
+    </section>
+
+    <!-- ── CREATOR ADS ── -->
+    <section class="lg-section" id="creator">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">02 / Creator footage</span>
+          <h2>Streamer ads</h2>
+          <p>Our brands sponsor Swedish streamers, and I turn their raw stream footage into Meta ads. I find the moment with the biggest reaction, put the game on top and the streamer below, and pull the captions from what they actually say, so the hook lands in the first second.</p>
+          <p>I cut several versions of each stream with different hooks and openings, so we can test which one works. In our esports campaign with Cartmens, the video I cut brought in more in deposits than it cost to run.</p>
+          <p>New streams come in every week, so I built an After Effects panel for it: I cut the clip once in 16:9, and the panel builds the 9:16 split and the brand endcard automatically.</p>
+          <ul class="lg-tags"><li>UGC</li><li>Meta 9:16</li><li>A/B variants</li><li>After Effects scripting</li></ul>
+        </header>
+        <div class="lg-media">
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/lucky-cartmens-bull.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Cartmens · Esports<span>Lucky Casino · Meta 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/lucky-cartmens-sunken-city.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Cartmens · Captioned<span>Lucky Casino · Meta 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/lucky-svea-6-scatters-a.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>6 Scatters · Version A<span>Lucky × Svea · Meta 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/lucky-svea-6-scatters-b.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>6 Scatters · Version B<span>Same stream, new hook</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/happy-svea-duck-hunters-2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Duck Hunters 2<span>Happy × Svea · Meta 9:16</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TOOLS ── -->
+    <section class="lg-section lg-tools-sec" id="tools">
+      <div class="lg-panel">
+        <header class="lg-head">
+          <span class="lg-kicker">03 / Systems</span>
+          <h2>Tools I built</h2>
+          <p>Four brands, new games every week and every ad in many formats is too much to do by hand. So I built my own production tools with Claude Code. They handle the repetitive parts, I make the creative calls and review everything that goes out.</p>
+          <ul class="lg-tags"><li>Claude Code</li><li>Codex</li><li>Templates</li><li>Automation</li></ul>
+        </header>
+        <ul class="lg-tools">
+          <li><b>Creative Studio</b><span>Templates and an editor for Meta creative across all four brands. Replaced Figma for our Meta ads.</span><em>~6 700 Meta images and videos</em></li>
+          <li><b>Thumbnail Studio</b><span>Builds game thumbnails for every brand: fetches the assets, picks the motif, makes every size and names the files.</span><em>6 088 thumbnails</em></li>
+          <li><b>Programmatic Studio</b><span>Renders transparent game videos in four banner formats without After Effects, and checks every file automatically before it goes to Bannerflow.</span><em>Six games in one day</em></li>
+          <li><b>Streamer panel</b><span>An After Effects panel: cut a stream once in 16:9 and it builds the 9:16 split and endcard for every clip.</span><em>A new streamer week in minutes</em></li>
+          <li><b>CRM Studio</b><span>CRM banners and tournament images built from each game's own assets.</span><em>Tournaments without Figma</em></li>
+          <li><b>Campaign Builder</b><span>Meta creative, campaigns and results in one sheet, shared with the performance team.</span><em>Creative and numbers in one place</em></li>
+        </ul>
       </div>
     </section>
 
@@ -80,7 +144,7 @@
     <section class="lg-section" id="lucky">
       <div class="lg-panel">
         <header class="lg-head">
-          <span class="lg-kicker">02 / Brand</span>
+          <span class="lg-kicker">04 / Brand</span>
           <h2>Lucky Casino</h2>
           <p>Jackpots and energy. Lucky ads are fast and loud, with tilted black text boxes, big numbers and the neon lightning bolt framing everything.</p>
           <ul class="lg-tags"><li>Meta</li><li>Reddit</li><li>Seasonal</li></ul>
@@ -89,6 +153,10 @@
           <figure class="lg-clip">
             <div class="lg-frame"><video src="videos/LC  - Christmas 8s V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
             <figcaption>Christmas campaign<span>Meta · 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/lucky-octobeer.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Octobeer Fortunes<span>Game launch · Meta 9:16</span></figcaption>
           </figure>
           <figure class="lg-clip">
             <div class="lg-frame is-43"><video src="videos/LSE-Reddit-V2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
@@ -102,15 +170,19 @@
     <section class="lg-section" id="happy">
       <div class="lg-panel">
         <header class="lg-head">
-          <span class="lg-kicker">03 / Brand</span>
+          <span class="lg-kicker">05 / Brand</span>
           <h2>Happy Casino</h2>
-          <p>All about the games. Colorful 3D shapes, the game characters in focus and a playful, arcade-like rhythm in the edit.</p>
-          <ul class="lg-tags"><li>Meta</li><li>Game launches</li></ul>
+          <p>All about the games. For Halloween 2026 I made Happy a retro video game: Press start, Choose your player, Achievement unlocked and a Final boss. Since then it has become Happy's language for launches and welcome offers too.</p>
+          <ul class="lg-tags"><li>Meta</li><li>TikTok &amp; Snapchat</li><li>Retro gaming</li></ul>
         </header>
         <div class="lg-media">
           <figure class="lg-clip">
-            <div class="lg-frame"><video src="videos/HC-Meta-Raptor 2 2.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-            <figcaption>Raptor<span>Meta · 9:16</span></figcaption>
+            <div class="lg-frame"><video src="videos/happy-pirots5-arcade.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Pirots 5 · Press start<span>Game launch · 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/happy-wo-valj-spelare.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Choose your player<span>Welcome offer · TikTok &amp; Snapchat</span></figcaption>
           </figure>
           <figure class="lg-clip">
             <div class="lg-frame"><video src="videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
@@ -124,19 +196,23 @@
     <section class="lg-section" id="flax">
       <div class="lg-panel">
         <header class="lg-head">
-          <span class="lg-kicker">04 / Brand</span>
+          <span class="lg-kicker">06 / Brand</span>
           <h2>Flax Casino</h2>
-          <p>Very Swedish. Neon one-liners and local references with a little twist, so it feels like something only Flax would say.</p>
-          <ul class="lg-tags"><li>Meta</li><li>Characters</li></ul>
+          <p>Very Swedish, and dry. I mapped what every competitor says in Meta's Ad Library and found that nobody owned understatement, so Flax ads now tell a small story and never shout. Same game as Happy, completely different voice: "The birds have moved. Far south."</p>
+          <ul class="lg-tags"><li>Meta</li><li>TikTok &amp; Snapchat</li><li>Brand strategy</li></ul>
         </header>
         <div class="lg-media">
           <figure class="lg-clip">
-            <div class="lg-frame"><video src="videos/FSE-DonnyandDanny-140126.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-            <figcaption>Donny &amp; Danny<span>Meta · 9:16</span></figcaption>
+            <div class="lg-frame"><video src="videos/flax-pirots5-kikare.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Pirots 5 · Binoculars<span>Game launch · 9:16</span></figcaption>
           </figure>
           <figure class="lg-clip">
-            <div class="lg-frame"><video src="videos/FSE-MKTG-1057-GG-Phoenix.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
-            <figcaption>Phoenix<span>Meta · 9:16</span></figcaption>
+            <div class="lg-frame"><video src="videos/flax-pirots5-max.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Pirots 5 · The treasure hunt<span>Game launch · 9:16</span></figcaption>
+          </figure>
+          <figure class="lg-clip">
+            <div class="lg-frame"><video src="videos/FSE-DonnyandDanny-140126.mp4" muted loop playsinline preload="metadata" data-lazy></video></div>
+            <figcaption>Donny &amp; Danny<span>Meta · 9:16</span></figcaption>
           </figure>
         </div>
       </div>
@@ -146,7 +222,7 @@
     <section class="lg-section" id="verajohn">
       <div class="lg-panel">
         <header class="lg-head">
-          <span class="lg-kicker">05 / Brand</span>
+          <span class="lg-kicker">07 / Brand</span>
           <h2>Vera&amp;John</h2>
           <p>Close and personal. Vera and John talk like friends giving you a tip, so the tone is warmer, calmer and more local than the other brands.</p>
           <ul class="lg-tags"><li>Meta</li><li>Display</li></ul>
@@ -168,7 +244,7 @@
     <section class="lg-section" id="display">
       <div class="lg-panel">
         <header class="lg-head">
-          <span class="lg-kicker">06 / All brands</span>
+          <span class="lg-kicker">08 / All brands</span>
           <h2>Display Ads</h2>
           <p>Animated banners for acquisition campaigns. I make one design per campaign and adapt it to every size, from tall skyscrapers to wide billboards.</p>
           <ul class="lg-tags"><li>300×600</li><li>980×240</li><li>640×360</li></ul>

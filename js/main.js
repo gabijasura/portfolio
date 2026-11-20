@@ -397,10 +397,8 @@ document.querySelectorAll('video[data-lazy], video[autoplay]').forEach(v => {
 /* ─── Previous / next project (same order as the Work page) ─── */
 (function() {
   const order = [
-    ['lckygroup.html', 'Lcky Group'], ['fjallraven.html', 'Fjällräven'], ['meno-male.html', 'Meno Male'],
-    ['yennenga.html', 'Yennenga'], ['passion.html', 'Passion'], ['nightfall.html', 'Nightfall'],
-    ['fenyx.html', 'Fenyx'], ['mushroom.html', 'Mushroom Festival'], ['frog.html', 'The Frog'],
-    ['ball.html', 'Pass the Ball'], ['coral.html', 'Coral'], ['duck.html', 'The Duck']
+    ['lckygroup.html', 'Lcky Group'], ['meno-male.html', 'Meno Male'], ['fjallraven.html', 'Fjällräven'],
+    ['fenyx.html', 'Fenyx'], ['nightfall.html', 'Nightfall'], ['passion.html', 'Passion']
   ];
   const here = location.pathname.split('/').pop();
   const i = order.findIndex(([f]) => f === here);
