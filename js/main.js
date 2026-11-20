@@ -397,7 +397,8 @@ document.querySelectorAll('video[data-lazy], video[autoplay]').forEach(v => {
 /* ─── Previous / next project (same order as the Work page) ─── */
 (function() {
   const order = [
-    ['lckygroup.html', 'Lcky Group'], ['meno-male.html', 'Meno Male'], ['fjallraven.html', 'Fjällräven'],
+    ['lucky.html', 'Lucky Casino'], ['happy.html', 'Happy Casino'], ['flax.html', 'Flax Casino'],
+    ['verajohn.html', 'Vera&John'], ['ai-tools.html', 'AI & Tools'], ['meno-male.html', 'Meno Male'], ['fjallraven.html', 'Fjällräven'],
     ['fenyx.html', 'Fenyx'], ['nightfall.html', 'Nightfall'], ['passion.html', 'Passion']
   ];
   const here = location.pathname.split('/').pop();
