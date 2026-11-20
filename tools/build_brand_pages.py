@@ -99,12 +99,13 @@ AL = 'Reach from Meta’s public Ad Library: accounts in the EU that saw the ad 
 page('lucky.html', 'Lucky Casino', 'Paid social, streamer ads and display for Lucky Casino.',
   'Lucky Casino',
   'Jackpots and energy. Lucky ads are fast and loud, with tilted black text boxes, big numbers and the neon lightning bolt framing everything. I make Lucky’s paid social, streamer ads, seasonal campaigns and display banners.',
-  [('967 000', 'accounts reached by my most-seen Lucky ad'), ('2.2M', 'combined reach of my three most-seen Lucky ads'), ('Weekly', 'streamer ads from the Cartmens sponsorship')],
+  [('967 000', 'accounts reached by my most-seen Lucky ad'), ('2.7M', 'combined reach of my four most-seen Lucky ads'), ('Weekly', 'streamer ads from the Cartmens sponsorship')],
   [
     section('top', '01 / Most reached', 'Most-seen ads', [
-        'These are the Lucky ads Meta showed the most since I started. The Games Global ad ran as two ads that together reached almost two million accounts.', AL],
+        'These are the Lucky ads Meta showed the most since I started: two statics and a video. The Games Global ad ran as two ads that together reached almost two million accounts.', AL],
       ['Meta 9:16', 'Static', 'Ad Library'],
       static('lucky-games-global', 'Finn din nya favorit, Games Global fest hela månaden', 'Games Global', '967 039 + 952 393') +
+      clip('videos/lucky-lyckochansen-jackpots.mp4', 'Lyckochansen · Jackpot wins', 'Video 9:16', reach='513 754') +
       static('lucky-red-baron', 'Red Baron, hög spänning på hög höjd', 'Red Baron · Live Casino', '334 188')),
     section('streamer', '02 / Creator footage', 'Streamer ads', [
         'Lucky sponsors the streamer Cartmens, and I turn his raw stream footage into Meta ads. I find the biggest reaction, put the game on top and the streamer below, and pull the captions from what he actually says. In our esports campaign the video I cut brought in more in deposits than it cost to run.',
@@ -139,12 +140,13 @@ page('lucky.html', 'Lucky Casino', 'Paid social, streamer ads and display for Lu
 page('happy.html', 'Happy Casino', 'Retro-gaming creative, streamer ads and game launches for Happy Casino.',
   'Happy Casino',
   'All about the games. For Halloween 2026 I turned Happy into a retro video game: Press start, Choose your player, Achievement unlocked and a Final boss. Since then it has become Happy’s language for launches and welcome offers too.',
-  [('287 000', 'accounts reached by my most-seen Happy ad'), ('Retro', 'gaming system I created for the brand')],
+  [('287 000', 'accounts reached by my most-seen Happy ad'), ('546 000', 'combined reach of my two most-seen Happy ads'), ('Retro', 'gaming system I created for the brand')],
   [
-    section('top', '01 / Most reached', 'Most-seen ad', [
-        'Happy’s most-seen ad since I started: a big-win static for Reactoonz.', AL],
+    section('top', '01 / Most reached', 'Most-seen ads', [
+        'Happy’s most-seen ads since I started: a big-win static, and a Cartmens streamer video that ran as two ads, one of them with the welcome offer.', AL],
       ['Meta 9:16', 'Static', 'Ad Library'],
-      static('happy-reactoonz', 'Reactoonz, storvinst 2 951 258 kr', 'Reactoonz · Big win', '287 111')),
+      static('happy-reactoonz', 'Reactoonz, storvinst 2 951 258 kr', 'Reactoonz · Big win', '287 111') +
+      clip('videos/happy-cartmens-golden-shower.mp4', 'Cartmens · Golden Shower', 'Streamer video 9:16', reach='259 416')),
     section('retro', '02 / Brand concept', 'Retro gaming', [
         'A press-start screen, a character select with stats, achievement toasts and pixel type. Every week five games go through the same set of templates, so each one can be mixed and matched without looking the same.'],
       ['Meta', 'TikTok &amp; Snapchat', 'AI'],
@@ -172,11 +174,12 @@ page('happy.html', 'Happy Casino', 'Retro-gaming creative, streamer ads and game
 page('flax.html', 'Flax Casino', 'A dry, Swedish creative system for Flax Casino.',
   'Flax Casino',
   'Very Swedish, and dry. I mapped what every competitor says in Meta’s Ad Library and found that nobody owned understatement, so Flax ads now tell a small story and never shout. Same game as Happy, completely different voice.',
-  [('262 000', 'accounts reached by my most-seen Flax ad'), ('9', 'competitors mapped in the Ad Library')],
+  [('262 000', 'accounts reached by my most-seen Flax ad'), ('472 000', 'combined reach of my two most-seen Flax ads'), ('9', 'competitors mapped in the Ad Library')],
   [
-    section('top', '01 / Most reached', 'Most-seen ad', ['Flax’s most-seen ad since I started.', AL],
+    section('top', '01 / Most reached', 'Most-seen ads', ['Flax’s two most-seen ads since I started: a static and a game-launch video.', AL],
       ['Meta 9:16', 'Static', 'Ad Library'],
-      static('flax-blitzmanad', 'Blitzmånad, Fire and Roses', 'Blitz month · Fire and Roses', '262 167')),
+      static('flax-blitzmanad', 'Blitzmånad, Fire and Roses', 'Blitz month · Fire and Roses', '262 167') +
+      clip('videos/flax-pirots4-final-world.mp4', 'Pirots 4 · Final World', 'Video 9:16', reach='209 891')),
     section('system', '02 / Brand concept', 'Understatement', [
         'Small, real situations where the reaction is smaller than the luck: “The birds have moved. Far south.” No exclamation marks, no promises, just a clover where the luck happened.'],
       ['Meta', 'TikTok &amp; Snapchat', 'Brand strategy'],
@@ -257,6 +260,6 @@ page('ai-tools.html', 'AI &amp; Tools', 'How Gabija Sura uses AI and the product
   'AI &amp; Tools',
   'Alongside the ads, I build the systems that make them. These are the AI workflows and production tools I’ve made at Lcky Group, and what they’ve delivered since September 2025.',
   [('10 700', 'ads and assets delivered'), ('6 000+', 'game thumbnails, automated'), ('518', 'videos'),
-   ('~50%', 'of everything our team delivers'), ('12', 'production tools I built'), ('3.2M+', 'combined reach, my six most-seen ads')],
+   ('~50%', 'of everything our team delivers'), ('12', 'production tools I built'), ('4.2M+', 'combined reach, my ten most-seen ads')],
   [ai_sec, tools_sec],
   [('how', 'How I work'), ('tools', 'Tools I built')])
