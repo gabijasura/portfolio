@@ -6,8 +6,10 @@ ROOT = '/Users/gabijasura/portfolio'
 
 def esc(s): return html.escape(s, quote=True)
 
-def clip(src, title, sub, frame=''):
+def clip(src, title, sub, frame='', reach=None):
     cls = f'lg-frame {frame}'.strip()
+    if reach:
+        sub = f'{sub}</span><span class="lg-reach">{reach} accounts reached'
     return (f'          <figure class="lg-clip">\n'
             f'            <div class="{cls}"><video src="{esc(src)}" muted loop playsinline preload="metadata" data-lazy></video></div>\n'
             f'            <figcaption>{title}<span>{sub}</span></figcaption>\n'
@@ -117,7 +119,7 @@ page('lucky.html', 'Lucky Casino', 'Paid social, streamer ads and display for Lu
       ['Meta', 'TikTok', 'Reddit', 'AI'],
       clip('videos/LC  - Christmas 8s V2.mp4', 'Christmas campaign', 'Meta 9:16') +
       clip('videos/lucky-octobeer.mp4', 'Octobeer Fortunes', 'Game launch · 9:16') +
-      clip('videos/ai/lucky-lyckokampen.mp4', 'Lyckokampen', 'AI · TikTok 9:16') +
+      clip('videos/ai/lucky-lyckokampen.mp4', 'Lyckokampen', 'AI · Meta &amp; TikTok 9:16', reach='64 665') +
       clip('videos/ai/lucky-pl-vinnarspel.mp4', 'Premier League Vinnarspel', 'AI · Lucky Sport 9:16') +
       clip('videos/LSE-Reddit-V2.mp4', 'Reddit ad', 'Lucky Sport · 4:3', 'is-43')),
     section('display', '04 / Display', 'Display ads', [
@@ -192,9 +194,16 @@ page('verajohn.html', 'Vera&amp;John', 'Warm, local creative and display for Ver
     section('top', '01 / Most reached', 'Most-seen ad', ['Vera&amp;John’s most-seen ad since I started.', AL],
       ['Meta 9:16', 'Static', 'Ad Library'],
       static('vj-archdragon-king', 'Månadens studio, Archdragon King', 'Studio of the month · Archdragon King', '484 453')),
-    section('video', '02 / Video', 'Campaigns', ['Monthly studio campaigns and game launches.'], ['Meta 9:16'],
+    section('video', '02 / Video', 'Big wins &amp; campaigns', [
+        'Vera&amp;John’s big wins get the counting-up treatment: the amount rolls up like a slot before it lands. Plus monthly studio campaigns.'],
+      ['Meta 9:16', 'Big wins'],
+      clip('videos/vj-piggy-riches-bigwin.mp4', 'Piggy Riches · Big win', 'Meta 9:16') +
       clip('videos/VJ - Flex - GamesGlobal_1.mp4', 'Games Global', 'Meta 9:16')),
-    section('display', '03 / Display', 'Display ads', [
+    section('streamer', '03 / Creator footage', 'Streamer ads', [
+        'Svea streamer footage cut into a Vera&amp;John ad for GameLounge, with captions pulled from what he says and Vera&amp;John’s soft blue frame.'],
+      ['UGC', 'Meta 9:16'],
+      clip('videos/vj-gamelounge-streamer.mp4', 'GameLounge', 'Vera&amp;John × Svea')),
+    section('display', '04 / Display', 'Display ads', [
         'One design per campaign, adapted from tall skyscrapers to wide billboards.'],
       ['300×600', '640×360', '980×240'],
       clip('videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4', 'Welcome offer', '300×600', 'is-12') +
@@ -204,7 +213,7 @@ page('verajohn.html', 'Vera&amp;John', 'Warm, local creative and display for Ver
       '          </div>\n',
       media_cls='is-display'),
   ],
-  [('top', 'Most reached'), ('video', 'Video'), ('display', 'Display')])
+  [('top', 'Most reached'), ('video', 'Big wins'), ('streamer', 'Streamer ads'), ('display', 'Display')])
 
 # ── AI & TOOLS ──
 tools = [
@@ -229,7 +238,7 @@ ai_sec = ('    <section class="lg-section lg-ai" id="how">\n      <div class="lg
   '          <p>I use AI every day, but the idea always comes first. It helps me create things I could never film, like full stadiums, crowds and 3D characters, and it takes care of the repetitive parts of production so I have more time for the creative work.</p>\n'
   '          <ul class="lg-tags"><li>Figma Weave</li><li>Claude Code</li><li>After Effects</li><li>Figma</li></ul>\n'
   '        </header>\n        <div class="lg-media">\n' +
-  clip('videos/ai/lucky-lyckokampen.mp4', 'Lyckokampen', 'Lucky · TikTok 9:16') +
+  clip('videos/ai/lucky-lyckokampen.mp4', 'Lyckokampen', 'Lucky · Meta &amp; TikTok 9:16', reach='64 665') +
   clip('videos/ai/happy-welcome-offer.mp4', 'Welcome Offer', 'Happy · Meta 9:16') +
   clip('videos/ai/happy-games.mp4', 'Happy Games', 'Happy · Meta 9:16') +
   clip('videos/ai/lucky-pl-vinnarspel.mp4', 'Premier League Vinnarspel', 'Lucky Sport · 9:16') +
