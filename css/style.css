@@ -2269,9 +2269,9 @@ footer a:hover { opacity: 0.5; }
 .lg-stats {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 36px 0 0;
 }
 .lg-stats li {
@@ -2333,7 +2333,6 @@ footer a:hover { opacity: 0.5; }
 }
 @media (max-width: 900px) {
   .lg-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lg-stats li:first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 768px) {
   .lg-stats { margin-top: 24px; gap: 8px; }
