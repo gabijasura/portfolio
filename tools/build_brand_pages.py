@@ -123,8 +123,13 @@ page('lucky.html', 'Lucky Casino', 'Paid social, streamer ads and display for Lu
       clip('videos/ai/lucky-pl-vinnarspel.mp4', 'Premier League Vinnarspel', 'AI · Lucky Sport 9:16') +
       clip('videos/LSE-Reddit-V2.mp4', 'Reddit ad', 'Lucky Sport · 4:3', 'is-43')),
     section('display', '04 / Display', 'Display ads', [
-        'Animated acquisition banners. One design per campaign, adapted to every size.'],
-      ['300×600', 'Bannerflow'],
+        'Animated banners for acquisition and programmatic. One design per campaign, adapted to every size.',
+        'The Hopping Kiss big-win banner got about 68 000 impressions in its first week, and 31% of viewers watched it to the end.'],
+      ['Bannerflow', 'Programmatic', '320×480', '980×360', '300×600'],
+      clip('videos/lucky-hopping-kiss-320x480.mp4', 'Hopping Kiss · Big win', '320×480', 'is-23') +
+      '          <div class="lg-display-col">\n' +
+      clip('videos/lucky-hopping-kiss-980x360.mp4', 'Hopping Kiss · Big win', '980×360', 'is-980x360') +
+      '          </div>\n' +
       clip('videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4', 'Lyckochansen', '300×600', 'is-12'),
       media_cls='is-display'),
   ],

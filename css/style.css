@@ -2351,3 +2351,9 @@ footer a:hover { opacity: 0.5; }
 }
 .lg-clip figcaption span.lg-reach { color: #ff7fb5; font-weight: 700; }
 @media (max-width: 768px) { .lg-stats b { font-size: 26px; } }
+.lg-media.is-display .lg-frame.is-23 { width: 200px; aspect-ratio: 320 / 480; }
+.lg-media.is-display .lg-frame.is-980x360 { width: 380px; aspect-ratio: 980 / 360; }
+@media (max-width: 768px) {
+  .lg-media.is-display .lg-frame.is-23 { width: 180px; }
+  .lg-media.is-display .lg-frame.is-980x360 { width: 300px; }
+}
