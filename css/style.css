@@ -2357,3 +2357,4 @@ footer a:hover { opacity: 0.5; }
   .lg-media.is-display .lg-frame.is-23 { width: 180px; }
   .lg-media.is-display .lg-frame.is-980x360 { width: 300px; }
 }
+@media (max-width: 768px) { .lg-stats li { padding: 16px 14px; } .lg-stats b { font-size: 23px; white-space: nowrap; } }

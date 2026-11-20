@@ -99,7 +99,7 @@ AL = 'Reach from Meta’s public Ad Library: accounts in the EU that saw the ad 
 page('lucky.html', 'Lucky Casino', 'Paid social, streamer ads and display for Lucky Casino.',
   'Lucky Casino',
   'Jackpots and energy. Lucky ads are fast and loud, with tilted black text boxes, big numbers and the neon lightning bolt framing everything. I make Lucky’s paid social, streamer ads, seasonal campaigns and display banners.',
-  [('967 000', 'accounts reached by my most-seen Lucky ad'), ('2.7M', 'combined reach of my four most-seen Lucky ads'), ('Weekly', 'streamer ads from the Cartmens sponsorship')],
+  [('967 000', 'accounts reached by my most-seen Lucky ad'), ('2.7M', 'combined reach of my four most-seen Lucky ads'), ('1.4×', 'return on spend from my best streamer video')],
   [
     section('top', '01 / Most reached', 'Most-seen ads', [
         'These are the Lucky ads Meta showed the most since I started: two statics and a video. The Games Global ad ran as two ads that together reached almost two million accounts.', AL],
@@ -122,8 +122,8 @@ page('lucky.html', 'Lucky Casino', 'Paid social, streamer ads and display for Lu
       clip('videos/lucky-octobeer.mp4', 'Octobeer Fortunes', 'Game launch · 9:16') +
       clip('videos/ai/lucky-lyckokampen.mp4', 'Lyckokampen', 'AI · Meta &amp; TikTok 9:16', reach='64 665') +
       clip('videos/ai/lucky-pl-vinnarspel.mp4', 'Premier League Vinnarspel', 'AI · Lucky Sport 9:16') +
-      clip('videos/LSE-Reddit-V2.mp4', 'Reddit ad', 'Lucky Sport · 4:3', 'is-43')),
-    section('display', '04 / Display', 'Display ads', [
+      clip('videos/LSE-Reddit-V2.mp4', 'Lucky Sport', 'Reddit · 4:3', 'is-43')),
+    section('display', '03 / Display', 'Display ads', [
         'Animated banners for acquisition and programmatic. One design per campaign, adapted to every size.',
         'The Hopping Kiss big-win banner got about 68 000 impressions in its first week, and 31% of viewers watched it to the end.'],
       ['Bannerflow', 'Programmatic', '320×480', '980×360', '300×600'],
@@ -131,7 +131,7 @@ page('lucky.html', 'Lucky Casino', 'Paid social, streamer ads and display for Lu
       '          <div class="lg-display-col">\n' +
       clip('videos/lucky-hopping-kiss-980x360.mp4', 'Hopping Kiss · Big win', '980×360', 'is-980x360') +
       '          </div>\n' +
-      clip('videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4', 'Lyckochansen', '300×600', 'is-12'),
+      clip('videos/LSE-ACQ-LYCKOCHANSEN-300x600-Swedish_V1.mp4', 'Lyckochansen', 'Bannerflow · 300×600', 'is-12'),
       media_cls='is-display'),
   ],
   [('top', 'Most reached'), ('streamer', 'Streamer ads'), ('video', 'Video'), ('display', 'Display')])
@@ -150,25 +150,25 @@ page('happy.html', 'Happy Casino', 'Retro-gaming creative, streamer ads and game
     section('retro', '02 / Brand concept', 'Retro gaming', [
         'A press-start screen, a character select with stats, achievement toasts and pixel type. Every week five games go through the same set of templates, so each one can be mixed and matched without looking the same.'],
       ['Meta', 'TikTok &amp; Snapchat', 'AI'],
+      clip('videos/happy-halloween-valj-spelare.mp4', 'Halloween · Choose your player', 'Where it started · Meta 9:16') +
       clip('videos/happy-pirots5-arcade.mp4', 'Pirots 5 · Press start', 'Game launch · 9:16') +
       clip('videos/happy-wo-valj-spelare.mp4', 'Choose your player', 'Welcome offer · 9:16') +
+      clip('videos/happy-games-levels.mp4', 'Happy Games · Levels', 'Mascots Kubie, Poppy &amp; Trixx · Meta 9:16') +
       clip('videos/ai/happy-games.mp4', 'Happy Games', 'AI · Meta 9:16') +
       clip('videos/ai/happy-welcome-offer.mp4', 'Welcome Offer', 'AI · Meta 9:16')),
-    section('streamer', '03 / Creator footage', 'Streamer ads', [
-        'Big wins from the Svea streamers, cut into Meta ads with Happy’s band, logo and shapes around the stream.'],
-      ['UGC', 'Meta 9:16'],
-      clip('videos/happy-svea-duck-hunters-2.mp4', 'Duck Hunters 2', 'Happy × Svea')),
-    section('launches', '04 / Launches', 'Game launches', [
-        'Colourful 3D shapes, the game characters in focus and an arcade-like rhythm in the edit.'],
-      ['Meta 9:16'],
+    section('launches', '03 / Launches', 'Launches &amp; big wins', [
+        'Colourful 3D shapes, the game characters in focus and an arcade-like rhythm in the edit. Big wins from the Svea streamers get Happy’s band, logo and shapes around the stream.'],
+      ['Meta 9:16', 'UGC'],
+      clip('videos/happy-svea-duck-hunters-2.mp4', 'Duck Hunters 2 · Streamer win', 'Happy × Svea · Meta 9:16') +
       clip('videos/HSE-MKTG-944-991-1097-HC - Pirots 4 Inferno - Flex.mp4', 'Pirots 4 Inferno', 'Meta 9:16') +
       clip('videos/HC-Meta-Raptor 2 2.mp4', 'Raptor 2', 'Meta 9:16')),
-    section('display', '05 / Display', 'Display ads', ['Animated acquisition banners for every size.'],
-      ['980×240'],
-      clip('videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4', 'Casino bonus', '980×240', 'is-wide-banner'),
+    section('display', '03 / Display', 'Display ads', ['Animated acquisition banners for every size, built in Bannerflow.'],
+      ['300×600', '980×240'],
+      clip('videos/HSE-ACQ-CASINO-BONUS-300x600-Swedish.mp4', 'Casino bonus', 'Bannerflow · 300×600', 'is-12') +
+      clip('videos/HSE-ACQ-CASINO-BONUS-980x240-Swedish.mp4', 'Casino bonus', 'Bannerflow · 980×240', 'is-wide-banner'),
       media_cls='is-display'),
   ],
-  [('top', 'Most reached'), ('retro', 'Retro gaming'), ('streamer', 'Streamer ads'), ('launches', 'Launches'), ('display', 'Display')])
+  [('top', 'Most reached'), ('retro', 'Retro gaming'), ('launches', 'Launches &amp; big wins'), ('display', 'Display')])
 
 # ── FLAX ──
 page('flax.html', 'Flax Casino', 'A dry, Swedish creative system for Flax Casino.',
@@ -188,7 +188,7 @@ page('flax.html', 'Flax Casino', 'A dry, Swedish creative system for Flax Casino
       clip('videos/FSE-DonnyandDanny-140126.mp4', 'Donny &amp; Danny', 'Meta 9:16') +
       clip('videos/FSE-MKTG-1057-GG-Phoenix.mp4', 'Phoenix', 'Meta 9:16')),
     section('display', '03 / Display', 'Display ads', ['Animated acquisition banners.'], ['300×600'],
-      clip('videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4', 'Casino bonus', '300×600', 'is-12'),
+      clip('videos/FSE-ACQ-CASINO-BONUS-300x600-Swedish_V1.mp4', 'Casino bonus', 'Bannerflow · 300×600', 'is-12'),
       media_cls='is-display'),
   ],
   [('top', 'Most reached'), ('system', 'Understatement'), ('display', 'Display')])
@@ -202,16 +202,13 @@ page('verajohn.html', 'Vera&amp;John', 'Warm, local creative and display for Ver
     section('top', '01 / Most reached', 'Most-seen ad', ['Vera&amp;John’s most-seen ad since I started.', AL],
       ['Meta 9:16', 'Static', 'Ad Library'],
       static('vj-archdragon-king', 'Månadens studio, Archdragon King', 'Studio of the month · Archdragon King', '484 453')),
-    section('video', '02 / Video', 'Big wins &amp; campaigns', [
-        'Vera&amp;John’s big wins get the counting-up treatment: the amount rolls up like a slot before it lands. Plus monthly studio campaigns.'],
-      ['Meta 9:16', 'Big wins'],
+    section('video', '02 / Video', 'Big wins, streamers &amp; campaigns', [
+        'Vera&amp;John’s big wins get the counting-up treatment: the amount rolls up like a slot before it lands. I also cut Svea streamer footage into Vera&amp;John ads, with captions pulled from what the streamer says and the brand’s soft blue frame.'],
+      ['Meta 9:16', 'Big wins', 'UGC'],
       clip('videos/vj-piggy-riches-bigwin.mp4', 'Piggy Riches · Big win', 'Meta 9:16') +
-      clip('videos/VJ - Flex - GamesGlobal_1.mp4', 'Games Global', 'Meta 9:16')),
-    section('streamer', '03 / Creator footage', 'Streamer ads', [
-        'Svea streamer footage cut into a Vera&amp;John ad for GameLounge, with captions pulled from what he says and Vera&amp;John’s soft blue frame.'],
-      ['UGC', 'Meta 9:16'],
-      clip('videos/vj-gamelounge-streamer.mp4', 'GameLounge', 'Vera&amp;John × Svea')),
-    section('display', '04 / Display', 'Display ads', [
+      clip('videos/vj-gamelounge-streamer.mp4', 'GameLounge · Streamer', 'Vera&amp;John × Svea · Meta 9:16') +
+      clip('videos/VJ - Flex - GamesGlobal_1.mp4', 'Games Global', 'Studio campaign · Meta 9:16')),
+    section('display', '03 / Display', 'Display ads', [
         'One design per campaign, adapted from tall skyscrapers to wide billboards.'],
       ['300×600', '640×360', '980×240'],
       clip('videos/VJ-SWE-AWA-BRAND-WO-26-300x600-Swedish.mp4', 'Welcome offer', '300×600', 'is-12') +
@@ -221,7 +218,7 @@ page('verajohn.html', 'Vera&amp;John', 'Warm, local creative and display for Ver
       '          </div>\n',
       media_cls='is-display'),
   ],
-  [('top', 'Most reached'), ('video', 'Big wins'), ('streamer', 'Streamer ads'), ('display', 'Display')])
+  [('top', 'Most reached'), ('video', 'Big wins &amp; streamers'), ('display', 'Display')])
 
 # ── AI & TOOLS ──
 tools = [
