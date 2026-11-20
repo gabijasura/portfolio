@@ -197,7 +197,7 @@ page('flax.html', 'Flax Casino', 'A dry, Swedish creative system for Flax Casino
 page('verajohn.html', 'Vera&amp;John', 'Warm, local creative and display for Vera&John.',
   'Vera&amp;John',
   'Close and personal. Vera and John talk like friends giving you a tip, so the tone is warmer, calmer and more local than the other brands.',
-  [('484 000', 'accounts reached by my most-seen Vera&amp;John ad'), ('3', 'display formats per campaign')],
+  [('484 000', 'accounts reached by my most-seen Vera&amp;John ad')],
   [
     section('top', '01 / Most reached', 'Most-seen ad', ['Vera&amp;John’s most-seen ad since I started.', AL],
       ['Meta 9:16', 'Static', 'Ad Library'],
